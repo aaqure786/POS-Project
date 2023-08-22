@@ -37,8 +37,8 @@ const Navbar = () => {
                  <div className='w-[20%]  justify-center relative items-center rounded-r-2xl hidden md:flex lg:flex'>
                     <div className='flex items-center justify-between py-5 px-2 h-[50px]  '>
                         
-                        <Link to={'/login'} className='text-xl  mx-3 text-white '>Login</Link>
-                        <Link to={'/business/Register'} className='text-xl  text-white '> Register  </Link>
+                        <Link to={'/login'} className='text-xl  mx-3 hover:text-gray-300 text-white '>Login</Link>
+                        <Link to={'/business/Register'} className='text-xl hover:text-gray-300  text-white '> Register  </Link>
 
                     </div>
                     

@@ -5,5 +5,19 @@
     "remember_me":"Remember me",
     "forgot_ur_password":"Forgot Your Password?",
     "register_question":"Not yet registered? Register Now",
-    "pricing":"Pricing"
+    "pricing":"Pricing",
+    "Packages":"Packages",
+    "bussiness_location":"Business  Location",
+    "Users":"Users",
+    "Products":"Products",
+    "Invoices":"Invoices",
+    "Essential_module":"Essential Module",
+    "Trial_days": "Trial Days",
+    "months":"Months",
+    "register_subscribe":"Register & Subscribe",
+    "unlimited_products":"Unlimited Products",
+    "manufacturing_module":"Manufacturing Module",
+    "Product_catalouge_module":"Product Catalogue Module",
+    "Project_Module":"Project Module",
+    "Woocommerce_Module":"Woocommerce Module"
   }
