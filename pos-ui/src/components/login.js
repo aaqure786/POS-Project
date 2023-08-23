@@ -1,25 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import i18n from "i18next";
-import { useTranslation, initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector"
-import HttpApi from 'i18next-http-backend';
+import { useTranslation } from "react-i18next";
 import i18next from 'i18next';
-import cookies from "js-cookie"
-i18n
-    .use(initReactI18next) // passes i18n down to react-i18next
-    .use(LanguageDetector)
-    .use(HttpApi)
-    .init({
-        supportedLngs: ['en', 'fr', 'es', 'ar', 'cn', 'de', 'hi', 'id', 'lo', 'nl', 'ps', 'pt', 'ro', 'sq', 'tr', 'ur', 'vi'],
-        fallbackLng: "en",
-        detection: {
-            order: ['cookie', 'path', 'htmlTag', 'localStorage', 'sessionStorage', 'subdomain'],
-            caches: ['cookie'],
-        },
-        backend: {
-            loadPath: '/assets/locales/{{lng}}/translation.json',
-        }
-    });
+import {BiSolidUser} from "react-icons/bi"
+import {BsFillLockFill} from "react-icons/bs"
 
 const Login = () => {
     const languages = [
@@ -95,12 +78,7 @@ const Login = () => {
             name: "Turkeye",
             country_code: "gb"
         },
-        {
-            code: "ur",
-            name: "Urdu",
-            country_code: "pk",
-            dir:"rtl"
-        },
+        
         {
             code: "vi",
             name: "Vietnam",
@@ -112,8 +90,7 @@ const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [remember, setRemember] = useState(false)
-    const currentLanguageCode = cookies.get('i18next') || 'en'
-    const currentLanguage =languages.find(l => l.code === currentLanguageCode)
+    
     const handleChange =(e)=>{
         if(e.target.name ==="username"){
             setUsername(e.target.value)
@@ -134,13 +111,17 @@ const Login = () => {
     }
     useEffect(() => {
         i18next.changeLanguage(lang)
-        document.body.dir = currentLanguage.dir || "ltr"
-    }, [lang,currentLanguage])
+        if(lang === "ar"){
+            document.body.dir = 'rtl' 
+        }else{
+          document.body.dir ='ltr'
+        }
+    }, [lang,])
     
     const { t } = useTranslation();
     return (
-        <div className='grid grid-cols-8 sm:flex-col-reverse w-full'>
-            <div className='flex flex-col col-span-3 items-center w-full relative  justify-center'>
+        <div className='grid md:grid-cols-8 sm:grid-cols-1 w-full'>
+            <div className='md:flex flex-col hidden  col-span-3 items-center w-full relative  justify-center'>
                 <div className='w-full h-screen'>
                     <img src='https://store.ezipos.pk/img/home-bg.jpg' alt='pos' className='w-full h-full  ' />
                     <div className='bg-black/50 absolute w-full h-full top-0 '></div>
@@ -152,8 +133,8 @@ const Login = () => {
                 </div>
 
             </div>
-            <div className='flex flex-col col-span-5 items-center w-full   bg-gray-800 p-5'>
-                <div className='flex justify-between w-full'>
+            <div className='flex flex-col md:col-span-5 items-center w-full h-screen  bg-gray-800 p-5'>
+                <div className='flex justify-between w-full '>
                     <select name="lang" value={lang} id='lang' onChange={langChange} className='w-[150] '>
                         {languages.map((val, index) => {
                             return <option key={index} value={val.code}> {val.name}</option>
@@ -168,10 +149,12 @@ const Login = () => {
                     <h1 className='text-white text-xl text-start'>{t('Login')}</h1>
                     <div className='relative flex mt-5'>
                         <input className='px-3 py-1 w-full' type='text' onChange={handleChange} value={username} id='username' name='username' placeholder={`${t('Username')}`} />
+                        <BiSolidUser size={20} className="absolute top-2 right-1" />
 
                     </div>
                     <div className='relative flex mt-5'>
                         <input className='px-3 py-1 w-full' type='password' onChange={handleChange} value={password} id='password' name='passwrod' placeholder={`${t('Password')}`} />
+                        <BsFillLockFill size={20} className="absolute top-2 right-1" />
 
                     </div>
                     <div className='flex mt-5'>
