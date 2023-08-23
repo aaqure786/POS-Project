@@ -1,0 +1,79 @@
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { BiSolidUser } from 'react-icons/bi'
+
+const OwnerForm = () => {
+    const {t} = useTranslation()
+  return (
+        <div className=' flex flex-col'>
+            <h1 className='flex justify-start text-white text-lg'> {t('Owner')} {t('infro')}:</h1>
+            
+            <div className='grid gap-10 grid-cols-1 md:grid-cols-3 '>
+                <div className=' flex flex-col mt-2'>
+                    <h2 className='text-white text-start mb-1'> {t('Prefix')}:*</h2>
+                    <div className='flex'>
+                        <BiSolidUser size={32} className="border-r-[1px] p-1 bg-white  border-gray-400" />
+                        <input className='px-3 py-1 focus:outline-none w-full' type='text'  placeholder={t('Prefix')} />
+                    </div>
+                </div>
+                <div className=' flex flex-col mt-2'>
+                    <h2 className='text-white text-start mb-1'> {t('fst_nm')}:*</h2>
+                    <div className='flex'>
+                        <BiSolidUser size={32} className="border-r-[1px] p-1 bg-white  border-gray-400" />
+                        <input className='px-3 py-1 focus:outline-none w-full' type='text'  placeholder={t('fst_nm')} />
+                    </div>
+                </div>
+                <div className=' flex flex-col mt-2'>
+                    <h2 className='text-white text-start mb-1'> {t('lst_nm')}:*</h2>
+                    <div className='flex'>
+                        <BiSolidUser size={32} className="border-r-[1px] p-1 bg-white  border-gray-400" />
+                        <input className='px-3 py-1 focus:outline-none w-full' type='text'  placeholder={t('lst_nm')} />
+                        
+                    </div>
+                </div>
+            </div>
+            <div className='grid gap-10 grid-cols-1 md:grid-cols-2 '>
+                <div className=' flex flex-col mt-2'>
+                    <h2 className='text-white text-start mb-1'> {t('Username')}:*</h2>
+                    <div className='flex'>
+                        <BiSolidUser size={32} className="border-r-[1px] p-1 bg-white  border-gray-400" />
+                        <input className='px-3 py-1 focus:outline-none w-full' type='text'  placeholder={t('Username')} />
+                    </div>
+                </div>
+                <div className=' flex flex-col mt-2'>
+                    <h2 className='text-white text-start mb-1'> {t('eml')}:*</h2>
+                    <div className='flex'>
+                        <BiSolidUser size={32} className="border-r-[1px] p-1 bg-white  border-gray-400" />
+                        <input className='px-3 py-1 focus:outline-none w-full' type='text'   placeholder={t('eml')}/>
+                        
+                    </div>
+                </div>
+            </div>
+            <div className='grid gap-10 grid-cols-1 md:grid-cols-2 '>
+                <div className=' flex flex-col mt-2'>
+                    <h2 className='text-white text-start mb-1'> {t('Password')}:*</h2>
+                    <div className='flex'>
+                        <BiSolidUser size={32} className="border-r-[1px] p-1 bg-white  border-gray-400" />
+                        <input className='px-3 py-1 focus:outline-none w-full' type='text'  placeholder={t('Password')} />
+                    </div>
+                </div>
+                <div className=' flex flex-col mt-2'>
+                    <h2 className='text-white text-start mb-1'> {t('confrm_pswrd')}:*</h2>
+                    <div className='flex'>
+                        <BiSolidUser size={32} className="border-r-[1px] p-1 bg-white  border-gray-400" />
+                        <input className='px-3 py-1 focus:outline-none w-full' type='text'   placeholder={t('confrm_pswrd')}/>
+                        
+                    </div>
+                </div>
+            </div>
+            
+           
+            
+
+        </div>
+    
+    
+  )
+}
+
+export default OwnerForm
