@@ -1,27 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import i18n from "i18next";
-import { useTranslation, initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector"
-import HttpApi from 'i18next-http-backend';
-import i18next from 'i18next';
+
 import cookies from "js-cookie"
 import PekagesCard from './PekagesCard';
-i18n
-    .use(initReactI18next) // passes i18n down to react-i18next
-    .use(LanguageDetector)
-    .use(HttpApi)
-    .init({
-        supportedLngs: ['en', 'fr', 'es', 'ar', 'cn', 'de', 'hi', 'id', 'lo', 'nl', 'ps', 'pt', 'ro', 'sq', 'tr', 'ur', 'vi'],
-        fallbackLng: "en",
-        detection: {
-            order: ['cookie', 'path', 'htmlTag', 'localStorage', 'sessionStorage', 'subdomain'],
-            caches: ['cookie'],
-        },
-        backend: {
-            loadPath: '/assets/locales/{{lng}}/translation.json',
-        }
-    });
-
+import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 const Pricing = () => {
     const languages = [
@@ -143,7 +125,7 @@ const Pricing = () => {
                     <hr className='text-white w-full h-[2px]'/>
                 </div>
                 <div className='mt-5 bg-white w-full rounded-lg border-t-2 border-gray-300 min-h-screen'>
-                <h1 className=' text-xl text-start p-10'>Pekages</h1>
+                <h1 className=' text-xl text-start p-10'>{t('Packages')}</h1>
                     <PekagesCard />
                 </div>
             </div>
