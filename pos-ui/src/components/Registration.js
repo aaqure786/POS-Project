@@ -114,32 +114,68 @@ const Registration = () => {
         password:"",
         c_password:""
     })
-    
+    const [frmstatus, setFrmstatus] = useState(true)
+    const [bs_status, setBs_status] = useState(true)
+const [psstatus, setPsstatus] = useState(true)
     const handlePrevious = () => {
         if (page > 1) {
             setPage(page - 1)
         }
     }
+    const handleSubmit= () =>{
+        
+        if(formData.first_name.length ===0 ||
+            formData.username.length ===0 ||
+            formData.password.length ===0 ||
+            formData.c_password.length===0){
+              setPsstatus(false)
+            }else{
+                console.log(formData)
+            }
+        
+    }
     const handleClick = () => {
         if (page < 3) {
-            setPage(page + 1)
+            if(page===1){
+              if(formData.business_name.length ===0 ||
+                formData.currency.length ===0 || 
+                formData.country.length ===0 || 
+                formData.city.length ===0 || 
+                formData.state.length ===0 ||
+                formData.zip_code.length===0 ||
+                formData.time_zone.length ===0 ||
+                formData.landmark.length === 0){
+                    setFrmstatus(false)
+                }else{
+                    setPage(page + 1)
+                }
+                
+            }
+            if(page===2){
+                if(formData.financial_ysm.length ===0 ||
+                  formData.stck_ac_mthd.length ===0 ){
+                    setBs_status(false)
+                  }else{
+                      setPage(page + 1)
+                  }
+                  
+              }
+            
         }
-        else {
-            console.log("form Data", formData)
-        }
+        
     }
     const langChange = (e) => {
         if (e.target.name === "lang") {
             setLang(e.target.value)
         }
     }
-    const getFormData = () => {
+  const getFormData = () => {
         if (page === 1) {
-           return <BussinessForm  formData={formData} setFormData={setFormData}/>
-        } else if (page === 2) {
-           return <BussinessSetting formData={formData} setFormData={setFormData}/>
+           return <BussinessForm  formData={formData} setFormData={setFormData}  frmstatus ={frmstatus}/>
+        } else if (page === 2 ) {
+           return <BussinessSetting formData={formData} setFormData={setFormData} bs_status={bs_status}/>
         } else {
-           return <OwnerForm formData={formData} setFormData={setFormData}/>
+           return <OwnerForm formData={formData} setFormData={setFormData} psstatus={psstatus}/>
         }
     }
     useEffect(() => {
@@ -190,15 +226,21 @@ const Registration = () => {
                         </div>
                     </div>
                     <div className='body mt-5 p-5 flex flex-col bg-gray-700 '>
-                    {getFormData()}
+                        <form>
+                        {getFormData()}
+
+                        </form>
                         
                     
                     </div>
                     <div className='footer flex justify-end mt-10'>
                         <button disabled={page === 1} className={` ${page !== 1 ? "bg-blue-400 text-white " : "bg-white text-gray-400"} rounded-md  text-xl px-2 py-1 mx-2`} onClick={handlePrevious}> {t('prvs')}</button>
-                        <button className=' bg-blue-400 text-white rounded-md   text-xl px-2 py-1 mx-2' onClick={handleClick}>
-                            {page === 3 ? `${t('rgst')}` : `${t('next')}`}
-                        </button>
+                        {page !== 3 && <button className=' bg-blue-400 text-white rounded-md   text-xl px-2 py-1 mx-2' onClick={handleClick}>
+                            {t('next')}
+                        </button>}
+                    {page === 3 && <button type='submit' className=' bg-blue-400 text-white rounded-md   text-xl px-2 py-1 mx-2' onClick={handleSubmit}>
+                        {t('rgst')}
+                    </button>}
                     </div>
                 </div>
             </div>
