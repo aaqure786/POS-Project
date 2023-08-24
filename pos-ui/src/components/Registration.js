@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from "react-i18next";
 import i18next from 'i18next';
-
 import BussinessForm from './BussinessForm';
 import BussinessSetting from './BussinessSetting';
 import OwnerForm from './OwnerForm';
-
 const Registration = () => {
     const languages = [
         {
@@ -49,7 +47,6 @@ const Registration = () => {
             name: "Indoneshian",
             country_code: "id"
         },
-
         {
             code: "lo",
             name: "Lao",
@@ -80,17 +77,43 @@ const Registration = () => {
             name: "Turkeye",
             country_code: "gb"
         },
-
         {
             code: "vi",
             name: "Vietnam",
             country_code: "vi"
         }
-
     ]
     const [lang, setLang] = useState('en')
     
     const [page, setPage] = useState(1)
+    const [formData, setFormData] = useState({
+        business_name :"",
+        start_date:"",
+        currency:"",
+        img_data:"",
+        website:"",
+        contact_number:"",
+        altr_contact_number:"",
+        country:"",
+        state:"",
+        city:"",
+        zip_code:"",
+        landmark:"",
+        time_zone:"",
+        tax_1_name:"",
+        tax_1_number:"",
+        tax_2_name:"",
+        tax_2_number:"",
+        financial_ysm:"",
+        stck_ac_mthd:"",
+        prefix:"",
+        first_name:"",
+        last_name:"",
+        username:"",
+        email:"",
+        password:"",
+        c_password:""
+    })
     
     const handlePrevious = () => {
         if (page > 1) {
@@ -102,27 +125,23 @@ const Registration = () => {
             setPage(page + 1)
         }
         else {
-            console.log("Call your Api here")
-
+            console.log("form Data", formData)
         }
     }
     const langChange = (e) => {
         if (e.target.name === "lang") {
             setLang(e.target.value)
-
         }
     }
     const getFormData = () => {
         if (page === 1) {
-           return <BussinessForm />
+           return <BussinessForm  formData={formData} setFormData={setFormData}/>
         } else if (page === 2) {
-           return <BussinessSetting />
+           return <BussinessSetting formData={formData} setFormData={setFormData}/>
         } else {
-           return <OwnerForm />
+           return <OwnerForm formData={formData} setFormData={setFormData}/>
         }
     }
-
-
     useEffect(() => {
         i18next.changeLanguage(lang)
         if (lang === "ar") {
@@ -130,7 +149,6 @@ const Registration = () => {
         } else {
             document.body.dir = 'ltr'
         }
-
     }, [lang])
     // const pages =["Bussiness","Bussiness Setting","Owner"]
     const { t } = useTranslation();
@@ -143,10 +161,8 @@ const Registration = () => {
                     <div className='absolute top-[50%]  w-full flex flex-col items-center justify-center '>
                         <div className='text-white  font-bold flex  text-3xl'>Ezi Point Of Sale</div>
                         <div className='text-blue-500 flex justify-center font-semibold text-2xl'>1# Inventory Management System</div>
-
                     </div>
                 </div>
-
             </div>
             <div className='flex flex-col md:col-span-5 items-center w-full   bg-gray-800 p-5'>
                 <div className='flex justify-between w-full '>
@@ -172,16 +188,12 @@ const Registration = () => {
                         <div className={`min-h-[70px]  w-[200px] ${page === 3 ? "bg-blue-500 text-white" : "bg-white text-gray-500"} mt-2 rounded-xl flex items-center justify-center`}>
                             <h1 className='text-xl  font-bold'> 3. {t('Owner')}</h1>
                         </div>
-
                     </div>
                     <div className='body mt-5 p-5 flex flex-col bg-gray-700 '>
                     {getFormData()}
                         
                     
                     </div>
-
-
-
                     <div className='footer flex justify-end mt-10'>
                         <button disabled={page === 1} className={` ${page !== 1 ? "bg-blue-400 text-white " : "bg-white text-gray-400"} rounded-md  text-xl px-2 py-1 mx-2`} onClick={handlePrevious}> {t('prvs')}</button>
                         <button className=' bg-blue-400 text-white rounded-md   text-xl px-2 py-1 mx-2' onClick={handleClick}>
@@ -189,10 +201,8 @@ const Registration = () => {
                         </button>
                     </div>
                 </div>
-
             </div>
         </div>
     )
 }
-
 export default Registration

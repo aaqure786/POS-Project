@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import i18next from 'i18next';
 import {BiSolidUser} from "react-icons/bi"
 import {BsFillLockFill} from "react-icons/bs"
-
 const Login = () => {
     const languages = [
         {
@@ -47,7 +46,6 @@ const Login = () => {
             name: "Indoneshian",
             country_code: "id"
         },
-
         {
             code: "lo",
             name: "Lao",
@@ -84,7 +82,6 @@ const Login = () => {
             name: "Vietnam",
             country_code: "vi"
         }
-
     ]
     const [lang, setLang] = useState('en')
     const [username, setUsername] = useState('')
@@ -128,10 +125,8 @@ const Login = () => {
                     <div className='absolute top-[50%]  w-full flex flex-col items-center justify-center '>
                         <div className='text-white  font-bold flex  text-3xl'>Ezi Point Of Sale</div>
                         <div className='text-blue-500 flex justify-center font-semibold text-2xl'>1# Inventory Management System</div>
-
                     </div>
                 </div>
-
             </div>
             <div className='flex flex-col md:col-span-5 items-center w-full h-screen  bg-gray-800 p-5'>
                 <div className='flex justify-between w-full '>
@@ -150,27 +145,22 @@ const Login = () => {
                     <div className='relative flex mt-5'>
                         <input className='px-3 py-1 w-full' type='text' onChange={handleChange} value={username} id='username' name='username' placeholder={`${t('Username')}`} />
                         <BiSolidUser size={20} className="absolute top-2 right-1" />
-
                     </div>
                     <div className='relative flex mt-5'>
                         <input className='px-3 py-1 w-full' type='password' onChange={handleChange} value={password} id='password' name='passwrod' placeholder={`${t('Password')}`} />
                         <BsFillLockFill size={20} className="absolute top-2 right-1" />
-
                     </div>
                     <div className='flex mt-5'>
                     <input type='checkbox' className='' id='remember-me' name='remember-me' value={remember} /> 
                     <h1 className='text-white mx-3 text-xl'>{t('remember_me')}</h1>
                     </div>
-
                     <div className='flex justify-between mt-10'>
                         <button className='bg-blue-400 text-white text-xl px-2 py-1 mx-2'> {t('Login')}</button>
                         <button className=' text-white text-xl mx-2'> {t('forgot_ur_password')}</button>
                     </div>
                 </div>
-
             </div>
         </div>
     )
 }
-
 export default Login

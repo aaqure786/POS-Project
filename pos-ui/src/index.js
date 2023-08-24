@@ -24,8 +24,6 @@ i18n
             loadPath: '/assets/locales/{{lng}}/translation.json',
         }
     });
-
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Suspense fallback={<Loading />}>
@@ -35,6 +33,3 @@ root.render(
 </Suspense>
   
 );
-
-
-

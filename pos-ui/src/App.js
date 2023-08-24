@@ -5,7 +5,6 @@ import Registration from './components/Registration';
 import RepaiStatus from './components/RepaiStatus';
 import Login from './components/login';
 import {BrowserRouter,Route,Routes} from "react-router-dom"
-
 function App() {
   return (
     <div className="App">
@@ -74,5 +73,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
