@@ -6,6 +6,9 @@ import i18n from "i18next";
 import {  initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector"
 import HttpApi from 'i18next-http-backend';
+import {Provider} from "react-redux"
+import { store } from './app/store';
+
 function Loading() {
   return <h2> Loading...</h2>;
 }
@@ -28,7 +31,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Suspense fallback={<Loading />}>
   <React.StrictMode>
+  <Provider store={store}>
     <App />
+
+  </Provider>
   </React.StrictMode>
 </Suspense>
   

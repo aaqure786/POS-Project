@@ -1,22 +1,34 @@
 import React, { useState } from 'react'
-// , 
-import { AiOutlineMenu, AiOutlineSetting, AiOutlineUser } from "react-icons/ai"
-import { MdNotifications, MdOutlineCancel } from "react-icons/md"
-import { motion } from "framer-motion"
+import { AiOutlineMenu, AiOutlineUser } from "react-icons/ai"
+import { MdNotifications } from "react-icons/md"
+// import { motion } from "framer-motion"
 import { BiLogOut } from "react-icons/bi"
 import { BsInfoLg } from 'react-icons/bs'
 import { FaArrowAltCircleDown, FaCalculator, FaMoneyBillAlt, FaPlusCircle, FaThLarge } from 'react-icons/fa'
 import Calculator from './Calculator'
+import { useSelector, useDispatch } from 'react-redux'
+import { setTrue, setFalse } from '../../app/clickedSlice'
 
 const Navbra = () => {
-    const [menu, setMenu] = useState(false)
-    const [cliked, setCliked] = useState(false)
+
+    const clicked = useSelector((state) => state.sidebar.value)
+
+    const dispatch = useDispatch()
     const [arrow, setArrow] = useState(false)
     const [money, setMoney] = useState(false)
     const [pos, setPos] = useState(false)
     const [cal, setCal] = useState(false)
     const [shcal, setShcal] = useState(false)
     const [usrcliked, setUsrcliked] = useState(false)
+    const handleMenu = () => {
+        if (clicked === true) {
+            dispatch(setFalse())
+        } else {
+            dispatch(setTrue())
+        }
+    }
+
+
     const data = new Date()
     let fullyear = data.getFullYear()
     let fullmonth = data.getMonth() + 1
@@ -24,15 +36,15 @@ const Navbra = () => {
     const date = fuldate + "/" + fullmonth + "/" + fullyear;
     return (
         <div>
-            <div className='flex w-full h-[50px]   bg-gray-700 z-10 border-b-2 border-gray-400    justify-between '>
-                <div className='w-[70%] md:w-[20%] bg-black justify-center hidden md:flex items-center '>
-                    <h1 className='text-2xl text-center  text-white  '> EZI POINT OF SALE</h1>
+            <div className='flex w-full h-[60px]   bg-gray-700 z-10 border-b-2 border-gray-400    justify-between '>
+                <div className=' md:w-[17%] bg-black justify-center hidden md:flex items-center '>
+                    <h1 className='text-xl text-center  text-white  '> EZI POINT OF SALE</h1>
                 </div>
-                <div className=' w-full md:w-[80%] flex justify-between bg-gradient-to-r from-[#3c3c4e] to-[#245b80]'>
+                <div className=' w-full md:w-[83%] flex justify-between bg-gradient-to-r from-[#3c3c4e] to-[#245b80]'>
                     <div className='w-[30%]  flex items-center '>
                         <div className='px-5  flex'>
-                            <AiOutlineMenu onClick={() => { setMenu(!menu) }} className='text-white cursor-pointer text-xl ' />
-                            <BsInfoLg onClick={() => { setMenu(!menu) }} className='bg-white rounded-full cursor-pointer text-xl mx-2 ' />
+                            <AiOutlineMenu onClick={handleMenu} className='text-white cursor-pointer text-xl ' />
+                            <BsInfoLg className='bg-white rounded-full cursor-pointer text-xl mx-2 ' />
                         </div>
                     </div>
                     <div className='w-[70%]   relative items-center rounded-r-2xl  flex lg:flex'>
@@ -41,7 +53,7 @@ const Navbra = () => {
                                 {arrow && <div className="absolute text-sm top-8  rounded-sm flex z-10 w-16 text-white bg-black p-1">Clock In</div>}
                             </button>
                             <button className='py-1.5 px-2 relative mx-1 bg-green-300 text-white' ><FaPlusCircle size={15} /></button>
-                            <button className='hidden md:flex py-1.5 px-2 relative mx-1 bg-green-300 text-white' onMouseOver={() => { setCal(true) }} onMouseLeave={() => { setCal(false) }} onClick={()=>{setShcal(!shcal)}}><FaCalculator size={15} />
+                            <button className='hidden md:flex py-1.5 px-2 relative mx-1 bg-green-300 text-white' onMouseOver={() => { setCal(true) }} onMouseLeave={() => { setCal(false) }} onClick={() => { setShcal(!shcal) }}><FaCalculator size={15} />
                                 {cal && <div className="absolute top-8 text-sm rounded-sm flex z-10 text-white bg-black p-1">Calculator</div>}
                             </button>
                             {shcal && <Calculator />}
@@ -54,7 +66,7 @@ const Navbra = () => {
 
 
                             <h1 className='mx-2 text-white font-bold textsm'>{date}</h1>
-                            <div className='flex w-[5%]  h-[80%] justify-center items-center mx-2 hover:bg-black' onClick={() => { setCliked(!cliked) }}>
+                            <div className='flex w-[5%]  h-[80%] justify-center items-center mx-2 hover:bg-black' >
                                 <h1 className=' text-white'><MdNotifications size={20} /></h1>
                             </div>
                         </div>
@@ -68,7 +80,7 @@ const Navbra = () => {
                                 </div>
                                 <button className='flex px-2 py-3 h-[30px] w-full justify-between '>
                                     <div className='flex items-center p-1 border-[1px] border-gray-400'>
-                                        <AiOutlineUser size={20}  />
+                                        <AiOutlineUser size={20} />
                                         <h1 className='text-xl font-semibold'>Profile</h1>
                                     </div>
                                     <div className='flex items-center py-1 border-[1px] border-gray-400'>
@@ -79,41 +91,17 @@ const Navbra = () => {
                                 </button>
                             </div>
                         }
-                        {cliked &&
-                            <div className='w-full h-[150px] absolute top-20 z-10 right-10 bg-gray-100 justify-center rounded-3xl flex items-start  flex-col'>
-                                <div className='flex'>
-                                    <AiOutlineSetting size={20} className='mx-5 mt-1' />
-                                    <h1 className='text-xl font-semibold'>Manage Account</h1>
-                                </div>
-                                <button className='flex mt-2 '>
-                                    <BiLogOut size={20} className='mx-5 mt-1' />
-                                    <h1 className='text-xl font-semibold'>Logout</h1>
-                                </button>
-                            </div>
-                        }
+
                     </div>
                 </div>
             </div>
-            {menu && <div className='absolute  bg-gray-100 top-0 z-20  flex justify-center w-full h-screen'>
-                <div className='mt-10 flex justify-center'>
-                    <MdOutlineCancel className='text-2xl cursor-pointer' onClick={() => { setMenu(!menu) }} />
-                </div>
-                <div className='flex items-center'>
-                    <nav>
-                        <motion.ul className='flex flex-col items-center '>
-                            <div className='flex'>
-                                <AiOutlineSetting size={20} className='mx-5 mt-1' />
-                                <h1 className='text-xl font-semibold'>Manage Account</h1>
-                            </div>
-                            <div className='flex mt-2 '>
-                                <BiLogOut size={20} className='mx-5 mt-1' />
-                                <h1 className='text-xl font-semibold'>Logout</h1>
-                            </div>
-                        </motion.ul>
-                    </nav>
-                </div>
-            </div>}
+
         </div>
+
     )
+
 }
+
+
+
 export default Navbra
