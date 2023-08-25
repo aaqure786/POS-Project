@@ -5,7 +5,7 @@ const Dashboard = () => {
    return (
         <div className='overflow-y-hidden'>
             <Navbra  />
-            <div className='flex max-h-[88vh]'>
+            <div className='flex max-h-[568px]'>
                 <div className='w-[20%] overflow-y-auto'>
                     <SideBar />
                 </div>

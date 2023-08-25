@@ -18,145 +18,145 @@ const SideBar = () => {
   const [customer, setCustomer] = useState(false)
   const [courier, setCourier] = useState(false)
   return (
-    <div className='bg-gray-900 min-h-[83vh] py-[50px] w-full flex   flex-col'>
+    <div className='whitespace-nowrap min-h-[568px] py-[20px] w-full flex bg-gray-100  flex-col'>
       {/* Dashboard button */}
-      <Link to={"mainDashboard"} className='flex mx-5 px-2 py-1 border-2 border-gray-600 active:border-white justify-start'>
-        <MdDashboard size={30} style={{ color: "white" }} />
-        <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Dashboard</h1>
+      <Link to={"mainDashboard"} className='flex mx-5 px-2 py-1 items-center  active:bg-gray-200 justify-start'>
+        <MdDashboard size={20}  />
+        <h1 className=' mt-1 mx-2 text-lg '>Dashboard</h1>
       </Link>
       {/* Manage Offices */}
-      <div className='flex mx-5 px-2 mt-2 py-1 border-2 border-gray-600 active:border-white  justify-start'>
-        <Link to={"manageOffice"} className='flex'>
-          <MdOutlineManageAccounts size={30} style={{ color: "white" }} />
-          <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Manage Offices</h1>
+      <div className='flex mx-5 px-2 mt-2 py-1  active:bg-gray-200  justify-start'>
+        <Link to={"manageOffice"} className="flex items-center justify-center">
+          <MdOutlineManageAccounts size={20}  />
+          <h1 className=' mt-1 mx-2 text-lg '>Manage Offices</h1>
         </Link>
-        <motion.h1 animate={moffice ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1 text-white cursor-pointer '> <BiChevronDown onClick={() => { setMoffice(!moffice) }} /> </motion.h1>
+        <motion.h1 animate={moffice ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1  cursor-pointer '> <BiChevronDown onClick={() => { setMoffice(!moffice) }} /> </motion.h1>
       </div>
       {moffice &&
-        <Link to={'manageOffice/addoffice'} className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-          <BsHouseAdd size={30} style={{ color: "white" }} />
-          <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Add Offices</h1>
+        <Link to={'manageOffice/addoffice'} className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+          <BsHouseAdd size={20}  />
+          <h1 className=' mt-1 mx-2 text-lg '>Add Offices</h1>
         </Link>
       }
       {/* Office Managers */}
-      <div className='flex mx-5 px-2 mt-2 py-1 border-2 border-gray-600 active:border-white justify-start'>
-        <Link to={"officeManager"} className='flex'>
-          <PiOfficeChair size={30} style={{ color: "white" }} />
-          <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Office Managers</h1>
+      <div className='flex mx-5 px-2 mt-2 py-1  active: bg-gray-200 justify-start'>
+        <Link to={"officeManager"} className="flex items-center justify-center">
+          <PiOfficeChair size={20}  />
+          <h1 className=' mt-1 mx-2 text-lg '>Office Managers</h1>
         </Link>
-        <motion.h1 animate={offmang ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1 text-white cursor-pointer '> <BiChevronDown onClick={() => { setOffmang(!offmang) }} /> </motion.h1>
+        <motion.h1 animate={offmang ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1  cursor-pointer '> <BiChevronDown onClick={() => { setOffmang(!offmang) }} /> </motion.h1>
       </div>
       {offmang &&
         <div>
-          <Link to={"officeManager/addManager"} className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <BsPersonAdd size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Add Office Manager</h1>
+          <Link to={"officeManager/addManager"} className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <BsPersonAdd size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg '>Add Office Manager</h1>
           </Link>
-          {/* <Link to={"officeManager/addManager"} className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <BiShow size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>View Office Manager</h1>
+          {/* <Link to={"officeManager/addManager"} className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <BiShow size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg '>View Office Manager</h1>
           </Link> */}
         </div>
       }
       {/* Manage Shippment */}
-      <div className='flex mx-5 px-2 mt-2 py-1 border-2 border-gray-600 justify-start'>
-        <Link to={"shipment"} className='flex'>
-          <MdOutlineLocalShipping size={30} style={{ color: "white" }} />
-          <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Manage Shipment</h1>
+      <div className='flex mx-5 px-2 mt-2 py-1  justify-start'>
+        <Link to={"shipment"} className="flex items-center justify-center">
+          <MdOutlineLocalShipping size={20}  />
+          <h1 className=' mt-1 mx-2 text-lg '>Manage Shipment</h1>
         </Link>
-        <motion.h1 animate={mangshipmnt ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1 text-white cursor-pointer '> <BiChevronDown onClick={() => { setMangshipmnt(!mangshipmnt) }} /> </motion.h1>
+        <motion.h1 animate={mangshipmnt ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1  cursor-pointer '> <BiChevronDown onClick={() => { setMangshipmnt(!mangshipmnt) }} /> </motion.h1>
       </div>
       {mangshipmnt &&
         <div>
-          <Link to={'shipment/searchbyconsignment'} className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <BiSearchAlt size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg'>Search By Consignment</h1>
+          <Link to={'shipment/searchbyconsignment'} className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <BiSearchAlt size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg'>Search By Consignment</h1>
           </Link>
-          <Link to={'shipment/updateStatus'} className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <MdUpdate size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Update Status</h1>
+          <Link to={'shipment/updateStatus'} className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <MdUpdate size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg '>Update Status</h1>
           </Link>
         </div>
       }
       {/* View Reports */}
-      <div className='flex mx-5 px-2 mt-2 py-1 border-2 border-gray-600 justify-start'>
-        <Link to={'report'} className='flex'>
-        <TbReport size={30} style={{ color: "white" }} />
-        <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>View Reports</h1>
+      <div className='flex mx-5 px-2 mt-2 py-1  justify-start'>
+        <Link to={'report'} className="flex items-center justify-center">
+        <TbReport size={20}  />
+        <h1 className=' mt-1 mx-2 text-lg '>View Reports</h1>
         </Link>
-        <motion.h1 animate={reports ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1 text-white cursor-pointer '> <BiChevronDown onClick={() => { setReports(!reports) }} /> </motion.h1>
+        <motion.h1 animate={reports ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1  cursor-pointer '> <BiChevronDown onClick={() => { setReports(!reports) }} /> </motion.h1>
       </div>
       {reports &&
         <div>
-          <Link to={'report/customerReport'} className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <HiDocumentReport size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Customer Reports</h1>
+          <Link to={'report/customerReport'} className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <HiDocumentReport size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg '>Customer Reports</h1>
           </Link>
-          <Link to={'report/consignmentReport'} className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <TbReportMoney size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Consignment Report</h1>
+          <Link to={'report/consignmentReport'} className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <TbReportMoney size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg '>Consignment Report</h1>
           </Link>
-          <Link to={'report/pickupReport'} className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <GoReport size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg'>Pickup Report</h1>
+          <Link to={'report/pickupReport'} className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <GoReport size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg'>Pickup Report</h1>
           </Link> 
-          <Link to={'report/statusReport'} className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <MdReport size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Status Report</h1>
+          <Link to={'report/statusReport'} className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <MdReport size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg '>Status Report</h1>
           </Link>
         </div>
       }
       {/* Customer */}
-      <div className='flex mx-5 px-2 mt-2 py-1 border-2 border-gray-600 justify-start'>
-        <Link to={"customer"} className='flex'>
-          <BsFillPersonFill size={30} style={{ color: "white" }} />
-          <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'> Customer</h1>
+      <div className='flex mx-5 px-2 mt-2 py-1  justify-start'>
+        <Link to={"customer"} className="flex items-center justify-center">
+          <BsFillPersonFill size={20}  />
+          <h1 className=' mt-1 mx-2 text-lg '> Customer</h1>
         </Link>
-        <motion.h1 animate={customer ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1 text-white cursor-pointer '> <BiChevronDown onClick={() => { setCustomer(!customer) }} /> </motion.h1>
+        <motion.h1 animate={customer ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1  cursor-pointer '> <BiChevronDown onClick={() => { setCustomer(!customer) }} /> </motion.h1>
       </div>
       {customer &&
         <div>
-          <div className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <AiOutlineUserAdd size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Add Customer</h1>
+          <div className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <AiOutlineUserAdd size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg '>Add Customer</h1>
           </div>
-          <div className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <AiOutlineShoppingCart size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Place Order</h1>
+          <div className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <AiOutlineShoppingCart size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg '>Place Order</h1>
           </div>
-          <div className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <AiOutlineCheckCircle size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg'>Check Status</h1>
+          <div className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <AiOutlineCheckCircle size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg'>Check Status</h1>
           </div>
           
-            <Link to={'customer/updateCustomerStatus'} className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-              <AiOutlineEdit size={30} style={{ color: "white" }} />
-              <h1 className='text-white mt-1 mx-2 text-lg'>Approve Customer</h1>
+            <Link to={'customer/updateCustomerStatus'} className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+              <AiOutlineEdit size={20}  />
+              <h1 className=' mt-1 mx-2 text-lg'>Approve Customer</h1>
             </Link>
           
         </div>
       }
       {/* Courier */}
-      <div className='flex mx-5 px-2 mt-2 py-1 border-2 border-gray-600 justify-start'>
-        <Link to={"courier"} className='flex'>
-          <BsFillPersonFill size={30} style={{ color: "white" }} />
-          <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'> Courier</h1>
+      <div className='flex mx-5 px-2 mt-2 py-1  justify-start'>
+        <Link to={"courier"} className="flex items-center justify-center">
+          <BsFillPersonFill size={20}  />
+          <h1 className=' mt-1 mx-2 text-lg '> Courier</h1>
         </Link>
-        <motion.h1 animate={courier ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1 text-white cursor-pointer '> <BiChevronDown onClick={() => { setCourier(!courier) }} /> </motion.h1>
+        <motion.h1 animate={courier ? { rotate: 180 } : { rotate: 0 }} className='text-lg md:text-3xl mt-1  cursor-pointer '> <BiChevronDown onClick={() => { setCourier(!courier) }} /> </motion.h1>
       </div>
       {courier &&
         <div>
-          <div className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <FaTruckPickup size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Parcel Pickup</h1>
+          <div className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <FaTruckPickup size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg '>Parcel Pickup</h1>
           </div>
-          {/* <div className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <AiOutlineShoppingCart size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg md:text-xl'>Place Order</h1>
+          {/* <div className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <AiOutlineShoppingCart size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg '>Place Order</h1>
           </div>
-          <div className='flex w-[80%] ml-11 px-2 mt-2 py-1 border-2 border-gray-700 justify-start'>
-            <AiOutlineCheckCircle size={30} style={{ color: "white" }} />
-            <h1 className='text-white mt-1 mx-2 text-lg'>Check Status</h1>
+          <div className='flex w-[80%] mx-5 items-center px-2 mt-2 py-1  justify-start'>
+            <AiOutlineCheckCircle size={20}  />
+            <h1 className=' mt-1 mx-2 text-lg'>Check Status</h1>
           </div> */}
         </div>
       }
