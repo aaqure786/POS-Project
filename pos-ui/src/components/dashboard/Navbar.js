@@ -36,11 +36,11 @@ const Navbra = () => {
     const date = fuldate + "/" + fullmonth + "/" + fullyear;
     return (
         <div>
-            <div className='flex w-full h-[60px]   bg-gray-700 z-10 border-b-2 border-gray-400    justify-between '>
-                <div className=' md:w-[17%] bg-black justify-center hidden md:flex items-center '>
-                    <h1 className='text-xl text-center  text-white  '> EZI POINT OF SALE</h1>
+            <div className='flex w-full h-[60px]   bg-gray-700  border-b-2 border-gray-400    justify-between '>
+                <div className={`${clicked ? "md:w-[4%]":"w-0 md:w-[17%]"}  bg-black justify-center hidden md:flex items-center`}>
+                   {!clicked && <h1 className='text-xl text-center  text-white  '> EZI POINT OF SALE</h1>}
                 </div>
-                <div className=' w-full md:w-[83%] flex justify-between bg-gradient-to-r from-[#3c3c4e] to-[#245b80]'>
+                <div className={`w-full ${clicked ? " md:w-[96%]" :"w-[96%] md:w-[83%]"} flex justify-between bg-gradient-to-r from-[#3c3c4e] to-[#245b80]`}>
                     <div className='w-[30%]  flex items-center '>
                         <div className='px-5  flex'>
                             <AiOutlineMenu onClick={handleMenu} className='text-white cursor-pointer text-xl ' />
@@ -49,19 +49,19 @@ const Navbra = () => {
                     </div>
                     <div className='w-[70%]   relative items-center rounded-r-2xl  flex lg:flex'>
                         <div className='w-[85%] h-full flex items-center justify-end'>
-                            <button id="tool-tip-1" className='py-1.5 px-2 relative mx-1 bg-blue-300 text-white' onMouseOver={() => { setArrow(true) }} onMouseLeave={() => { setArrow(false) }}><FaArrowAltCircleDown size={15} />
-                                {arrow && <div className="absolute text-sm top-8  rounded-sm flex z-10 w-16 text-white bg-black p-1">Clock In</div>}
+                            <button id="tool-tip-1" className='py-1.5 px-1 relative mx-1 bg-blue-300 text-white' onMouseOver={() => { setArrow(true) }} onMouseLeave={() => { setArrow(false) }}><FaArrowAltCircleDown size={15} />
+                                {arrow && <div className="absolute text-sm top-8  rounded-sm flex z-10 w-10 md:w-16 text-white bg-black p-1">Clock In</div>}
                             </button>
-                            <button className='py-1.5 px-2 relative mx-1 bg-green-300 text-white' ><FaPlusCircle size={15} /></button>
+                            <button className='py-1.5 px-1 relative mx-1 bg-green-300 text-white' ><FaPlusCircle size={15} /></button>
                             <button className='hidden md:flex py-1.5 px-2 relative mx-1 bg-green-300 text-white' onMouseOver={() => { setCal(true) }} onMouseLeave={() => { setCal(false) }} onClick={() => { setShcal(!shcal) }}><FaCalculator size={15} />
                                 {cal && <div className="absolute top-8 text-sm rounded-sm flex z-10 text-white bg-black p-1">Calculator</div>}
                             </button>
                             {shcal && <Calculator />}
-                            <button className='py-1 px-2 relative mx-1 bg-green-300 text-white flex items-center justify-center' onMouseOver={() => { setPos(true) }} onMouseLeave={() => { setPos(false) }}><FaThLarge size={15} /> <span className='mx-2 font-semibold text-sm'>POS</span>
-                                {pos && <div className="absolute text-sm rounded-sm flex top-8 z-10 text-white bg-black p-1">POS</div>}
+                            <button className='py-1 md:px-1 relative mx-1 bg-green-300 text-white flex items-center justify-center' onMouseOver={() => { setPos(true) }} onMouseLeave={() => { setPos(false) }}><FaThLarge size={15} /> <span className='mx-2 font-semibold text-sm'>POS</span>
+                                {pos && <div className="absolute text-sm rounded-sm flex top-8 z-10 text-white bg-black md:p-1">POS</div>}
                             </button>
-                            <button className='py-1.5 px-2 relative mx-1 bg-green-300 text-white' onMouseOver={() => { setMoney(true) }} onMouseLeave={() => { setMoney(false) }}><FaMoneyBillAlt size={15} />
-                                {money && <div className="absolute text-sm rounded-sm w-24 flex top-8 z-10 text-white bg-black p-1">Today's Profit</div>}
+                            <button className='py-1.5 px-1 relative mx-1 bg-green-300 text-white' onMouseOver={() => { setMoney(true) }} onMouseLeave={() => { setMoney(false) }}><FaMoneyBillAlt size={15} />
+                                {money && <div className="absolute text-sm rounded-sm w-16 md:w-24 flex top-8 z-10 text-white bg-black p-1">Today's Profit</div>}
                             </button>
 
 

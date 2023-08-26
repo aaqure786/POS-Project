@@ -5,7 +5,8 @@ import Registration from './components/Registration';
 import RepaiStatus from './components/RepaiStatus';
 import Login from './components/login';
 import {BrowserRouter,Route,Routes} from "react-router-dom"
-import Dashboard from './components/dashboard/Home'; 
+import Home1 from './components/dashboard/Home'; 
+import Dashboard from './components/dashboard/Dashboard'; 
 
 
 function App() {
@@ -19,7 +20,10 @@ function App() {
           <Route path='/pricing' element={<Pricing />} />
           <Route path='/business/Register' element={<Registration />} />
           <Route path='/repair-status' element={<RepaiStatus />} />
-          <Route path='/home' element={<Dashboard />} />
+          <Route path='/home' element={<Home1 />} >
+            <Route path='' element={<Dashboard />} />
+
+          </Route>
           
         </Routes>
       </BrowserRouter>

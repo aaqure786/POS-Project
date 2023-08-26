@@ -9,7 +9,9 @@ const Calculator = () => {
         setShow(show.slice(0,show.length-1))
     }
     const claculate = () =>{
+        // eslint-disable-next-line
         setShow(eval(show).toString())
+        
     }
   return (
     <div  className='absolute top-14 right-80 w-[210px] shadow-xl shadow-gray-400 bg-gray-200 rounded-md flex flex-col h-[300px]'>
