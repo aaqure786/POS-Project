@@ -1,6 +1,7 @@
 import React from 'react'
 import { AiFillInfoCircle, AiOutlineCalendar,  } from 'react-icons/ai'
 import Chart1 from './Chart1'
+import Chart2 from './Chart2'
 
 const Dashboard = () => {
     const dateArray = [
@@ -140,6 +141,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <Chart1 />
+            <Chart2 />
             
         </>
 
