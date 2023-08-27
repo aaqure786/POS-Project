@@ -1,8 +1,13 @@
-import React from 'react'
+import React, {  useRef, useState } from 'react'
 import moment from 'moment';
+import  { useReactToPrint } from 'react-to-print';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip, Legend } from 'recharts'
+import { AiOutlineMenu } from 'react-icons/ai';
 
 const Chart1 = () => {
+    const [chart1, setChart1] = useState(false)
+    const chartRef = useRef()
+    const printRef = useRef(document.getElementById("chart"))
     const startDate = moment(moment().subtract(29, 'days')).format("DD-MMMM-YYYY")
 
     const endDate = moment().format("DD-MMMM-YYYY")
@@ -21,31 +26,49 @@ const Chart1 = () => {
 
     const datesArray = enumerateDaysBetweenDates(startDate, endDate)
     console.log(datesArray)
-    // let cdata=[
-    //     {
-    //         value: "20",
-    //         date:"8/20/2023"
-    //     },
-    //     {
-    //         value: "24",
-    //         date:"8/21/2023"
-    //     },
-    //     {
-    //         value: "28",
-    //         date:"8/22/2023"
-    //     },
-    //     {
-    //         value: "22",
-    //         date:"8/23/2023"
-    //     },
-    //     {
-    //         value: "34",
-    //         date:"8/24/2023"
-    //     }
-    // ]
-
+    
+    const  openFullscreen =()=> {
+        let elem = document.getElementById("chart")
+        elem.style.backgroundColor="white"
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+          elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+          elem.msRequestFullscreen();
+        }
+      }
+      const handlePrint = useReactToPrint({
+        content: () => printRef.current,
+        copyStyles:true,
+        pageStyle :{
+            size: "landscape",
+        }
+      });
+      
+    
     return (
-        <ResponsiveContainer width={"100%"} height={"80%"}>
+        <div  className=' w-[96%]  mx-[2%]  shadow-md my-5 shadow-gray-400 h-[500px] border-t-[2px] border-blue-600 rounded-xl'>
+                <h1 className='text-xl font-semibold text-start p-5'>Sales Last 30 Days</h1>
+                <div className='flex relative justify-end cursor-pointer items-end mr-10 text-xl' onClick={()=>{setChart1(!chart1)}}>
+                    <AiOutlineMenu size={20} />
+                    { chart1 && 
+                        <div className='absolute right-0 top-5 w-[170px] z-10 min-h-[200px] shadow-md shadow-gray-400 bg-white broder-1 border-black'>
+                            <ul className='py-5'>
+                                <li className='text-center m-1 hover:bg-blue-500 hover:text-white text-sm' onClick={openFullscreen}>ViewFull Screen</li>
+                                <li className='text-center m-1 hover:bg-blue-500 hover:text-white text-sm'onClick={handlePrint}>Print Chart</li>
+                                <hr className='w-full my-5 h-[2px] bg-black'/>
+                                <li className='text-center m-1 hover:bg-blue-500 hover:text-white text-xs'>Download PNG image</li>
+                                <li className='text-center m-1 hover:bg-blue-500 hover:text-white text-xs'>Download JPEG image</li>
+                                <li className='text-center m-1 hover:bg-blue-500 hover:text-white text-xs'>Download PDF Document</li>
+                                <li className='text-center m-1 hover:bg-blue-500 hover:text-white text-xs'>Download SVG verctor image</li>
+                            </ul>
+                        </div>}
+                </div> 
+                            
+                <ResponsiveContainer width={"100%"} height={"75%"} id="chart" >
             <LineChart width={"100%"} height={"400px"} data={datesArray}   margin={{ left: 30, right: 30 }}>
                 <YAxis label={{ value: 'Total Sales (PKR)', angle: -90, position: 'insideLeft' }} />
 
@@ -65,10 +88,12 @@ const Chart1 = () => {
                 />
                  <Tooltip />
                 <Legend  verticalAlign='top' height={30}/>
-                <Line dataKey="value" />
+                <Line dataKey="value" dot={{r:4,fill: 'blue'}} />
 
             </LineChart>
         </ResponsiveContainer>
+            </div>
+        
     )
 }
 

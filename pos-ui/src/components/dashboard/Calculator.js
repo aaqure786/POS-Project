@@ -14,7 +14,7 @@ const Calculator = () => {
         
     }
   return (
-    <div  className='absolute top-14 right-80 w-[210px] shadow-xl shadow-gray-400 bg-gray-200 rounded-md flex flex-col h-[300px]'>
+    <div  className='absolute top-14 right-80 w-[210px] z-20 shadow-xl shadow-gray-400 bg-gray-200 rounded-md flex flex-col h-[300px]'>
         <div className='h-[35px] text-xl font-bold flex p-1 justify-start'> Calculator</div>
         <div className=' mx-1 h-[35px] bg-gray-100 border-[1px] border-gray-300 flex items-end justify-end'>{show}</div>
         <div className='grid grid-cols-4 gap-1 p-1 mt-1'>

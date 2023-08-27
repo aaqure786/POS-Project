@@ -1,5 +1,5 @@
 import React from 'react'
-import { AiFillInfoCircle, AiOutlineCalendar } from 'react-icons/ai'
+import { AiFillInfoCircle, AiOutlineCalendar,  } from 'react-icons/ai'
 import Chart1 from './Chart1'
 
 const Dashboard = () => {
@@ -139,11 +139,8 @@ const Dashboard = () => {
 
                 </div>
             </div>
-            <div className=' w-[96%] mt-5 mx-[2%] shadow-md  shadow-gray-400 h-[500px] border-t-[2px] border-blue-600 rounded-xl'>
-                <h1 className='text-xl font-semibold text-start p-5'>Sales Last 30 Days</h1>
-
-                <Chart1 />
-            </div>
+            <Chart1 />
+            
         </>
 
     )
