@@ -7,6 +7,7 @@ import Login from './components/login';
 import {BrowserRouter,Route,Routes} from "react-router-dom"
 import Home1 from './components/dashboard/Home'; 
 import Dashboard from './components/dashboard/Dashboard'; 
+import User from './components/dashboard/User';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path='/repair-status' element={<RepaiStatus />} />
           <Route path='/home' element={<Home1 />} >
             <Route path='' element={<Dashboard />} />
+            <Route path='/home/users' element={<User />} />
 
           </Route>
           

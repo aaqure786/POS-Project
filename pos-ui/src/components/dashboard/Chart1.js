@@ -37,7 +37,7 @@ const htmlToPDF = ()=>{
   });
 }
   const htmlToPNGImageConvert = () => {
-    htmlToImage.toPng(chartRef, { quality: 0.95 })
+    htmlToImage.toPng(document.getElementById('chart'), { quality: 0.95 })
       .then(function (dataUrl) {
         var link = document.createElement('a');
         link.download = 'chart.png';
@@ -46,7 +46,7 @@ const htmlToPDF = ()=>{
       });
   }
 const htmlToJPEGImageConvert = () =>{
-  htmlToImage.toJpeg(chartRef, { quality: 0.95 })
+  htmlToImage.toJpeg(document.getElementById('chart'), { quality: 0.95 })
     .then(function (dataUrl) {
       var link = document.createElement('a');
       link.download = 'chart.jpeg';
@@ -57,7 +57,7 @@ const htmlToJPEGImageConvert = () =>{
   
 
 const htmlToSVGImageConvert =()=>{
-  htmlToImage.toSvg(chartRef, { quality: 0.95 })
+  htmlToImage.toSvg(document.getElementById('chart'), { quality: 0.95 })
     .then(function (dataUrl) {
       var link = document.createElement('a');
       link.download = 'chart.svg';
@@ -108,8 +108,8 @@ return (
         </div>}
     </div>
 
-    <ResponsiveContainer width={"100%"} height={"75%"}   >
-      <LineChart width={"100%"} height={"400px"} data={datesArray} margin={{ left: 30, right: 30 }} id="chart" ref={chartRef}>
+    <ResponsiveContainer width={"100%"} height={"75%"}   id="chart">
+      <LineChart width={"100%"} height={"400px"} data={datesArray} margin={{ left: 30, right: 30 }}  ref={chartRef}>
         <YAxis label={{ value: 'Total Sales (PKR)', angle: -90, position: 'insideLeft' }} />
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" interval={'preserveStartEnd'}

@@ -101,8 +101,8 @@ const Chart2 = () => {
                     </div>}
             </div>
 
-            <ResponsiveContainer width={"100%"} height={"75%"}   >
-                <LineChart width={"100%"} height={"400px"} data={chartData} margin={{ left: 30, right: 30 }} ref={chart1Ref} >
+            <ResponsiveContainer width={"100%"} height={"75%"} id="chart1"  >
+                <LineChart width={"100%"} height={"400px"} data={chartData} margin={{ left: 30, right: 30 }} ref={chart1Ref}>
                     <YAxis label={{ value: 'Total Sales (PKR)', angle: -90, position: 'insideLeft' }} />
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="month" interval={'preserveStartEnd'}
