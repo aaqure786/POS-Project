@@ -2,6 +2,12 @@ import React from 'react'
 import { AiFillInfoCircle, AiOutlineCalendar,  } from 'react-icons/ai'
 import Chart1 from './Chart1'
 import Chart2 from './Chart2'
+import SlspmntDueTbl from './Tables/SlspmntDueTbl'
+import PrchspmntDueTbl from './Tables/PrchspmntDueTbl'
+import PrdctstkAlrtTbl from './Tables/PrdctstkAlrtTbl'
+import SlsOrderTbl from './Tables/SlsOrderTbl'
+import PrchsOrderTbl from './Tables/PrchsOrderTbl'
+import PndngShpmntTbl from './Tables/PndngShpmntTbl'
 
 const Dashboard = () => {
     const dateArray = [
@@ -142,6 +148,25 @@ const Dashboard = () => {
             </div>
             <Chart1 />
             <Chart2 />
+            <div className=' mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 '>
+                <SlspmntDueTbl />
+                <PrchspmntDueTbl />
+
+            </div>
+            <div className='mt-3 flex'>
+                <PrdctstkAlrtTbl />
+            </div>
+            <div className='mt-3 flex'>
+                <SlsOrderTbl />
+            </div>
+            <div className='mt-3 flex'>
+                <PrchsOrderTbl />
+            </div>
+
+            <div className='mt-3 flex'>
+                <PndngShpmntTbl />
+            </div>
+
             
         </>
 

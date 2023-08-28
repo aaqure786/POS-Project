@@ -19,15 +19,16 @@ const Chart2 = () => {
         chartData.push(val)
     }
     
-    const htmlToPDF = () => {
-        const doc = new jsPDF('landscape', 'pt', 'a4');
-        doc.html(document.querySelector("#chart1"), {
-            callback: function (pdf) {
-                var pageCount = doc.internal.getNumberOfPages();
-                pdf.deletePage(pageCount)
-                pdf.save("chart.pdf")
-            }
-        });
+    const generatePDF = () => {
+        // const input = document.getElementById('mytable');
+        htmlToImage.toCanvas(document.getElementById('chart1'), { quality: 0.95 })
+            .then(function (dataUrl) {
+                const imgData = dataUrl.toDataURL('image/png');
+                const pdf = new jsPDF();
+                pdf.addImage(imgData, 'PNG', 0, 0);
+                pdf.save("download.pdf");
+            });
+    
     }
     const htmlToPNGImageConvert = () => {
         htmlToImage.toPng(document.getElementById("chart1"), { quality: 0.95 })
@@ -95,7 +96,7 @@ const Chart2 = () => {
                             <hr className='w-full my-5 h-[2px] bg-black' />
                             <li className='text-center m-1 hover:bg-blue-500 hover:text-white text-xs' onClick={htmlToPNGImageConvert}>Download PNG image</li>
                             <li className='text-center m-1 hover:bg-blue-500 hover:text-white text-xs' onClick={htmlToJPEGImageConvert} >Download JPEG image</li>
-                            <li className='text-center m-1 hover:bg-blue-500 hover:text-white text-xs' onClick={htmlToPDF}>Download PDF Document</li>
+                            <li className='text-center m-1 hover:bg-blue-500 hover:text-white text-xs' onClick={generatePDF}>Download PDF Document</li>
                             <li className='text-center m-1 hover:bg-blue-500 hover:text-white text-xs' onClick={htmlToSVGImageConvert}>Download SVG verctor image</li>
                         </ul>
                     </div>}
