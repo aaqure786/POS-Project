@@ -7,7 +7,9 @@ import Login from './components/login';
 import {BrowserRouter,Route,Routes} from "react-router-dom"
 import Home1 from './components/dashboard/Home'; 
 import Dashboard from './components/dashboard/Dashboard'; 
-import User from './components/dashboard/User';
+import User from './components/dashboard/Users/User';
+import AddorEditUsers from './components/dashboard/Users/AddorEditUsers';
+import ViewUser from './components/dashboard/Users/ViewUser';
 
 
 function App() {
@@ -24,6 +26,9 @@ function App() {
           <Route path='/home' element={<Home1 />} >
             <Route path='' element={<Dashboard />} />
             <Route path='/home/users' element={<User />} />
+            <Route path='/home/users/addusers' element={<AddorEditUsers />} />
+            <Route path='/home/users/edituser/:id' element={<AddorEditUsers />} />
+            <Route path='/home/users/viewuser/:id' element={<ViewUser />} />
 
           </Route>
           
