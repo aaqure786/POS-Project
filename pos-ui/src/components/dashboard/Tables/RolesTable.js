@@ -1,6 +1,7 @@
 import React, {  useState } from 'react'
 import { AiOutlineDelete } from 'react-icons/ai'
 import {FaEdit, FaEye, FaSearch } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 
 const RolesTable = () => {
@@ -119,10 +120,10 @@ const RolesTable = () => {
                                     
                                     <td className=" py-1 px-1">{value.Email}</td>
                                     <td className='py-1 flex '>
-                                        <div className='flex mx-1 p-1 items-center bg-blue-600 text-white justify-center'>
+                                        <Link to={`/home/roles/editroles/${value.id}`} className='flex mx-1 p-1 items-center bg-blue-600 text-white justify-center'>
                                             <FaEdit size={15} />
                                             <h1 className='text-sm'>Edit</h1>
-                                        </div>
+                                        </Link>
                                         <div className='flex mx-1 p-1 items-center bg-blue-300 text-white justify-center'>
                                             <FaEye size={15} />
                                             <h1 className='text-sm'>View</h1>

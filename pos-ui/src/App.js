@@ -33,6 +33,7 @@ function App() {
             <Route path='/home/users/viewuser/:id' element={<ViewUser />} />
             <Route path='/home/roles' element={<AllRoles />} />
             <Route path='/home/roles/addroles' element={<AddorEditRoles />} />
+            <Route path='/home/roles/editroles/:id' element={<AddorEditRoles />} />
 
           </Route>
           

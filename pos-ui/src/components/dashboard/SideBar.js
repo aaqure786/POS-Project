@@ -29,10 +29,10 @@ const SideBar = () => {
     <div className={`whitespace-nowrap min-h-[558px] py-[20px] w-full ${clicked ? "flex" : "hidden"}   md:flex bg-gray-100  flex-col`}>
       {/* Home button */}
       <div className='flex justify-between items-center'>
-        <div className='flex mx-2 px-2 py-1 items-center  active:bg-gray-200 justify-start'>
+        <Link to={"/home"} className='flex mx-2 px-2 py-1 items-center  active:bg-gray-200 justify-start'>
           <FaTachometerAlt size={20} />
           <h1 className='mt-1 ml-5 text-sm '>Home</h1>
-        </div>
+        </Link>
 
       </div>
       {/* User Management */}
@@ -44,11 +44,11 @@ const SideBar = () => {
         <BiSolidChevronLeft size={20} className='mx-1' />
       </div>
       {usmng && <div className='flex flex-col mx-4'>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
-          <BsArrowRight size={15} />
-          <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Users</h1>
+        <Link to={"/home/users"} className='flex hover:text-black group  py-1 items-center   justify-start'>
+          <BsArrowRight size={15}  className='group-active:text-black'/>
+          <h1 className=' mt-1 ml-5 text-gray-500 text-sm group-active:text-black '>Users</h1>
         </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <Link to={"/home/roles"} className='flex hover:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Roles</h1>
         </Link>

@@ -6,6 +6,7 @@ import { CSVLink } from 'react-csv';
 import * as XLSX from 'xlsx'
 import { jsPDF } from 'jspdf';
 import * as htmlToImage from 'html-to-image';
+import { Link } from 'react-router-dom';
 
 
 const UserTable1 = () => {
@@ -212,10 +213,10 @@ const UserTable1 = () => {
                                     {col3 && <td className="px-1 py-1">{value.Role}</td>}
                                     {col4 && <td className=" py-1 px-1">{value.Email}</td>}
                                     {col5 && <td className='py-1 flex '>
-                                        <div className='flex mx-1 p-1 items-center bg-blue-600 text-white justify-center'>
+                                        <Link to={`/home/users/edituser/${value.id}`} className='flex mx-1 p-1 items-center bg-blue-600 text-white justify-center'>
                                             <FaEdit size={15} />
                                             <h1 className='text-sm'>Edit</h1>
-                                        </div>
+                                        </Link>
                                         <div className='flex mx-1 p-1 items-center bg-blue-300 text-white justify-center'>
                                             <FaEye size={15} />
                                             <h1 className='text-sm'>View</h1>
