@@ -217,10 +217,10 @@ const UserTable1 = () => {
                                             <FaEdit size={15} />
                                             <h1 className='text-sm'>Edit</h1>
                                         </Link>
-                                        <div className='flex mx-1 p-1 items-center bg-blue-300 text-white justify-center'>
+                                        <Link to={`/home/users/viewuser/${value.id}`} className='flex mx-1 p-1 items-center bg-blue-300 text-white justify-center'>
                                             <FaEye size={15} />
                                             <h1 className='text-sm'>View</h1>
-                                        </div>
+                                        </Link>
                                         <div className='flex mx-1 p-1 items-center bg-red-500 text-white justify-center'>
                                             <AiOutlineDelete size={15} />
                                             <h1 className='text-sm'>Delete</h1>

@@ -1,17 +1,16 @@
 import React, { useRef, useState } from 'react'
 import { AiOutlineDelete, AiOutlinePlus } from 'react-icons/ai'
-import { MdCancel } from 'react-icons/md'
-import { FaColumns, FaEdit, FaEye, FaFileCsv, FaFileExcel, FaFilePdf, FaPrint, FaSearch } from 'react-icons/fa'
+import { FaColumns, FaEdit, FaFileCsv, FaFileExcel, FaFilePdf, FaPrint, FaSearch } from 'react-icons/fa'
 import { useReactToPrint } from 'react-to-print';
 import { CSVLink } from 'react-csv';
 import * as XLSX from 'xlsx'
 import { jsPDF } from 'jspdf';
 import * as htmlToImage from 'html-to-image';
-import AddorEditNotes from '../Users/AddorEditNotes';
-import ShowNotes from '../Users/ShowNotes';
+import AddorEditSalesCmsnPerc from '../Sales Commission Agent/AddorEditSalesCmsnPerc';
+import { MdCancel } from 'react-icons/md';
 
 
-const DocTable = () => {
+const SalesCommissionTbl = () => {
     const dummyData = [
         {
             id: 1,
@@ -105,11 +104,11 @@ const DocTable = () => {
     const [col3, setCol3] = useState(true)
     const [col4, setCol4] = useState(true)
     const [col5, setCol5] = useState(true)
-    const [isClike, setIsClike] = useState(false)
-    const [editId, setEditId] = useState(0)
+    const [col6, setCol6] = useState(true)
     const [isedit, setIsedit] = useState(false)
-    const [showId, setShowId] = useState(0)
-    const [isshow, setIsshow] = useState(false)
+    const [editId, setEditId] = useState(0)
+    const [isCliked, setIsCliked] = useState(false)
+
 
     const csvData = [
         ["Username", "Name", "Role", "Email"],
@@ -139,32 +138,29 @@ const DocTable = () => {
             setCrpage(crpage + 1)
         }
     }
-
-    const displayData = ()=>{
-      if(editId === 0 && isedit === false && isshow === false){
-        return  <AddorEditNotes id= {0} />
-      }else if(editId !==0 && isedit=== true){
-        return <AddorEditNotes id={editId} />
-      }else if(showId !==0 && isshow === true){
-        return <ShowNotes id={showId} />
-      }
+    const displayData = () => {
+        if (editId === 0 && isedit === false) {
+            return <AddorEditSalesCmsnPerc id={0} />
+        } else if (editId !== 0 && isedit === true) {
+            return <AddorEditSalesCmsnPerc id={editId} />
+        }
     }
 
 
     return (
         <div>
-            <div className='flex w-full items-end justify-end'>
-                <button onClick={() => { setIsClike(!isClike) }} className='flex items-center justify-center mx-5 font-semibold w-20 h-10 rounded-md mt-3 text-white bg-blue-500'>
+            <div className='flex justify-end items-end my-2 text-sm mx-5'>
+                <button onClick={() => { setIsCliked(!isCliked) }} className='flex items-center justify-center mx-5 font-semibold w-20 h-10 rounded-md mt-3 text-white bg-blue-500'>
                     <AiOutlinePlus size={15} /> Add
 
                 </button>
-            </div>
 
+            </div>
             <div className='flex  flex-col md:flex-row  items-center justify-center md:justify-between mx-5'>
 
                 <div className='flex items-center justify-center my-2 md:my-0'>
                     <h1 className='text-sm mx-1'>Show</h1>
-                    <select className='w-[70px] border-[1px] border-black focus:outline-none text-center' >
+                    <select className='w-[100px] border-[1px] border-black focus:outline-none text-center' >
                         <option value={"25"}> 25</option>
                         <option value={"50"}> 50</option>
                         <option value={"100"}> 100</option>
@@ -177,48 +173,43 @@ const DocTable = () => {
                     <h1 className='text-sm mx-1'>enteries</h1>
 
                 </div>
-                <div className='flex flex-col items-center justify-center  my-2 md:my-0'>
-                    <div className='flex items-center justify-center'>
-                        <button className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
-                            <FaFileCsv size={15} className=' mt-1 pr-[2px]' />
-                            <CSVLink filename="users.csv" data={csvData}>
-                                <h1 className='text-sm'>Export to CSV</h1>
+                <div className='flex items-center justify-center my-2 md:my-0'>
+                    <button className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
+                        <FaFileCsv size={15} className=' mt-1 pr-[2px]' />
+                        <CSVLink filename="users.csv" data={csvData}>
+                            <h1 className='text-sm'>Export to CSV</h1>
 
-                            </CSVLink>
-                        </button>
-                        <button onClick={() => { handleExportExcl(dummyData) }} className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
-                            <FaFileExcel size={15} className=' mt-1 pr-[2px]' />
-                            <h1 className='text-sm'>Export to Excle</h1>
-                        </button>
-                        <button onClick={handlePrint} className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
-                            <FaPrint size={15} className=' mt-1 pr-[2px]' />
-                            <h1 className='text-sm'>Print</h1>
-                        </button>
-                    </div>
-                    <div className='flex items-center justify-center'>
-                        <button onClick={() => { setColvis(!colvis) }} className='flex border-[1px] relative px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
-                            <FaColumns size={15} className=' mt-1 pr-[2px]' />
-                            <h1 className='text-sm'>Column Visibility</h1>
-                            {colvis && <div className='absolute top-7 shadow-md shadow-gray-400 bg-white w-[150px]'>
-                                <ul className='flex flex-col items-center justify-center'>
-                                    <li className={` w-full py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Action</li>
-                                    <li className={` w-full py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>Heading</li>
-                                    <li className={` w-full py-1 ${col3 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol3(!col3) }}>Added By</li>
-                                    <li className={` w-full py-1 ${col4 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol4(!col4) }}>Created At</li>
-                                    <li className={` w-full py-1 ${col5 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol5(!col5) }}>Updated At</li>
+                        </CSVLink>
+                    </button>
+                    <button onClick={() => { handleExportExcl(dummyData) }} className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
+                        <FaFileExcel size={15} className=' mt-1 pr-[2px]' />
+                        <h1 className='text-sm'>Export to Excle</h1>
+                    </button>
+                    <button onClick={handlePrint} className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
+                        <FaPrint size={15} className=' mt-1 pr-[2px]' />
+                        <h1 className='text-sm'>Print</h1>
+                    </button>
+                    <button onClick={() => { setColvis(!colvis) }} className='flex border-[1px] relative px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
+                        <FaColumns size={15} className=' mt-1 pr-[2px]' />
+                        <h1 className='text-sm'>Column Visibility</h1>
+                        {colvis && <div className='absolute top-7 shadow-md shadow-gray-400 bg-white w-[150px]'>
+                            <ul className='flex flex-col items-center justify-center'>
+                                <li className={` w-full py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Name</li>
+                                <li className={` w-full py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>Email</li>
+                                <li className={` w-full py-1 ${col3 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol3(!col3) }}>Contact Number</li>
+                                <li className={` w-full py-1 ${col4 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol4(!col4) }}>Address</li>
+                                <li className={` w-full py-1 ${col5 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol5(!col5) }}>Sales Commission Percentage (%)</li>
+                                <li className={` w-full py-1 ${col6 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol6(!col6) }}>Action</li>
 
-                                </ul>
-                            </div>}
-                        </button>
-                        <button onClick={generatePDF} className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
-                            <FaFilePdf size={15} className=' mt-1 pr-[2px]' />
-                            <h1 className='text-sm'>Export to PDF</h1>
-                        </button>
-                    </div>
-
-
+                            </ul>
+                        </div>}
+                    </button>
+                    <button onClick={generatePDF} className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
+                        <FaFilePdf size={15} className=' mt-1 pr-[2px]' />
+                        <h1 className='text-sm'>Export to PDF</h1>
+                    </button>
                 </div>
-                <div className='flex items-center justify-center  w-[200px] md:w-auto my-2 md:my-0 border-[1px] border-black'>
+                <div className='flex items-center justify-center  w-[300px] md:w-auto my-2 md:my-0 border-[1px] border-black'>
                     <FaSearch size={15} className=' mt-1 mx-1' />
                     <input className=' focus:outline-none px-2' type='search' id="search" name='serch' placeholder='Search' />
                 </div>
@@ -229,35 +220,34 @@ const DocTable = () => {
                 <table id='usertbl' className="table-auto w-full mb-10  whitespace-no-wrap border-[1px] border-gray-400">
                     <thead>
                         <tr>
-                            {col1 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Action</th>}
-                            {col2 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Heading</th>}
-                            {col3 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Added By</th>}
-                            {col4 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Created At</th>}
-                            {col5 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Updated At</th>}
+                            {col1 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Name</th>}
+                            {col2 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Email</th>}
+                            {col3 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Contact Number</th>}
+                            {col4 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Address</th>}
+                            {col5 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Sales Commission Percentage (%)</th>}
+                            {col6 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Action</th>}
+
                         </tr>
                     </thead>
                     <tbody >
                         {record.map((value, index) => {
                             return <tr key={index} className=''>
-                                {col1 && <td className='py-1 flex '>
-                                    <div onClick={() => { setEditId(value.id) ; setIsedit(true) ; setIsClike(!isClike) }} className='flex mx-1 p-1 items-center bg-blue-600 text-white justify-center'>
+                                {col1 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
+                                {col2 && <td className="px-1 py-1"> {value.Name}</td>}
+                                {col3 && <td className="px-1 py-1">{value.Role}</td>}
+                                {col4 && <td className=" py-1 px-1">{value.Email}</td>}
+                                {col5 && <td className=" py-1 px-1">{value.Role}</td>}
+
+                                {col6 && <td className='py-1 flex '>
+                                    <div onClick={()=>{setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked)}} className='flex mx-1 p-1 cursor-pointer items-center bg-blue-600 text-white justify-center'>
                                         <FaEdit size={15} />
                                         <h1 className='text-sm'>Edit</h1>
                                     </div>
-                                    <div onClick={() => { setShowId(value.id) ;  setIsClike(!isClike);setIsshow(true) }} className='flex mx-1 p-1 items-center bg-blue-300 text-white justify-center'>
-                                        <FaEye size={15} />
-                                        <h1 className='text-sm'>View</h1>
-                                    </div>
-                                    <div className='flex mx-1 p-1 items-center bg-red-500 text-white justify-center'>
+                                    <div className='flex mx-1 p-1 cursor-pointer items-center bg-red-500 text-white justify-center'>
                                         <AiOutlineDelete size={15} />
                                         <h1 className='text-sm'>Delete</h1>
                                     </div>
                                 </td>}
-                                {col2 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
-                                {col3 && <td className="px-1 py-1"> {value.Name}</td>}
-                                {col4 && <td className="px-1 py-1">{value.Role}</td>}
-                                {col5 && <td className=" py-1 px-1">{value.Email}</td>}
-
                             </tr>
                         })}
 
@@ -282,11 +272,10 @@ const DocTable = () => {
                     </ul>
                 </nav>
             </div>
-
-            {isClike &&
+            {isCliked &&
                 <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen'>
-                    <div className='flex items-end justify-end w-full md:w-[70%]  mt-10 bg-white px-5 pt-2'>
-                        <MdCancel onClick={() => { setIsClike(!isClike); setEditId(0); setShowId(0); setIsedit(false) ;setIsshow(false) }} size={20} />
+                    <div className='flex items-end justify-end w-full md:w-[50%]  mt-10 bg-white px-5 pt-2'>
+                        <MdCancel onClick={() => { setIsCliked(!isCliked); setEditId(0);; setIsedit(false); }} size={20} />
 
                     </div>
                     {displayData()}
@@ -297,4 +286,4 @@ const DocTable = () => {
     )
 }
 
-export default DocTable
+export default SalesCommissionTbl

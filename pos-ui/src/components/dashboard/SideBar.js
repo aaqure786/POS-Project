@@ -46,13 +46,13 @@ const SideBar = () => {
       {usmng && <div className='flex flex-col mx-4'>
         <Link to={"/home/users"} className='flex hover:text-black group  py-1 items-center   justify-start'>
           <BsArrowRight size={15}  className='group-active:text-black'/>
-          <h1 className=' mt-1 ml-5 text-gray-500 text-sm group-active:text-black '>Users</h1>
+          <h1 className=' mt-1 ml-5 text-gray-500 text-sm group-active:text-red-600 '>Users</h1>
         </Link>
         <Link to={"/home/roles"} className='flex hover:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Roles</h1>
         </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <Link to={"/home/sales-commission-agents"} className='flex hover:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Sales Commision Agents</h1>
         </Link>

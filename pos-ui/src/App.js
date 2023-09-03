@@ -12,6 +12,8 @@ import AddorEditUsers from './components/dashboard/Users/AddorEditUsers';
 import ViewUser from './components/dashboard/Users/ViewUser';
 import AllRoles from './components/dashboard/Roles/AllRoles';
 import AddorEditRoles from './components/dashboard/Roles/AddorEditRoles';
+import SalesCommission from './components/dashboard/Sales Commission Agent/SalesCommission';
+import Contact from './components/dashboard/contacts/Contact';
 
 
 function App() {
@@ -34,7 +36,10 @@ function App() {
             <Route path='/home/roles' element={<AllRoles />} />
             <Route path='/home/roles/addroles' element={<AddorEditRoles />} />
             <Route path='/home/roles/editroles/:id' element={<AddorEditRoles />} />
-
+            <Route path='/home/sales-commission-agents' element={<SalesCommission />} />
+            <Route path='/home/contact' element={<Contact />} />
+            
+            
           </Route>
           
         </Routes>
