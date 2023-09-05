@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { FaFilter } from 'react-icons/fa'
+import ContactTbl from '../Tables/ContactTbl'
 
 const Contact = () => {
     const [isFilter, setIsFilter] = useState(false)
@@ -50,6 +51,10 @@ const Contact = () => {
 
                 </div>}
                 
+            </div>
+
+            <div className='flex flex-col bg-white border-t-[3px] rounded-md w-full mt-5 border-blue-500'>
+               <ContactTbl /> 
             </div>
         </div>
     )
