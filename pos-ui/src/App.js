@@ -14,6 +14,13 @@ import AllRoles from './components/dashboard/Roles/AllRoles';
 import AddorEditRoles from './components/dashboard/Roles/AddorEditRoles';
 import SalesCommission from './components/dashboard/Sales Commission Agent/SalesCommission';
 import Contact from './components/dashboard/contacts/Contact';
+import ViewContact from './components/dashboard/contacts/ViewContact';
+import LedgerTab from './components/dashboard/contacts/LedgerTab';
+import PurchasesTab from './components/dashboard/contacts/PurchasesTab';
+import StockReportTab from './components/dashboard/contacts/StockReportTab';
+import DocTable from './components/dashboard/Tables/DocTable';
+import PaymentsTab from './components/dashboard/contacts/PaymentsTab';
+import ActivitiesTable from './components/dashboard/Tables/ActivitiesTable';
 
 
 function App() {
@@ -38,6 +45,15 @@ function App() {
             <Route path='/home/roles/editroles/:id' element={<AddorEditRoles />} />
             <Route path='/home/sales-commission-agents' element={<SalesCommission />} />
             <Route path='/home/contact' element={<Contact />} />
+            <Route path='/home/contact/:id' element={<ViewContact />} >
+                <Route path='/home/contact/:id/ledger_tab' element={<LedgerTab />} />
+                <Route path='/home/contact/:id/purchase_tab' element={<PurchasesTab />} />
+                <Route path='/home/contact/:id/stock_report_tab' element={<StockReportTab />} />
+                <Route path='/home/contact/:id/document_tab' element={<DocTable />} />
+                <Route path='/home/contact/:id/payment_tab' element={<PaymentsTab />} />
+                <Route path='/home/contact/:id/activities_tab' element={<ActivitiesTable />} />
+
+            </Route>
             
             
           </Route>

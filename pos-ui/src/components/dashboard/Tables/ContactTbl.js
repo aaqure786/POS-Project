@@ -8,6 +8,7 @@ import { jsPDF } from 'jspdf';
 import * as htmlToImage from 'html-to-image';
 import { MdCancel } from 'react-icons/md';
 import AddorEditContact from '../contacts/AddorEditContact';
+import { Link } from 'react-router-dom';
 
 
 const ContactTbl = () => {
@@ -296,62 +297,62 @@ const ContactTbl = () => {
                         {record.map((value, index) => {
                             return <tr key={index} className=''>
                                 {col1 && <td className='py-1 flex '>
-                                    <div onClick={() => { toggleDropdown(index) }} className='flex mx-1 p-1 relative cursor-pointer items-center bg-green-600 rounded-xl text-white justify-center'>
+                                    <div onClick={() => { toggleDropdown(index) }} className='flex px-2 py-1 relative cursor-pointer items-center bg-green-600 rounded-xl text-white justify-center'>
                                         <h1 className='text-sm'>Action</h1>
                                         <AiFillCaretDown size={10} />
                                         {actionList[index] &&
                                             <ul className='absolute top-5 left-10 z-20 flex flex-col items-start w-[150px] bg-white text-gray-600 shadow-xl shadow-gray-400 '>
-                                                <li>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex mx-1 p-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                <li className='w-full'>
+                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaMoneyBillAlt size={15} />
                                                         <h1 className='text-sm'>Pay</h1>
                                                     </div>
                                                 </li>
                                                 
-                                                <li>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex mx-1 p-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                <li className='w-full'>
+                                                    <Link to={`/home/contact/${value.id}`}  className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEye size={15} />
                                                         <h1 className='text-sm'>View</h1>
-                                                    </div>
+                                                    </Link >
                                                 </li>
-                                                <li>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex mx-1 p-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                <li className='w-full'>
+                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEdit size={15} />
                                                         <h1 className='text-sm'>Edit</h1>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex mx-1 p-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                <li className='w-full'>
+                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaTrash size={15} />
                                                         <h1 className='text-sm'>Delete</h1>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex mx-1 p-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                <li className='w-full'>
+                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaPowerOff size={15} />
                                                         <h1 className='text-sm'>Activate</h1>
                                                     </div>
                                                 </li>
-                                                <li className='mt-5'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex mx-1 p-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                <li className='mt-5 w-full'>
+                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaScroll size={15} />
                                                         <h1 className='text-sm'>Ledger</h1>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex mx-1 p-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                <li className='w-full'>
+                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaArrowCircleDown size={15} />
                                                         <h1 className='text-sm'>Purchases</h1>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex mx-1 p-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                <li className='w-full'>
+                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaHourglassHalf size={15} />
                                                         <h1 className='text-sm'>Stock Report</h1>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex mx-1 p-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                <li className='w-full'>
+                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaPaperclip size={15} />
                                                         <h1 className='text-sm'>Document & Note</h1>
                                                     </div>

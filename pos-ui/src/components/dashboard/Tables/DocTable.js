@@ -152,7 +152,7 @@ const DocTable = () => {
 
 
     return (
-        <div>
+        <div className='w-full'>
             <div className='flex w-full items-end justify-end'>
                 <button onClick={() => { setIsClike(!isClike) }} className='flex items-center justify-center mx-5 font-semibold w-20 h-10 rounded-md mt-3 text-white bg-blue-500'>
                     <AiOutlinePlus size={15} /> Add

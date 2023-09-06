@@ -86,7 +86,7 @@ const ActivitiesTable = () => {
 
 
     return (
-        <div>
+        <div id="activities_tab"> 
            <div className='flex flex-col justify-center items-center mt-5 mx-5'  >
                 <table id='usertbl' className="table-fixed w-full mb-10  whitespace-no-wrap border-[1px] border-gray-400">
                     <thead>
