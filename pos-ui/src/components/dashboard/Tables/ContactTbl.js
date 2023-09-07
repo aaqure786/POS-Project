@@ -334,28 +334,28 @@ const ContactTbl = () => {
                                                     </div>
                                                 </li>
                                                 <li className='mt-5 w-full'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link  to={`/home/contact/${value.id}/ledger_tab`} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaScroll size={15} />
                                                         <h1 className='text-sm'>Ledger</h1>
-                                                    </div>
+                                                    </Link >
                                                 </li>
                                                 <li className='w-full'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link  to={`/home/contact/${value.id}/purchase_tab`}  className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaArrowCircleDown size={15} />
                                                         <h1 className='text-sm'>Purchases</h1>
-                                                    </div>
+                                                    </Link>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link to={`/home/contact/${value.id}/stock_report_tab`}  className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaHourglassHalf size={15} />
                                                         <h1 className='text-sm'>Stock Report</h1>
-                                                    </div>
+                                                    </Link>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link to={`/home/contact/${value.id}/document_tab`}  className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaPaperclip size={15} />
                                                         <h1 className='text-sm'>Document & Note</h1>
-                                                    </div>
+                                                    </Link>
                                                 </li>
                                             </ul>
                                         }
