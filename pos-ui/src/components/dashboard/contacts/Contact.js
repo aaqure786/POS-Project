@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import { FaFilter } from 'react-icons/fa'
 import ContactTbl from '../Tables/ContactTbl'
+import { useParams } from 'react-router-dom'
 
-const Contact = () => {
+const Contact = () => { 
+    const params = useParams()
+    const type= params.type
     const [isFilter, setIsFilter] = useState(false)
     return (
         <div className='flex flex-col items-center min-h-screen justify-self-center w-full p-5 bg-gray-100'>
             <div className='flex justify-start items-start w-full'>
-                <h1 className='text-2xl font-semibold text-start'>Suppliers</h1>
-                <p className='text-sm text-gray-500 mt-2 mx-2'>Manage your Suppliers</p>
+                <h1 className='text-2xl font-semibold text-start'>{type=== "supplier"? "Suppliers" :"Customer"}</h1>
+                <p className='text-sm text-gray-500 mt-2 mx-2'>Manage your {type=== "supplier"? "Suppliers" :"Customer"}</p>
             </div>
             <div className='flex flex-col mt-4 w-full bg-white rounded-md p-3 items-start justify-start'>
                 <div className='flex cursor-pointer' onClick={() => { setIsFilter(!isFilter) }}>

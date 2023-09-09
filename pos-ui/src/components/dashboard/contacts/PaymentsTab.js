@@ -1,8 +1,11 @@
 import React from 'react'
+import PaymentsTbl from '../Tables/PaymentsTbl'
 
 const PaymentsTab = () => {
   return (
-    <div>PaymentsTab</div>
+    <div className='mt-5 w-full'>
+      <PaymentsTbl />
+    </div>
   )
 }
 

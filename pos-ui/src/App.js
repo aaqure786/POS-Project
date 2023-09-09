@@ -44,14 +44,14 @@ function App() {
             <Route path='/home/roles/addroles' element={<AddorEditRoles />} />
             <Route path='/home/roles/editroles/:id' element={<AddorEditRoles />} />
             <Route path='/home/sales-commission-agents' element={<SalesCommission />} />
-            <Route path='/home/contact' element={<Contact />} />
-            <Route path='/home/contact/:id' element={<ViewContact />} >
-                <Route path='/home/contact/:id/ledger_tab' element={<LedgerTab />} />
-                <Route path='/home/contact/:id/purchase_tab' element={<PurchasesTab />} />
-                <Route path='/home/contact/:id/stock_report_tab' element={<StockReportTab />} />
-                <Route path='/home/contact/:id/document_tab' element={<DocTable />} />
-                <Route path='/home/contact/:id/payment_tab' element={<PaymentsTab />} />
-                <Route path='/home/contact/:id/activities_tab' element={<ActivitiesTable />} />
+            <Route path='/home/contact/:type' element={<Contact />} />
+            <Route path='/home/contact/view/:id' element={<ViewContact />} >
+                <Route path='/home/contact/view/:id/ledger_tab' element={<LedgerTab />} />
+                <Route path='/home/contact/view/:id/purchase_tab' element={<PurchasesTab />} />
+                <Route path='/home/contact/view/:id/stock_report_tab' element={<StockReportTab />} />
+                <Route path='/home/contact/view/:id/document_tab' element={<DocTable />} />
+                <Route path='/home/contact/view/:id/payment_tab' element={<PaymentsTab />} />
+                <Route path='/home/contact/view/:id/activities_tab' element={<ActivitiesTable />} />
 
             </Route>
             

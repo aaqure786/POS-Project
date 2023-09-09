@@ -3,7 +3,7 @@ import { BiSolidChevronLeft } from 'react-icons/bi'
 import { BsArrowRight } from 'react-icons/bs'
 import { FaAddressBook, FaArrowCircleDown, FaArrowCircleUp, FaCalendarCheck, FaChartBar, FaCheckCircle, FaCog, FaCubes, FaDatabase, FaEnvelope, FaFire, FaIndustry, FaListAlt, FaMinusCircle, FaMoneyCheckAlt, FaProjectDiagram, FaQrcode, FaTachometerAlt, FaTruck, FaUsers, FaWordpress } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 // import { useSelector } from 'react-redux'
 
 const SideBar = () => {
@@ -44,18 +44,18 @@ const SideBar = () => {
         <BiSolidChevronLeft size={20} className='mx-1' />
       </div>
       {usmng && <div className='flex flex-col mx-4'>
-        <Link to={"/home/users"} className='flex hover:text-black group  py-1 items-center   justify-start'>
-          <BsArrowRight size={15}  className='group-active:text-black'/>
-          <h1 className=' mt-1 ml-5 text-gray-500 text-sm group-active:text-red-600 '>Users</h1>
-        </Link>
-        <Link to={"/home/roles"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/users"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
+          <BsArrowRight size={15}  />
+          <h1 className=' mt-1 ml-5 text-gray-500 text-sm  '>Users</h1>
+        </NavLink>
+        <NavLink to={"/home/roles"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Roles</h1>
-        </Link>
-        <Link to={"/home/sales-commission-agents"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/home/sales-commission-agents"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Sales Commision Agents</h1>
-        </Link>
+        </NavLink>
       </div>
       }
       {/* Contacts */}
@@ -67,22 +67,22 @@ const SideBar = () => {
         <BiSolidChevronLeft size={20} className='mx-1' />
       </div>
       {li1 && <div className='flex flex-col mx-4'>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/contact/supplier"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Suppliers</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/home/contact/customer"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Customers</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '> Customer Groups</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Import Contacts </h1>
-        </Link>
+        </NavLink>
       </div>
       }
       {/* Products */}
