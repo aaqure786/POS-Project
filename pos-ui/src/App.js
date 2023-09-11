@@ -21,6 +21,8 @@ import StockReportTab from './components/dashboard/contacts/StockReportTab';
 import DocTable from './components/dashboard/Tables/DocTable';
 import PaymentsTab from './components/dashboard/contacts/PaymentsTab';
 import ActivitiesTable from './components/dashboard/Tables/ActivitiesTable';
+import SalesTab from './components/dashboard/contacts/SalesTab';
+import RewardsTab from './components/dashboard/contacts/RewardsTab';
 
 
 function App() {
@@ -52,6 +54,8 @@ function App() {
                 <Route path='/home/contact/view/:id/document_tab' element={<DocTable />} />
                 <Route path='/home/contact/view/:id/payment_tab' element={<PaymentsTab />} />
                 <Route path='/home/contact/view/:id/activities_tab' element={<ActivitiesTable />} />
+                <Route path='/home/contact/view/:id/sales_tab' element={<SalesTab />} />
+                <Route path='/home/contact/view/:id/rewards_tab' element={<RewardsTab />} />
 
             </Route>
             

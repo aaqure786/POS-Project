@@ -104,6 +104,7 @@ const PaymentsTbl = () => {
     const [col4, setCol4] = useState(true)
     const [col5, setCol5] = useState(true)
     const [col6, setCol6] = useState(true)
+    
 
     const csvData = [
         ["Username", "Name", "Role", "Email"],
@@ -133,6 +134,7 @@ const PaymentsTbl = () => {
             setCrpage(crpage + 1)
         }
     }
+    
 
 
   return (
@@ -211,7 +213,7 @@ const PaymentsTbl = () => {
                         </thead>
                         <tbody >
                             {record.map((value, index) => {
-                                return <tr key={index} className=''>
+                                return <tr key={index} className={`${(index+1)%2===0 ? "bg-gray-100" :""}`}>
                                     {col1 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                     {col2 && <td className="px-1 py-1"> {value.Name}</td>}
                                     {col3 && <td className="px-1 py-1">{value.Role}</td>}
@@ -225,7 +227,7 @@ const PaymentsTbl = () => {
                                         </Link>
                                         <Link  className='flex mx-1 p-1 items-center bg-blue-300 text-white justify-center'>
                                             <FaEye size={15} />
-                                            <h1 className='text-sm'>View</h1>
+                                             <h1 className='text-sm'>View</h1>
                                         </Link>
                                         <div className='flex mx-1 p-1 items-center bg-red-500 text-white justify-center'>
                                             <AiOutlineDelete size={15} />
@@ -238,6 +240,7 @@ const PaymentsTbl = () => {
 
                         </tbody>
                     </table>
+                    
                     <nav className='  my-2 w-full'>
                         <ul className='flex justify-end'>
                             <li>

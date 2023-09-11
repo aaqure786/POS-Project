@@ -7,8 +7,8 @@ import * as XLSX from 'xlsx'
 import { jsPDF } from 'jspdf';
 import * as htmlToImage from 'html-to-image';
 import { MdCancel } from 'react-icons/md';
-import AddorEditContact from '../contacts/AddorEditContact';
 import { Link } from 'react-router-dom';
+import ViewPurchase from '../Purchases/ViewPurchase';
 
 
 const PurchasesTbl = () => {
@@ -110,9 +110,10 @@ const PurchasesTbl = () => {
     const [col8, setCol8] = useState(true)
     const [col9, setCol9] = useState(true)
     const [col10, setCol10] = useState(true)
-    const [isedit, setIsedit] = useState(false)
-    const [editId, setEditId] = useState(0)
+    
     const [isCliked, setIsCliked] = useState(false)
+    const [showId, setShowId] = useState(0)
+    const [isshow, setIsshow] = useState(false)
     const [actionList, setActionList] = useState(Array(record.length).fill(false))
 
     const toggleDropdown = (index) => {
@@ -120,7 +121,7 @@ const PurchasesTbl = () => {
         dropDownAction[index] = !dropDownAction[index];
         setActionList(dropDownAction);
     };
-
+   
     const csvData = [
         ["Username", "Name", "Role", "Email"],
         ...dummyData.map(({ Username, Name, Role, Email }) => [
@@ -149,13 +150,11 @@ const PurchasesTbl = () => {
             setCrpage(crpage + 1)
         }
     }
-    const displayData = () => {
-        if (editId === 0 && isedit === false) {
-            return <AddorEditContact id={0} />
-        } else if (editId !== 0 && isedit === true) {
-            return <AddorEditContact id={editId} />
+    const displayData = ()=>{
+        if(showId !==0 && isshow === true){
+          return <ViewPurchase id={showId} />
         }
-    }
+      }
 
 
 
@@ -254,31 +253,31 @@ const PurchasesTbl = () => {
                                             <ul className='absolute top-5 left-10 z-20 flex flex-col items-start w-[200px] bg-white text-gray-600 shadow-xl shadow-gray-400 '>
                                                                                            
                                                 <li className='w-full'>
-                                                    <Link   className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link  onClick={()=>{setIsCliked(!isCliked); setShowId(value.id); setIsshow(true); }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEye size={15} />
                                                         <h1 className='text-sm'>View</h1>
                                                     </Link >
                                                 </li>
                                                 <li className='w-full'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <div onClick={() => {  }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaPrint size={15} />
                                                         <h1 className='text-sm'>Print</h1>
                                                     </div>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <div onClick={() => {  }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEdit size={15} />
                                                         <h1 className='text-sm'>Edit</h1>
                                                     </div>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <div onClick={() => {  }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaTrash size={15} />
                                                         <h1 className='text-sm'>Delete</h1>
                                                     </div>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <div onClick={() => {  }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaBarcode size={15} />
                                                         <h1 className='text-sm'>Lables</h1>
                                                     </div>
@@ -337,6 +336,16 @@ const PurchasesTbl = () => {
                     </tfoot>
                 </table>
             </div>
+            {isCliked &&
+                <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen'>
+                    <div className='flex items-end justify-end w-full md:w-[70%]  mt-10 bg-white px-5 pt-2'>
+                        <MdCancel onClick={() => { setIsCliked(!isCliked);  setShowId(0) ;setIsshow(false) }} size={20} />
+
+                    </div>
+                    {displayData()}
+                </div>
+
+            }
             <nav className='  my-2 w-full'>
                 <ul className='flex justify-end'>
                     <li>
@@ -355,9 +364,9 @@ const PurchasesTbl = () => {
                 </ul>
             </nav>
             {isCliked &&
-                <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen'>
-                    <div className='flex items-end justify-end w-full md:w-[75%]  mt-10 bg-white px-5 pt-2'>
-                        <MdCancel onClick={() => { setIsCliked(!isCliked); setEditId(0);; setIsedit(false); }} size={20} />
+                <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/50 w-full min-h-screen'>
+                    <div className='flex items-end justify-end w-full md:w-[80%]  mt-10 bg-white px-5 pt-2'>
+                        <MdCancel onClick={() => { setIsCliked(!isCliked); setShowId(0) ; }} size={20} />
 
                     </div>
                     {displayData()}

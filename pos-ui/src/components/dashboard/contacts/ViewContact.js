@@ -1,10 +1,10 @@
 import React from 'react'
-import { FaArrowAltCircleDown, FaHourglassHalf, FaInfo, FaMapMarker, FaMobile, FaMoneyBillAlt, FaPaperclip, FaPenSquare, FaScroll, FaUserTie } from 'react-icons/fa'
+import { FaArrowAltCircleDown, FaArrowAltCircleUp, FaGift, FaHourglassHalf, FaInfo, FaMapMarker, FaMobile, FaMoneyBillAlt, FaPaperclip, FaPenSquare, FaScroll, FaUserTie } from 'react-icons/fa'
 import {Outlet , NavLink} from 'react-router-dom'
 
 
 const ViewContact = () => {
-    const dummyData = [
+       const dummyData = [
         {
             id: 1,
             Username: "username",
@@ -115,6 +115,10 @@ const ViewContact = () => {
                     <FaScroll size={20} />
                     <h1 className='font-bold text-xl'>Ledger</h1>
                 </NavLink>
+                {/* <NavLink to={"sales_tab"} className={`flex aria-[current=page]:border-t-[3px] aria-[current=page]:border-blue-600  items-center justify-center`}>
+                    <FaArrowAltCircleUp size={20} />
+                    <h1 className='font-bold text-xl'>Sales</h1>
+                </NavLink> */}
                 <NavLink to={"purchase_tab"} className={`flex aria-[current=page]:border-t-[3px] aria-[current=page]:border-blue-600  items-center justify-center`}>
                     <FaArrowAltCircleDown size={20} />
                     <h1 className='font-bold text-xl'>Purchases</h1>
@@ -127,6 +131,10 @@ const ViewContact = () => {
                     <FaPaperclip size={20} />
                     <h1 className='font-bold text-xl'>Documents & Notes</h1>
                 </NavLink>
+                {/* <NavLink to={"rewards_tab"} className={`flex aria-[current=page]:border-t-[3px] aria-[current=page]:border-blue-600  items-center justify-center`}>
+                    <FaGift size={20} />
+                    <h1 className='font-bold text-xl'>Reward Points</h1>
+                </NavLink> */}
                 <NavLink to={"payment_tab"} className={`flex aria-[current=page]:border-t-[3px] aria-[current=page]:border-blue-600  items-center justify-center`}>
                     <FaMoneyBillAlt size={20} />
                     <h1 className='font-bold text-xl'>Payments</h1>
