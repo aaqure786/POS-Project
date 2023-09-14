@@ -23,6 +23,7 @@ import PaymentsTab from './components/dashboard/contacts/PaymentsTab';
 import ActivitiesTable from './components/dashboard/Tables/ActivitiesTable';
 import SalesTab from './components/dashboard/contacts/SalesTab';
 import RewardsTab from './components/dashboard/contacts/RewardsTab';
+import AddorEditPurchase from './components/dashboard/Purchases/AddorEditPurchase';
 
 
 function App() {
@@ -58,6 +59,9 @@ function App() {
                 <Route path='/home/contact/view/:id/rewards_tab' element={<RewardsTab />} />
 
             </Route>
+            <Route path='/home/purchase/addpurchase' element={<AddorEditPurchase />} />
+            <Route path='/home/purchase/edit/:id' element={<AddorEditPurchase />} />
+            
             
             
           </Route>

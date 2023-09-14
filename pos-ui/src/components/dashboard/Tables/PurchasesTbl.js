@@ -265,10 +265,10 @@ const PurchasesTbl = () => {
                                                     </div>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <div onClick={() => {  }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link to={`/home/purchase/edit/${value.id}`} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEdit size={15} />
                                                         <h1 className='text-sm'>Edit</h1>
-                                                    </div>
+                                                    </Link>
                                                 </li>
                                                 <li className='w-full'>
                                                     <div onClick={() => {  }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
@@ -338,7 +338,7 @@ const PurchasesTbl = () => {
             </div>
             {isCliked &&
                 <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen'>
-                    <div className='flex items-end justify-end w-full md:w-[70%]  mt-10 bg-white px-5 pt-2'>
+                    <div className='flex items-end justify-end w-full md:w-[80%]  mt-10 bg-white px-5 pt-2'>
                         <MdCancel onClick={() => { setIsCliked(!isCliked);  setShowId(0) ;setIsshow(false) }} size={20} />
 
                     </div>

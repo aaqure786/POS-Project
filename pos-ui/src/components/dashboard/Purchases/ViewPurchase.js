@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import {FaPrint} from "react-icons/fa"
+import { useReactToPrint } from 'react-to-print';
 
 const ViewPurchase = () => {
     const dummyData = [
@@ -52,8 +54,16 @@ const ViewPurchase = () => {
             Email: "username6@gmail.com"
         }
     ]
+    
+    const printRef = useRef()
+    const handlePrint = useReactToPrint({
+        content: () => printRef.current,
+        documentTitle: "ConsignmentReport",
+        copyStyles: true,
+    });
     return (
-        <div className='w-full md:w-[80%] flex flex-col p-3 bg-white'>
+        <div className='w-full md:w-[80%] flex mx-3 flex-col  bg-white'>
+            <div className='w-full px-2 my-2' ref={printRef}>
             <div className='flex items-start '>
                 <h1 className='text-xl'>Purchase Detials (</h1>
                 <h1 className='text-xl font-bold'>Reference No:</h1>
@@ -101,7 +111,7 @@ const ViewPurchase = () => {
                 </div>
             </div>
             <div className='flex  mt-5 ' >
-                <table id='usertbl' className="table-fixed  mb-2   px-5 ">
+                <table  className="table-fixed  mb-2   px-5 ">
                     <thead>
                         <tr className='h-[50px] bg-green-500'>
                             <th className=" py-2 title-font  tracking-wider font-bold text-white text-sm ">#</th>
@@ -148,7 +158,7 @@ const ViewPurchase = () => {
                 <div className='flex flex-col'>
                     <h1 className='text-xl text-start my-2 font-bold'>Payment Info:</h1>
 
-                    <table id='usertbl' className="table-fixed  mb-2   px-5 ">
+                    <table  className="table-fixed  mb-2   px-5 ">
                         <thead>
                             <tr className='h-[50px] bg-green-500'>
                                 <th className=" py-2 title-font  tracking-wider font-bold text-white text-sm ">#</th>
@@ -248,7 +258,13 @@ const ViewPurchase = () => {
                 </table>
                 
             </div>
-
+            </div>
+            <div className='flex items-end justify-end mx-4'>
+                <div className='flex bg-green-400 text-white cursor-pointer px-2 py-1' onClick={handlePrint}>
+                    <FaPrint size={15 }/>
+                    <h1 className='text-sm mx-1'>Print</h1>
+                </div>
+            </div>
         </div>
     )
 }
