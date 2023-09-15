@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FaCalendar, FaChevronCircleDown, FaInfoCircle, FaMoneyBillAlt, FaPlus, FaPlusCircle, FaSearch, FaTimes, FaTrash, FaUser } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import { BiChevronDown } from 'react-icons/bi'
 import { AiOutlineSearch, AiTwotoneFolderOpen } from 'react-icons/ai'
 import { MdCancel } from 'react-icons/md'
 import AddProduct from '../Product/AddProduct'
+import AddorEditContact from "../contacts/AddorEditContact"
 import ImportProduct from '../Product/ImportProduct'
 
 const AddorEditPurchase = () => {
@@ -64,6 +65,10 @@ const AddorEditPurchase = () => {
     const [open, setOpen] = useState(false)
     const [selected, setSelected] = useState('')
     const [addExpenses, setAddExpenses] = useState(false)
+    const [isAddSupplier, setIsAddSupplier] = useState(false)
+    const [info, setInfo] = useState(false)
+    const [info1, setInfo1] = useState(false)
+    const [info2, setInfo2] = useState(false)
     const [formData, setFormData] = useState({
         supplier: "",
         referenceNo: "",
@@ -89,6 +94,7 @@ const AddorEditPurchase = () => {
         additionalExpenseAmount3: 0,
 
     })
+    const inpuRef= useRef()
     const params = useParams()
     const id = params.id
     const [isCliked, setIsCliked] = useState(false)
@@ -97,8 +103,10 @@ const AddorEditPurchase = () => {
     const displayData = () => {
         if (newProduct === true) {
             return <AddProduct />
-        }else if (isProductUpload === true){
+        } else if (isProductUpload === true) {
             return <ImportProduct />
+        }else if (isAddSupplier === true){
+            return <AddorEditContact  id={0} />
         }
     }
 
@@ -113,15 +121,15 @@ const AddorEditPurchase = () => {
                         <div className='flex flex-col relative'>
                             <div className='flex'>
                                 < FaUser size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
-                                <input 
+                                <input
                                     onClick={() => setOpen(!open)}
                                     className='bg-white w-full  flex items-center  focus:outline-none justify-between px-2  border-[1px] border-gray-600'
-                                    value={selected }
+                                    value={selected}
                                     placeholder='Select Value'
                                 />
                                 <BiChevronDown size={20} className={`${open && "rotate-180"} absolute top-1 right-7`} />
-                                
-                                <FaPlusCircle size={20} style={{ color: "blue" }} className='w-8 h-8 p-1 border-[1px] border-gray-600' />
+
+                                <FaPlusCircle onClick={()=>{setIsAddSupplier(true); setIsCliked(true)}} size={20} style={{ color: "blue" }} className='w-8 h-8 p-1 border-[1px] border-gray-600' />
 
                             </div>
                             {open &&
@@ -164,8 +172,17 @@ const AddorEditPurchase = () => {
                             }
                         </div>
                     </div>
-                    <div className='flex flex-col'>
-                        <h1 className='flex text-sm text-start font-bold'>Reference No:*</h1>
+                    <div className='flex flex-col relative'>
+                        <div className='flex mx-2'>
+                            <h1 className='text-start font-bold'>Reference No:*</h1>
+                            <FaInfoCircle onMouseOver={() => { setInfo(true) }} onMouseLeave={() => { setInfo(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
+                            {info &&
+                                <div className='flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-8 p-2 z-10 bg-white shadow-md shadow-gray-300'>
+                                    <p className='text-start mt-2 text-gray-600'>Leave Empty to autogenerate</p>
+
+                                </div>
+                            }
+                        </div>
                         <input type='text' placeholder='Reference No' className='px-2 py-1 border-[1px] border-gray-500' />
                     </div>
                     <div className='flex flex-col'>
@@ -183,18 +200,35 @@ const AddorEditPurchase = () => {
                         <h1 className='flex text-sm text-start font-bold'>Address:</h1>
                         <h1 className=' text-sm text-start font-bold'>Address</h1>
                     </div>
-                    <div className='flex flex-col'>
-                        <h1 className='flex text-sm text-start font-bold'>Purchase Date:*
-                            <FaInfoCircle style={{ color: "blue" }} size={15} className='mx-2 cursor-pointer' />
-                        </h1>
+                    <div className='flex flex-col relative'>
+                        <div className='flex mx-2'>
+                            <h1 className='text-start font-bold'>Business Location:*</h1>
+                            <FaInfoCircle onMouseOver={() => { setInfo1(true) }} onMouseLeave={() => { setInfo1(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
+                            {info1 &&
+                                <div className='flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-8 p-2 z-10 bg-white shadow-md shadow-gray-300'>
+                                    <p className='text-start mt-2 text-gray-600'>Business Location where the purchased product will be available for sale.</p>
+
+                                </div>
+                            }
+                        </div>
                         <select value={formData.businesLocation} type="text" className='px-2 py-1 w-full border-[1px] border-gray-600 focus:outline-none'>
                             <option value={""}>Please Selecet</option>
                             <option value={"Eziline Software House (Pvt.) Ltd (BL0001)"}>Eziline Software House (Pvt.) Ltd (BL0001)</option>
                         </select>
 
                     </div>
-                    <div className='flex flex-col'>
-                        <h1 className='flex text-sm text-start font-bold'>Pay Term:</h1>
+                    <div className='flex flex-col relative'>
+                        <div className='flex mx-2'>
+                            <h1 className='text-start font-bold'>Pay Term:</h1>
+                            <FaInfoCircle onMouseOver={() => { setInfo2(true) }} onMouseLeave={() => { setInfo2(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
+                            {info2 &&
+                                <div className='flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-8 p-2 z-10 bg-white shadow-md shadow-gray-300'>
+                                    <p className='text-start mt-2 text-gray-800'>Payments to be paid for purchase/sales within the given time period.</p>
+                                    <p className='text-start mt-2 text-xs text-gray-600'>All Upcoming or due payments will be displayed in Dashboard - payments-due section.</p>
+
+                                </div>
+                            }
+                        </div>
                         <div className='flex'>
                             <input value={formData.payTerm} onChange={(e) => { setFormData({ ...formData, payTerm: e.target.value }) }} type='text' placeholder='Salary' className='px-2 py-[3px] w-1/2 border-[1px] border-gray-600 focus:outline-none' />
                             <select value={formData.payTerm1} onChange={(e) => { setFormData({ ...formData, payTerm1: e.target.value }) }} type='text' className='px-2 py-[3px] w-1/2 border-[1px] border-gray-600 focus:outline-none'>
@@ -220,8 +254,9 @@ const AddorEditPurchase = () => {
                         <h2 className='text-white text-start font-bold flex mb-1'> Attatch Document:</h2>
                         <div className='flex'>
                             {/* value={formData.img_data} onChange={ (e)=>setFormData({...formData,  img_data: e.target.value})} */}
-                            <input className='px-3 py-1 focus:outline-none w-[60%]' type='file' accept='application/pdf,text/csv,application/zip,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/jpg,image/png' />
-                            <div className='flex bg-blue-600 text-white w-[40%] items-center justify-center'>
+                            <input type='text' className='px-3 py-1 border-[1px] border-gray-700  focus:outline-none w-[60%]' />
+                            <input className='px-3 py-1 focus:outline-none w-[60%] hidden' type='file' ref={inpuRef} accept='application/pdf,text/csv,application/zip,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/jpg,image/png' />
+                            <div onClick={()=>{  inpuRef.current?.click();}} className='flex cursor-pointersu bg-blue-600 text-white w-[40%] items-center justify-center'>
                                 <AiTwotoneFolderOpen size={32} />
                                 Browse
                             </div>
@@ -244,7 +279,7 @@ const AddorEditPurchase = () => {
             </div>
             <div className='flex  w-full   flex-col  p-5 mt-5 bg-white border-t-[3px] rounded-md border-blue-600'>
                 <div className='flex flex-col md:flex-row w-full'>
-                    <button onClick={()=>{setIsCliked(true); setIsProductUpload(true)}} className='bg-blue-600 mt-4 md:mt-0 md:w-[15%] mx-[2.5%] text-white px-2 py-1' >Import Products</button>
+                    <button onClick={() => { setIsCliked(true); setIsProductUpload(true) }} className='bg-blue-600 mt-4 md:mt-0 md:w-[15%] mx-[2.5%] text-white px-2 py-1' >Import Products</button>
                     <div className='flex md:w-[60%] mt-4 md:mt-0'>
                         < FaSearch size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
                         <input value={searchData} onChange={(e) => { setSearchData(e.target.value) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
@@ -496,7 +531,7 @@ const AddorEditPurchase = () => {
             {isCliked &&
                 <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen'>
                     <div className="w-full md:w-[70%]">
-                        <div onClick={() => { setIsCliked(false); setNewProduct(false); setIsProductUpload(false); }} className=' flex items-end justify-end  w-full mt-10 bg-white px-5 pt-2'>
+                        <div onClick={() => { setIsCliked(false); setIsAddSupplier(false); setNewProduct(false); setIsProductUpload(false); }} className=' flex items-end justify-end  w-full mt-10 bg-white px-5 pt-2'>
                             <MdCancel size={20} />
 
                         </div>

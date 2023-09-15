@@ -1,17 +1,16 @@
 import React, { useRef, useState } from 'react'
 import { AiOutlineDelete, AiOutlinePlus } from 'react-icons/ai'
 import { MdCancel } from 'react-icons/md'
-import { FaColumns, FaEdit, FaEye, FaFileCsv, FaFileExcel, FaFilePdf, FaPrint, FaSearch } from 'react-icons/fa'
+import { FaColumns, FaEdit, FaFileCsv, FaFileExcel, FaFilePdf, FaPrint, FaSearch } from 'react-icons/fa'
 import { useReactToPrint } from 'react-to-print';
 import { CSVLink } from 'react-csv';
 import * as XLSX from 'xlsx'
 import { jsPDF } from 'jspdf';
 import * as htmlToImage from 'html-to-image';
-import AddorEditNotes from '../Users/AddorEditNotes';
-import ShowNotes from '../Users/ShowNotes';
+import AddorEditCustomerGrp from '../contacts/AddorEditCustomerGrp';
 
 
-const DocTable = () => {
+const CustomerGrpTbl = () => {
     const dummyData = [
         {
             id: 1,
@@ -104,12 +103,10 @@ const DocTable = () => {
     const [col2, setCol2] = useState(true)
     const [col3, setCol3] = useState(true)
     const [col4, setCol4] = useState(true)
-    const [col5, setCol5] = useState(true)
     const [isClike, setIsClike] = useState(false)
     const [editId, setEditId] = useState(0)
     const [isedit, setIsedit] = useState(false)
-    const [showId, setShowId] = useState(0)
-    const [isshow, setIsshow] = useState(false)
+
 
     const csvData = [
         ["Username", "Name", "Role", "Email"],
@@ -140,20 +137,20 @@ const DocTable = () => {
         }
     }
 
-    const displayData = ()=>{
-      if(editId === 0 && isedit === false && isshow === false){
-        return  <AddorEditNotes id= {0} />
-      }else if(editId !==0 && isedit=== true){
-        return <AddorEditNotes id={editId} />
-      }else if(showId !==0 && isshow === true){
-        return <ShowNotes id={showId} />
-      }
+    const displayData = () => {
+        if (editId === 0 && isedit === false) {
+            return <AddorEditCustomerGrp id={0} />
+        } else if (editId !== 0 && isedit === true) {
+            return <AddorEditCustomerGrp id={editId} />
+        }
     }
 
 
     return (
         <div className='w-full'>
-            <div className='flex w-full items-end justify-end'>
+            <div className='flex w-full items-center justify-between'>
+                <h1 className='text-xl font-bold text-start'>All Customer Groups</h1>
+
                 <button onClick={() => { setIsClike(!isClike) }} className='flex items-center justify-center mx-5 font-semibold w-20 h-10 rounded-md mt-3 text-white bg-blue-500'>
                     <AiOutlinePlus size={15} /> Add
 
@@ -200,12 +197,11 @@ const DocTable = () => {
                             <FaColumns size={15} className=' mt-1 pr-[2px]' />
                             <h1 className='text-sm'>Column Visibility</h1>
                             {colvis && <div className='absolute top-7 shadow-md shadow-gray-400 bg-white w-[150px]'>
-                                <ul className='flex flex-col items-center justify-center'>
-                                    <li className={` w-full py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Action</li>
-                                    <li className={` w-full py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>Heading</li>
-                                    <li className={` w-full py-1 ${col3 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol3(!col3) }}>Added By</li>
-                                    <li className={` w-full py-1 ${col4 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol4(!col4) }}>Created At</li>
-                                    <li className={` w-full py-1 ${col5 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol5(!col5) }}>Updated At</li>
+                                <ul className='flex flex-col items-center justify-start'>
+                                    <li className={` w-full text-xs py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Customer Group Name</li>
+                                    <li className={` w-full text-xs py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>Calculation Percentage</li>
+                                    <li className={` w-full text-xs py-1 ${col3 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol3(!col3) }}>Selling Price Group</li>
+                                    <li className={` w-full text-xs py-1 ${col4 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol4(!col4) }}>Action</li>
 
                                 </ul>
                             </div>}
@@ -229,35 +225,30 @@ const DocTable = () => {
                 <table id='usertbl' className="table-auto w-full mb-10  whitespace-no-wrap ">
                     <thead>
                         <tr>
-                            {col1 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Action</th>}
-                            {col2 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Heading</th>}
-                            {col3 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Added By</th>}
-                            {col4 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Created At</th>}
-                            {col5 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Updated At</th>}
+                            {col1 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Customer Group Name</th>}
+                            {col2 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Calculation Percentage (%)</th>}
+                            {col3 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Selling Price Group</th>}
+                            {col4 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Action</th>}
                         </tr>
                     </thead>
                     <tbody >
                         {record.map((value, index) => {
-                            return <tr key={index} className={`${(index+1)%2 === 0 ? "bg-gray-200" :""}`}>
-                                {col1 && <td className='py-1 flex '>
-                                    <div onClick={() => { setEditId(value.id) ; setIsedit(true) ; setIsClike(!isClike) }} className='flex mx-1 p-1 items-center bg-blue-600 text-white justify-center'>
+                            return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""}`}>
+
+                                {col1 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
+                                {col2 && <td className="px-1 py-1"> {value.Name}</td>}
+                                {col3 && <td className="px-1 py-1">{value.Role}</td>}
+                                {col4 && <td className='py-1 flex '>
+                                    <div onClick={() => { setEditId(value.id); setIsedit(true); setIsClike(!isClike) }} className='flex mx-1 p-1 items-center bg-blue-600 text-white justify-center'>
                                         <FaEdit size={15} />
                                         <h1 className='text-sm'>Edit</h1>
                                     </div>
-                                    <div onClick={() => { setShowId(value.id) ;  setIsClike(!isClike);setIsshow(true) }} className='flex mx-1 p-1 items-center bg-blue-300 text-white justify-center'>
-                                        <FaEye size={15} />
-                                        <h1 className='text-sm'>View</h1>
-                                    </div>
+
                                     <div className='flex mx-1 p-1 items-center bg-red-500 text-white justify-center'>
                                         <AiOutlineDelete size={15} />
                                         <h1 className='text-sm'>Delete</h1>
                                     </div>
                                 </td>}
-                                {col2 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
-                                {col3 && <td className="px-1 py-1"> {value.Name}</td>}
-                                {col4 && <td className="px-1 py-1">{value.Role}</td>}
-                                {col5 && <td className=" py-1 px-1">{value.Email}</td>}
-
                             </tr>
                         })}
 
@@ -284,12 +275,14 @@ const DocTable = () => {
             </div>
 
             {isClike &&
-                <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen'>
-                    <div className='flex items-end justify-end w-full md:w-[70%]  mt-10 bg-white px-5 pt-2'>
-                        <MdCancel onClick={() => { setIsClike(!isClike); setEditId(0); setShowId(0); setIsedit(false) ;setIsshow(false) }} size={20} />
+                <div className='absolute top-0 flex flex-col items-center   right-0 bg-black/70 w-full min-h-screen'>
+                    <div className='flex flex-col  w-full md:w-[50%]  mt-10 bg-white px-5 py-2'>
+                        <div className='flex items-end justify-end '>
+                            <MdCancel onClick={() => { setIsClike(!isClike); setEditId(0); setIsedit(false) }} size={20} />
 
+                        </div>
+                        {displayData()}
                     </div>
-                    {displayData()}
                 </div>
 
             }
@@ -297,4 +290,4 @@ const DocTable = () => {
     )
 }
 
-export default DocTable
+export default CustomerGrpTbl

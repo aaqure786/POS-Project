@@ -24,6 +24,8 @@ import ActivitiesTable from './components/dashboard/Tables/ActivitiesTable';
 import SalesTab from './components/dashboard/contacts/SalesTab';
 import RewardsTab from './components/dashboard/contacts/RewardsTab';
 import AddorEditPurchase from './components/dashboard/Purchases/AddorEditPurchase';
+import ImporContact from './components/dashboard/contacts/ImportContact';
+import CustomerGroup from './components/dashboard/contacts/CustomerGroup';
 
 
 function App() {
@@ -59,6 +61,9 @@ function App() {
                 <Route path='/home/contact/view/:id/rewards_tab' element={<RewardsTab />} />
 
             </Route>
+            <Route path='/home/contact/import' element={<ImporContact />} />
+            <Route path='/home/contact/customer-group' element={<CustomerGroup />} />
+
             <Route path='/home/purchase/addpurchase' element={<AddorEditPurchase />} />
             <Route path='/home/purchase/edit/:id' element={<AddorEditPurchase />} />
             

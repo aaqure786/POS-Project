@@ -64,7 +64,7 @@ const AddorEditContact = (props) => {
 
 
     return (
-        <div className='flex w-full md:w-[75%] flex-col justify-center items-center bg-white p-5'>
+        <div className='flex w-full  flex-col justify-center items-center bg-white p-5'>
             <h1 className=' text-xl font-bold flex justify-start w-full'>{props.id !== 0 ? "Edit a contact" : "Add a new contact"}</h1>
             <div className=' w-full flex flex-col'>
                 <div className='grid grid-cols-1 mt-2 md:grid-cols-3 gap-2'>

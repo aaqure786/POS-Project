@@ -229,22 +229,22 @@ const PurchasesTbl = () => {
                 <table id='usertbl' className="table-fixed  mb-10   px-5 ">
                     <thead>
                         <tr className='h-[50px]'>
-                            {col1 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Action</th>}
-                            {col2 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Date</th>}
-                            {col3 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Reference No</th>}
-                            {col4 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Location</th>}
-                            {col5 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Supplier</th>}
-                            {col6 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Purchase Status</th>}
-                            {col7 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Payment Status</th>}
-                            {col8 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Grand Total</th>}
-                            {col9 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Payment Due</th>}
-                            {col10 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Added By</th>}
+                            {col1 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-400">Action</th>}
+                            {col2 && <th className=" py-2 title-font w-[70px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-400">Date</th>}
+                            {col3 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-400">Reference No</th>}
+                            {col4 && <th className=" py-2 title-font w-[101px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-400">Location</th>}
+                            {col5 && <th className=" py-2 title-font w-[57px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-400">Supplier</th>}
+                            {col6 && <th className=" py-2 title-font w-[79px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-400">Purchase Status</th>}
+                            {col7 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-400">Payment Status</th>}
+                            {col8 && <th className=" py-2 title-font w-[55px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-400">Grand Total</th>}
+                            {col9 && <th className=" py-2 title-font w-[107px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-400">Payment Due</th>}
+                            {col10 && <th className=" py-2 title-font w-[51px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-400">Added By</th>}
                             
                         </tr>
                     </thead>
                     <tbody >
                         {record.map((value, index) => {
-                            return <tr key={index} className=''>
+                            return <tr key={index} className={`${(index+1)% 2 === 0 ? "bg-gray-200" :""}`}>
                                 {col1 && <td className='py-1 flex '>
                                     <div onClick={() => { toggleDropdown(index) }} className='flex px-2 py-1 relative cursor-pointer items-center bg-green-600 rounded-xl text-white justify-center'>
                                         <h1 className='text-sm'>Action</h1>
@@ -319,20 +319,27 @@ const PurchasesTbl = () => {
                                 {col2 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col3 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col4 && <td className="px-1 py-1">{value.Role}</td>}
-                                {col5 && <td className=" py-1 px-1">{value.Email}</td>}
+                                {col5 && <td className=" py-1 px-1">{value.Name}</td>}
                                 {col6 && <td className=" py-1 px-1">{value.Role}</td>}
                                 {col7 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col8 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col9 && <td className="px-1 py-1">{value.Role}</td>}
-                                {col10 && <td className=" py-1 px-1">{value.Email}</td>}
+                                {col10 && <td className=" py-1 px-1">{value.Name}</td>}
                                 
                             </tr>
                         })}
 
 
                     </tbody>
-                    <tfoot>
-                        <tr></tr>
+                    <tfoot className='bg-gray-400 w-full'>
+                        <tr>
+                        <td colSpan={5} className=' w-[520.25px] border-[1px] border-white font-bold items-center justify-center'>Total:</td>
+                        <td  className='items-center border-[1px] border-white justify-center'></td>
+                        <td  className='items-center border-[1px] border-white justify-center'>Partial - 1</td>
+                        <td  className='items-center border-[1px] border-white justify-center'>Rs 4,500.00</td>
+                        <td  className='items-center border-[1px] border-white justify-center'>Purchase Due - Rs 4,050.00 Purchase Return - Rs 0.00</td>
+                        <td  className='items-center border-[1px] border-white justify-center'></td>
+                        </tr>
                     </tfoot>
                 </table>
             </div>

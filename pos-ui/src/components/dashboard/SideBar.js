@@ -75,11 +75,11 @@ const SideBar = () => {
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Customers</h1>
         </NavLink>
-        <NavLink to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/contact/customer-group"} className='flex hover:text-black  py-1 items-center aria-[current=page]:font-bold aria-[current=page]:text-black   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '> Customer Groups</h1>
         </NavLink>
-        <NavLink to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/contact/import"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Import Contacts </h1>
         </NavLink>
