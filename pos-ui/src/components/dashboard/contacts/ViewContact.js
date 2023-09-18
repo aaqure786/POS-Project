@@ -115,10 +115,10 @@ const ViewContact = () => {
                     <FaScroll size={20} />
                     <h1 className='font-bold text-xl'>Ledger</h1>
                 </NavLink>
-                {/* <NavLink to={"sales_tab"} className={`flex aria-[current=page]:border-t-[3px] aria-[current=page]:border-blue-600  items-center justify-center`}>
+                <NavLink to={"sales_tab"} className={`flex aria-[current=page]:border-t-[3px] aria-[current=page]:border-blue-600  items-center justify-center`}>
                     <FaArrowAltCircleUp size={20} />
                     <h1 className='font-bold text-xl'>Sales</h1>
-                </NavLink> */}
+                </NavLink>
                 <NavLink to={"purchase_tab"} className={`flex aria-[current=page]:border-t-[3px] aria-[current=page]:border-blue-600  items-center justify-center`}>
                     <FaArrowAltCircleDown size={20} />
                     <h1 className='font-bold text-xl'>Purchases</h1>
@@ -131,10 +131,10 @@ const ViewContact = () => {
                     <FaPaperclip size={20} />
                     <h1 className='font-bold text-xl'>Documents & Notes</h1>
                 </NavLink>
-                {/* <NavLink to={"rewards_tab"} className={`flex aria-[current=page]:border-t-[3px] aria-[current=page]:border-blue-600  items-center justify-center`}>
+                <NavLink to={"rewards_tab"} className={`flex aria-[current=page]:border-t-[3px] aria-[current=page]:border-blue-600  items-center justify-center`}>
                     <FaGift size={20} />
                     <h1 className='font-bold text-xl'>Reward Points</h1>
-                </NavLink> */}
+                </NavLink>
                 <NavLink to={"payment_tab"} className={`flex aria-[current=page]:border-t-[3px] aria-[current=page]:border-blue-600  items-center justify-center`}>
                     <FaMoneyBillAlt size={20} />
                     <h1 className='font-bold text-xl'>Payments</h1>

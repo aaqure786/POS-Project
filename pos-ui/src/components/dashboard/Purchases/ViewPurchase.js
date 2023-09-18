@@ -58,7 +58,7 @@ const ViewPurchase = () => {
     const printRef = useRef()
     const handlePrint = useReactToPrint({
         content: () => printRef.current,
-        documentTitle: "ConsignmentReport",
+        documentTitle: "PurchaseReport",
         copyStyles: true,
     });
     return (

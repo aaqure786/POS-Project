@@ -26,6 +26,7 @@ import RewardsTab from './components/dashboard/contacts/RewardsTab';
 import AddorEditPurchase from './components/dashboard/Purchases/AddorEditPurchase';
 import ImporContact from './components/dashboard/contacts/ImportContact';
 import CustomerGroup from './components/dashboard/contacts/CustomerGroup';
+import AddorEditSell from './components/dashboard/sell/AddorEditSell';
 
 
 function App() {
@@ -66,6 +67,8 @@ function App() {
 
             <Route path='/home/purchase/addpurchase' element={<AddorEditPurchase />} />
             <Route path='/home/purchase/edit/:id' element={<AddorEditPurchase />} />
+            <Route path='/home/sells/create' element={<AddorEditSell />} />
+            <Route path='/home/sells/edit/:id' element={<AddorEditSell />} />
             
             
             
