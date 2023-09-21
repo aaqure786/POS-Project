@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { FaCalendar, FaChevronCircleDown, FaInfoCircle, FaMoneyBillAlt, FaPlus, FaPlusCircle, FaSearch, FaTimes, FaTrash, FaUser } from 'react-icons/fa'
+import { FaCalendar, FaChevronCircleDown, FaInfoCircle, FaPlus, FaPlusCircle, FaSearch, FaTimes, FaTrash, FaUser } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import { BiChevronDown } from 'react-icons/bi'
 import { AiOutlineSearch, AiTwotoneFolderOpen } from 'react-icons/ai'
@@ -8,7 +8,7 @@ import AddProduct from '../Product/AddProduct'
 import AddorEditContact from "../contacts/AddorEditContact"
 import ImportProduct from '../Product/ImportProduct'
 
-const AddorEditPurchase = () => {
+const AddorEditPurchaseOrder = () => {
     const dummyData = [
         {
             id: 1,
@@ -65,24 +65,22 @@ const AddorEditPurchase = () => {
     const [open, setOpen] = useState(false)
     const [addExpenses, setAddExpenses] = useState(false)
     const [isAddSupplier, setIsAddSupplier] = useState(false)
-    const [info, setInfo] = useState(false)
     const [info1, setInfo1] = useState(false)
     const [info2, setInfo2] = useState(false)
+    const inpuRef1 = useRef();
     const [formData, setFormData] = useState({
         supplier: "",
         referenceNo: "",
-        purchaseDate: "",
+        orderDate: "",
+        deliveryDate: "",
         businesLocation: "",
         payTerm: "",
-        purchaseOrder: "",
-        discountType: "",
-        discountAmount: 0,
-        discount: 0,
-        purchaseTaxType: "",
-        purchaseTax: 0,
+        payTerm1:"",
         additionalNotes: "",
         shippingDetails: "",
-        additionalShippingCharges: 0,
+        shippingDoucments:"",
+        shippingCharges: 0,
+        deliveredTo:"",
         additionalExpenseName: "",
         additionalExpenseAmount: 0,
         additionalExpenseName1: "",
@@ -91,10 +89,6 @@ const AddorEditPurchase = () => {
         additionalExpenseAmount2: 0,
         additionalExpenseName3: "",
         additionalExpenseAmount3: 0,
-        amount: "",
-        paymentDate: "",
-        paymentAccount: "",
-        paymentMethod: "",
         documents: "",
 
     })
@@ -109,9 +103,12 @@ const AddorEditPurchase = () => {
 
     const handleClick = (e) => {
 
-         if (id) {
+        if (id) {
             if (formData.supplier.length === 0 ||
-                formData.purchaseDate.length === 0) {
+                formData.orderDate.length === 0 ||
+                formData.referenceNo.length === 0 ||
+                formData.businesLocation.length === 0
+                ) {
                 setIsserror(true)
             } else {
 
@@ -119,11 +116,9 @@ const AddorEditPurchase = () => {
             }
         } else {
             if (formData.supplier.length === 0 ||
-                formData.purchaseDate.length === 0 ||
-                formData.amount.length === 0 ||
-                formData.paymentDate.length === 0 ||
-                formData.paymentAccount.length === 0 ||
-                formData.paymentMethod.length === 0) {
+                formData.orderDate.length === 0 ||
+                formData.businesLocation.length === 0
+                ) {
                 setIsserror(true)
             } else {
 
@@ -146,9 +141,9 @@ const AddorEditPurchase = () => {
 
     return (
         <div className='w-full p-5 bg-gray-100'>
-            <h1 className='text-xl text-start font-bold '>{id ? "Edit Purchase" : "Add Purchase"}</h1>
+            <h1 className='text-xl text-start font-bold '>{id ? "Edit Purchase Order" : "Add Purchase Order"}</h1>
             <div className='flex w-full  min-h-[300px] flex-col p-5 mt-5 bg-white border-t-[3px] rounded-md border-blue-600'>
-                <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+                <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
                     <div className='flex flex-col'>
                         <div className='flex text-sm text-start font-bold'>
                             <h1>Supplier:*</h1>
@@ -213,30 +208,40 @@ const AddorEditPurchase = () => {
                     <div className='flex flex-col relative'>
                         <div className='flex mx-2'>
                             <h1 className='text-start font-bold'>Reference No:</h1>
-                            <FaInfoCircle onMouseOver={() => { setInfo(true) }} onMouseLeave={() => { setInfo(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
-                            {info &&
-                                <div className='flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-8 p-2 z-10 bg-white shadow-md shadow-gray-300'>
-                                    <p className='text-start mt-2 text-gray-600'>Leave Empty to autogenerate</p>
+                            {id && <h1>*
+                            <span className='text-red-400'>{isserror && formData.supplier.length === 0 ? "Required field" : ""}</span>
 
-                                </div>
+                            </h1>
+                                
                             }
                         </div>
                         <input value={formData.referenceNo} onChange={(e) => { setFormData({ ...formData, referenceNo: e.target.value }) }} type='text' placeholder='Reference No' className='px-2 py-1 border-[1px] border-gray-500' />
                     </div>
                     <div className='flex flex-col'>
                         <div className='flex text-sm text-start font-bold'>
-                            <h1>Purchase Date:*</h1>
-                            <h2 className='text-red-400'>{isserror && formData.purchaseDate.length === 0 ? "Required field" : ""}</h2>
+                            <h1>Order Date:*</h1>
+                            <h2 className='text-red-400'>{isserror && formData.orderDate.length === 0 ? "Required field" : ""}</h2>
                         </div>
                         <div className='flex'>
                             < FaCalendar size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
 
-                            <input value={formData.purchaseDate} onChange={(e) => { setFormData({ ...formData, purchaseDate: e.target.value }) }} type='Date' placeholder='Select Date Time' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                            <input value={formData.orderDate} onChange={(e) => { setFormData({ ...formData, orderDate: e.target.value }) }} type='Date' placeholder='Select Date Time' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                        </div>
+
+                    </div>
+                    <div className='flex flex-col'>
+                        <div className='flex text-sm text-start font-bold'>
+                            <h1>Delivery Date:</h1>
+                        </div>
+                        <div className='flex'>
+                            < FaCalendar size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
+
+                            <input value={formData.deliveryDate} onChange={(e) => { setFormData({ ...formData, deliveryDate: e.target.value }) }} type='Date' placeholder='Select Date Time' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
                         </div>
 
                     </div>
                 </div>
-                <div className='grid grid-cols-1 md:grid-cols-3 mt-3 gap-4'>
+                <div className='grid grid-cols-1 md:grid-cols-4 mt-3 gap-4'>
                     <div className='flex flex-col'>
                         <h1 className='flex text-sm text-start font-bold'>Address:</h1>
                         <h1 className=' text-sm text-start font-bold'>Address</h1>
@@ -283,23 +288,12 @@ const AddorEditPurchase = () => {
 
                         </div>
                     </div>
-                </div>
-                <div className='grid grid-cols-1 md:grid-cols-3 mt-3 gap-4'>
-                    <div className='flex flex-col'>
-
-                    </div>
-                    <div className='flex flex-col'>
-
-
-                    </div>
-
-
                     <div className=' flex flex-col '>
-                        <h2 className='text-white text-start font-bold flex mb-1'> Attatch Document:</h2>
+                        <h2 className='text-start font-bold flex mb-1'> Attatch Document:</h2>
                         <div className='flex'>
                             {/* value={formData.img_data} onChange={ (e)=>setFormData({...formData,  img_data: e.target.value})} */}
-                            <input value={formData.doucments} onChange={(e) => { setFormData({ ...formData, doucments: e.target.value }) }} type='text' className='px-3 py-1 border-[1px] border-gray-700  focus:outline-none w-[60%]' />
-                            <input value={formData.doucments} onChange={(e) => { setFormData({ ...formData, doucments: e.target.value }) }} className='px-3 py-1 focus:outline-none w-[60%] hidden' type='file' ref={inpuRef} accept='application/pdf,text/csv,application/zip,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/jpg,image/png' />
+                            <input value={formData.documents} onChange={(e) => { setFormData({ ...formData, doucments: e.target.value }) }} type='text' className='px-3 py-1 border-[1px] border-gray-700  focus:outline-none w-[60%]' />
+                            <input value={formData.documents} onChange={(e) => { setFormData({ ...formData, doucments: e.target.value }) }} className='px-3 py-1 focus:outline-none w-[60%] hidden' type='file' ref={inpuRef} accept='application/pdf,text/csv,application/zip,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/jpg,image/png' />
                             <div onClick={() => { inpuRef.current?.click(); }} className='flex cursor-pointersu bg-blue-600 text-white w-[40%] items-center justify-center'>
                                 <AiTwotoneFolderOpen size={32} />
                                 Browse
@@ -312,21 +306,13 @@ const AddorEditPurchase = () => {
 
                     </div>
                 </div>
-                <div className='grid grid-cols-1 md:grid-cols-3 mt-3 gap-4'>
-                    <div className='flex flex-col'>
-                        <h1 className='flex text-sm text-start font-bold'>Purchase Order:</h1>
-                        <input value={formData.contact_id} onChange={(e) => { setFormData({ ...formData, contact_id: e.target.value }) }} type='Text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
 
-                    </div>
-
-                </div>
             </div>
             <div className='flex  w-full   flex-col  p-5 mt-5 bg-white border-t-[3px] rounded-md border-blue-600'>
-                <div className='flex flex-col md:flex-row w-full'>
-                    <button onClick={() => { setIsCliked(true); setIsProductUpload(true) }} className='bg-blue-600 mt-4 md:mt-0 md:w-[15%] mx-[2.5%] text-white px-2 py-1' >Import Products</button>
+                <div className='flex flex-col md:flex-row w-full items-center justify-center '>
                     <div className='flex md:w-[60%] mt-4 md:mt-0'>
                         < FaSearch size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
-                        <input value={searchData} onChange={(e) => { setSearchData(e.target.value) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                        <input value={searchData} onChange={(e) => { setSearchData(e.target.value) }} type='text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
 
                     </div>
                     <button onClick={() => { setIsCliked(true); setNewProduct(true) }} className='flex mt-4 md:mt-0 md:w-[17%] mx-[1.5%] text-blue-600 underline'>
@@ -390,72 +376,61 @@ const AddorEditPurchase = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex  w-full   flex-col  p-5 mt-5 bg-white border-t-[3px] rounded-md border-blue-600'>
-                <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
-                    <div className='flex flex-col '>
-                        <h1 className='flex text-sm text-start font-bold'>Discount Type:</h1>
-                        <select value={formData.discountType} onChange={(e) => { setFormData({ ...formData, discountType: e.target.value }) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
-                            <option value={""}>None</option>
-                            <option value={"Fixed"}>Fixed</option>
-                            <option value={"Percentage"}>Percentage</option>
 
-                        </select>
-
-                    </div>
-                    <div className='flex flex-col '>
-                        <h1 className='flex text-sm text-start font-bold'>Discount Amount:</h1>
-                        <input value={formData.discountAmount} onChange={(e) => { setFormData({ ...formData, discountAmount: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
-
-                    </div>
-                    <div className='flex flex-col items-end'>
-                        <h1 className='flex text-sm  font-bold'>Discount <p className='mx-2'>(-) {formData.discount}</p> </h1>
-
-                    </div>
-                </div>
-                <div className='w-full h-[1px] bg-gray-300 my-5'></div>
-                <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
-                    <div className='flex flex-col '>
-                        <h1 className='flex text-sm text-start font-bold'>Purchase Tax:</h1>
-                        <select value={formData.purchaseTaxType} onChange={(e) => { setFormData({ ...formData, purchaseTaxType: e.target.value }) }} type='text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
-                            <option value={""}>None</option>
-                            <option value={"sss"}>sss</option>
-                            <option value={"Nikki Wolf"}>Nikki Wolf</option>
-                            <option value={"Nikki Wolf"}>Nikki Wolf</option>
-                            <option value={"Pepsi"}>Pepsi</option>
-
-                        </select>
-
-                    </div>
-                    <div className='flex flex-col '>
-
-                    </div>
-                    <div className='flex flex-col items-end'>
-                        <h1 className='flex text-sm  font-bold'>Purchase Tax <p className='mx-2'>(+) Rs {formData.purchaseTax}</p> </h1>
-
-                    </div>
-                </div>
-                <div className='w-full h-[1px] bg-gray-300 my-5'></div>
-                <div className='w-full flex flex-col'>
-                    <h1 className='flex text-sm  font-bold'>Additional Note</h1>
-
-                    <textarea rows={4} value={formData.additionalNotes} onChange={(e) => { setFormData({ ...formData, additionalNotes: e.target.value }) }} className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
-                </div>
-            </div>
             <div className='flex  w-full   flex-col  p-5 mt-5 bg-white border-t-[3px] rounded-md border-blue-600'>
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
                     <div className='flex flex-col '>
                         <h1 className='flex text-sm text-start font-bold'>Shipping Detials:</h1>
-                        <input value={formData.shippingDetails} onChange={(e) => { setFormData({ ...formData, shippingDetails: e.target.value }) }} type='Text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                        <textarea rows={4} value={formData.shippingDetails} onChange={(e) => { setFormData({ ...formData, shippingDetails: e.target.value }) }} placeholder='Shipping Details' type='text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
 
                     </div>
                     <div className='flex flex-col'>
+                        <h1 className='flex text-sm text-start font-bold'>Shipping Address:</h1>
+                        <textarea rows={4} value={formData.shippingAddress} onChange={(e) => { setFormData({ ...formData, shippingAddress: e.target.value }) }} placeholder='Shipping Details' type='text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
 
                     </div>
                     <div className='flex flex-col '>
                         <h1 className='flex text-sm text-start font-bold'>(+)Additional Shipping Charges:</h1>
-                        <input value={formData.customer} onChange={(e) => { setFormData({ ...formData, customer: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                        <input value={formData.shippingCharges} onChange={(e) => { setFormData({ ...formData, shippingCharges: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
 
                     </div>
+                    <div className='flex flex-col '>
+                        <h1 className='flex text-sm text-start font-bold'>Shipping Status:</h1>
+
+                        <select value={formData.shippingStatus} onChange={(e) => { setFormData({ ...formData, shippingStatus: e.target.value }) }} type='text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
+                            <option value={""}>Please Selecet</option>
+                            <option value={"Ordered"}>Ordered</option>f
+                            <option value={"Packed"}>Packed</option>
+                            <option value={"Shipped"}>Shipped</option>
+                            <option value={"Delivered"}>Delivered</option>
+                            <option value={"Cancelled"}>Cancelled</option>
+
+                        </select>
+
+                    </div>
+                    <div className='flex flex-col '>
+                        <h1 className='flex text-sm text-start font-bold'>Delivered to:</h1>
+                        <input value={formData.deliveredTo} onChange={(e) => { setFormData({ ...formData, deliveredTo: e.target.value }) }} placeholder='Delivered to' type='text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+
+                    </div>
+                    <div className=' flex flex-col '>
+                        <h2 className='text-start font-bold flex mb-1'> Attatch Document:</h2>
+                        <div className='flex'>
+                            {/* value={formData.img_data} onChange={ (e)=>setFormData({...formData,  img_data: e.target.value})} */}
+                            <input value={formData.shippingDoucments} onChange={(e) => { setFormData({ ...formData, shippingDoucments: e.target.value }) }} type='text' className='px-3 py-1 border-[1px] border-gray-700  focus:outline-none w-[60%]' />
+                            <input value={formData.shippingDoucments} onChange={(e) => { setFormData({ ...formData, shippingDoucments: e.target.value }) }} className='px-3 py-1 focus:outline-none w-[60%] hidden' type='file' ref={inpuRef} accept='application/pdf,text/csv,application/zip,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/jpg,image/png' />
+                            <div onClick={() => { inpuRef1.current?.click(); }} className='flex cursor-pointersu bg-blue-600 text-white w-[40%] items-center justify-center'>
+                                <AiTwotoneFolderOpen size={32} />
+                                Browse
+                            </div>
+                        </div>
+                        <p className='text-start  flex mb-1'>Max File size: 5MB:
+                            <br />
+                            Allowed File: .pdf, .csv, .zip,	.doc, .docx, .jpeg,	.jpg, .png
+                        </p>
+
+                    </div>
+
                 </div>
                 <div className='flex flex-col items-center justify-center'>
                     <div onClick={() => { setAddExpenses(!addExpenses) }} className='flex w-[250px] px-2 py-2 items-center justify-center bg-blue-700 text-white'>
@@ -491,107 +466,15 @@ const AddorEditPurchase = () => {
                 </div>
 
             </div>
-            {!id &&
-                <div className='flex  w-full   flex-col  p-5 mt-5 bg-white border-t-[3px] rounded-md border-blue-600'>
-                    <h1 className='flex text-sm text-start font-bold mb-5'>Add Payment</h1>
 
-                    <h1 className='flex text-sm text-start font-bold'>Advance Balance: <p className='mx-2'> 0</p></h1>
-
-                    <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
-                        <div className='flex flex-col '>
-                            <div className='flex text-sm text-start font-bold'>
-                                <h1>Amount:*</h1>
-                                <h2 className='text-red-400'>{isserror && formData.amount.length === 0 ? "Required field" : ""}</h2>
-
-                            </div>
-                            <div className='flex'>
-                                < FaMoneyBillAlt size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
-
-                                <input value={formData.amount} onChange={(e) => { setFormData({ ...formData, amount: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
-                            </div>
-
-                        </div>
-                        <div className='flex flex-col '>
-                            <div className='flex text-sm text-start font-bold'>
-                                <h1>Paid On :*</h1>
-                                <h2 className='text-red-400'>{isserror && formData.paymentDate.length === 0 ? "Required field" : ""}</h2>
-
-                            </div>
-                            <div className='flex'>
-                                < FaCalendar size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
-
-                                <input value={formData.paymentDate} onChange={(e) => { setFormData({ ...formData, paymentDate: e.target.value }) }} type='Date' placeholder='Select Date Time' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
-                            </div>
-
-
-                        </div>
-                        <div className='flex flex-col '>
-                            <div className='flex text-sm text-start font-bold'>
-                                <h1>Payment method:*</h1>
-                                <h2 className='text-red-400'>{isserror && formData.paymentMethod.length === 0 ? "Required field" : ""}</h2>
-
-                            </div>
-                            <div className='flex'>
-                                < FaMoneyBillAlt size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
-                                <select value={formData.paymentMethod} onChange={(e) => { setFormData({ ...formData, paymentMethod: e.target.value }) }} type="text" className='px-2 py-1 w-full border-[1px] border-gray-600 focus:outline-none'>
-                                    <option value={""}>Please Selecet</option>
-                                    <option value={"Advance"}>Advance</option>
-                                    <option value={"Cash"}>Cash</option>
-                                    <option value={"Card"}>Card</option>
-                                    <option value={"Checque"}>Checque</option>
-                                    <option value={"Bank Transfer"}>Bank Transfer</option>
-                                    <option value={"Other"}>Other</option>
-                                    <option value={"Easypais"}>Easypais</option>
-                                    <option value={"Custom Payment 6"}>Custom Payment 6</option>
-
-                                </select>
-                            </div>
-
-                        </div>
-                        <div className='flex flex-col '>
-                            <div className='flex text-sm text-start font-bold'>
-                                <h1>Payment Account:*</h1>
-                                <h2 className='text-red-400'>{isserror && formData.paymentAccount.length === 0 ? "Required field" : ""}</h2>
-
-                            </div>
-                            <div className='flex'>
-                                < FaMoneyBillAlt size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
-                                <select value={formData.paymentAccount} onChange={(e) => { setFormData({ ...formData, paymentAccount: e.target.value }) }} type="text" className='px-2 py-1 w-full border-[1px] border-gray-600 focus:outline-none'>
-                                    <option value={""}>None</option>
-                                    <option value={"Test Account"}>Test Account</option>
-                                    <option value={"Askari Bank"}>Askari Bank</option>
-                                    <option value={"asd"}>asd</option>
-
-                                </select>
-                            </div>
-
-                        </div>
+            <div className='flex items-center justify-center bg-white p-5 mt-5'>
+            <div className='flex flex-col w-full'>
+                        <h1 className='flex text-sm text-start font-bold'>Additional Notes:</h1>
+                        <textarea rows={4} value={formData.additionalNotes} onChange={(e) => { setFormData({ ...formData, additionalNotes: e.target.value }) }} placeholder='Additional Notes' type='text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
 
                     </div>
-                    <div className='w-full flex flex-col mt-3'>
-                        <h1 className='flex text-sm  font-bold'>Payment Note:</h1>
+            </div>
 
-                        <textarea rows={4} value={formData.paymentNote} onChange={(e) => { setFormData({ ...formData, paymentNote: e.target.value }) }} className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
-                    </div>
-                    <div className='w-full h-[1px] bg-black my-5'></div>
-                    <div className='flex flex-col items-start'>
-                        <h1 className='font-bold mx-2'>Change Return:</h1>
-                        <h1 className='font-bold text-xl mx-2'>Rs 0.00:</h1>
-
-                    </div>
-                    <div className='w-full h-[1px] bg-black my-5'></div>
-
-                    <div className='flex items-end justify-end mt-5'>
-                        <div className='flex '>
-                            <h1 className='font-bold mx-2'>Payment Due:</h1>
-                            <h1 className=' mx-2'>Rs 0.00</h1>
-
-                        </div>
-                    </div>
-
-                </div>
-
-            }
 
             <div className='flex items-end justify-end mt-5'>
                 <button onClick={handleClick} className='bg-green-500 px-2 py-2 items-center justify-center flex'>{id ? "Update" : "Save"}</button>
@@ -612,4 +495,4 @@ const AddorEditPurchase = () => {
     )
 }
 
-export default AddorEditPurchase
+export default AddorEditPurchaseOrder

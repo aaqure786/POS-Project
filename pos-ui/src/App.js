@@ -4,9 +4,9 @@ import Pricing from './components/Pricing';
 import Registration from './components/Registration';
 import RepaiStatus from './components/RepaiStatus';
 import Login from './components/login';
-import {BrowserRouter,Route,Routes} from "react-router-dom"
-import Home1 from './components/dashboard/Home'; 
-import Dashboard from './components/dashboard/Dashboard'; 
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home1 from './components/dashboard/Home';
+import Dashboard from './components/dashboard/Dashboard';
 import User from './components/dashboard/Users/User';
 import AddorEditUsers from './components/dashboard/Users/AddorEditUsers';
 import ViewUser from './components/dashboard/Users/ViewUser';
@@ -27,12 +27,18 @@ import AddorEditPurchase from './components/dashboard/Purchases/AddorEditPurchas
 import ImporContact from './components/dashboard/contacts/ImportContact';
 import CustomerGroup from './components/dashboard/contacts/CustomerGroup';
 import AddorEditSell from './components/dashboard/sell/AddorEditSell';
+import AddorEditProduct from './components/dashboard/Product/AddorEditProduct';
+import PurchaseOrder from './components/dashboard/Purchases/PurchaseOrder';
+import AddorEditPurchaseOrder from './components/dashboard/Purchases/AddorEditPurchaseOrder';
+import Purchase from './components/dashboard/Purchases/Purchase';
+import PurchaseReturn from './components/dashboard/Purchases/PurchaseReturn';
+import AddorEditPucReturn from './components/dashboard/Purchases/AddorEditPucReturn';
 
 
 function App() {
   return (
     <div className="App">
-      
+
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={<Home />} />
@@ -52,28 +58,38 @@ function App() {
             <Route path='/home/sales-commission-agents' element={<SalesCommission />} />
             <Route path='/home/contact/:type' element={<Contact />} />
             <Route path='/home/contact/view/:id' element={<ViewContact />} >
-                <Route path='/home/contact/view/:id/ledger_tab' element={<LedgerTab />} />
-                <Route path='/home/contact/view/:id/purchase_tab' element={<PurchasesTab />} />
-                <Route path='/home/contact/view/:id/stock_report_tab' element={<StockReportTab />} />
-                <Route path='/home/contact/view/:id/document_tab' element={<DocTable />} />
-                <Route path='/home/contact/view/:id/payment_tab' element={<PaymentsTab />} />
-                <Route path='/home/contact/view/:id/activities_tab' element={<ActivitiesTable />} />
-                <Route path='/home/contact/view/:id/sales_tab' element={<SalesTab />} />
-                <Route path='/home/contact/view/:id/rewards_tab' element={<RewardsTab />} />
+              <Route path='/home/contact/view/:id' element={<LedgerTab />} />
+              <Route path='/home/contact/view/:id/ledger_tab' element={<LedgerTab />} />
+              <Route path='/home/contact/view/:id/purchase_tab' element={<PurchasesTab />} />
+              <Route path='/home/contact/view/:id/stock_report_tab' element={<StockReportTab />} />
+              <Route path='/home/contact/view/:id/document_tab' element={<DocTable />} />
+              <Route path='/home/contact/view/:id/payment_tab' element={<PaymentsTab />} />
+              <Route path='/home/contact/view/:id/activities_tab' element={<ActivitiesTable />} />
+              <Route path='/home/contact/view/:id/sales_tab' element={<SalesTab />} />
+              <Route path='/home/contact/view/:id/rewards_tab' element={<RewardsTab />} />
 
             </Route>
             <Route path='/home/contact/import' element={<ImporContact />} />
             <Route path='/home/contact/customer-group' element={<CustomerGroup />} />
+            
+            <Route path='/home/purchase' element={<Purchase />} />
 
-            <Route path='/home/purchase/addpurchase' element={<AddorEditPurchase />} />
+            <Route path='/home/purchase/create' element={<AddorEditPurchase />} />
             <Route path='/home/purchase/edit/:id' element={<AddorEditPurchase />} />
             <Route path='/home/sells/create' element={<AddorEditSell />} />
             <Route path='/home/sells/edit/:id' element={<AddorEditSell />} />
-            
-            
-            
+            <Route path='/home/products/create' element={<AddorEditProduct />} />
+            <Route path='/home/purchase-order' element={<PurchaseOrder />} />
+            <Route path='/home/purchase-order/create' element={<AddorEditPurchaseOrder />} />
+            <Route path='/home/purchase-order/eidt/:id' element={<AddorEditPurchaseOrder />} />
+            <Route path='/home/purchase-return' element={<PurchaseReturn />} />
+            <Route path='/home/purchase-return/create' element={<AddorEditPucReturn />} />
+            <Route path='/home/purchase-return/edit/:id' element={<AddorEditPucReturn />} />
+
+
+
           </Route>
-          
+
         </Routes>
       </BrowserRouter>
     </div>

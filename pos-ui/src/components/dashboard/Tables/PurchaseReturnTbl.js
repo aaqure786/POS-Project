@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
-import { FaColumns, FaDownload, FaEdit, FaEnvelope, FaEye, FaFileCsv, FaFileExcel, FaFilePdf, FaPrint, FaSearch, FaTrash, FaTruck } from 'react-icons/fa'
+import { FaColumns, FaEdit,  FaFileCsv, FaFileExcel, FaFilePdf, FaMoneyBillAlt, FaPrint, FaSearch, FaTrash } from 'react-icons/fa'
 import { useReactToPrint } from 'react-to-print';
 import { CSVLink } from 'react-csv';
 import * as XLSX from 'xlsx'
@@ -9,11 +9,10 @@ import * as htmlToImage from 'html-to-image';
 import { MdCancel } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import ViewPurchaseOrder from '../Purchases/ViewPurchaseOrder';
-import EditShipping from '../sell/EditShipping';
 import EditStatus from '../Purchases/EditStatus';
 
 
-const PrchsOrderTbl = () => {
+const PurchaseReturnTbl = () => {
     const dummyData = [
         {
             id: 1,
@@ -115,8 +114,6 @@ const PrchsOrderTbl = () => {
     const [isCliked, setIsCliked] = useState(false)
     const [updateStatus, setUpdateStatus] = useState(false)
     const [upid, setUpid] = useState(0)
-    const [shippingStatus, setShippingStatus] = useState(false)
-    const [shipid, setShipid] = useState(0)
     const [showId, setShowId] = useState(0)
     const [isshow, setIsshow] = useState(false)
     const [actionList, setActionList] = useState(Array(record.length).fill(false))
@@ -160,9 +157,7 @@ const PrchsOrderTbl = () => {
             return <ViewPurchaseOrder id={showId} />
         } else if (updateStatus === true) {
             return <EditStatus id={upid} />
-        } else if (shippingStatus === true) {
-            return <EditShipping id={shipid} />
-        }
+        } 
     }
 
 
@@ -208,15 +203,15 @@ const PrchsOrderTbl = () => {
                         <h1 className='text-sm'>Column Visibility</h1>
                         {colvis && <div className='absolute top-7 shadow-md shadow-gray-400 bg-white w-[150px]'>
                             <ul className='flex flex-col items-center justify-center'>
-                                <li className={` w-full py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Action</li>
-                                <li className={` w-full py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>Date</li>
-                                <li className={` w-full py-1 ${col3 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol3(!col3) }}>Reference No</li>
+                                <li className={` w-full py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Date</li>
+                                <li className={` w-full py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>Reference No</li>
+                                <li className={` w-full py-1 ${col3 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol3(!col3) }}>Parent Purchase</li>
                                 <li className={` w-full py-1 ${col4 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol4(!col4) }}>Location</li>
                                 <li className={` w-full py-1 ${col5 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol5(!col5) }}>Supplier</li>
-                                <li className={` w-full py-1 ${col6 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol6(!col6) }}>Status</li>
-                                <li className={` w-full py-1 ${col7 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol7(!col7) }}>Quantity Remaining</li>
-                                <li className={` w-full py-1 ${col8 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol8(!col8) }}>Shipping Status</li>
-                                <li className={` w-full py-1 ${col9 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol9(!col9) }}>Payment Due</li>
+                                <li className={` w-full py-1 ${col6 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol6(!col6) }}>Payment Status</li>
+                                <li className={` w-full py-1 ${col7 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol7(!col7) }}>Grand Total</li>
+                                <li className={` w-full py-1 ${col8 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol8(!col8) }}>Payment Due</li>
+                                <li className={` w-full py-1 ${col9 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol9(!col9) }}>Action</li>
 
                             </ul>
                         </div>}
@@ -237,75 +232,22 @@ const PrchsOrderTbl = () => {
                 <table id='usertbl' className="table-auto  mb-10   px-5 ">
                     <thead>
                         <tr className='h-[50px] bg-gray-100'>
-                            {col1 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm">Action</th>}
-                            {col2 && <th className=" py-2 title-font w-[70px]  tracking-wider font-medium text-gray-900 text-sm">Date</th>}
-                            {col3 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Reference No</th>}
+                            {col1 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm">Date</th>}
+                            {col2 && <th className=" py-2 title-font w-[70px]  tracking-wider font-medium text-gray-900 text-sm">Reference No</th>}
+                            {col3 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Parent Purchase</th>}
                             {col4 && <th className=" py-2 title-font w-[101px]  tracking-wider font-medium text-gray-900 text-sm">Location</th>}
                             {col5 && <th className=" py-2 title-font w-[57px]  tracking-wider font-medium text-gray-900 text-sm">Supplier</th>}
-                            {col6 && <th className=" py-2 title-font w-[79px]  tracking-wider font-medium text-gray-900 text-sm">Status</th>}
-                            {col7 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Quantity Remaining</th>}
-                            {col8 && <th className=" py-2 title-font w-[55px]  tracking-wider font-medium text-gray-900 text-sm">Payment Status</th>}
-                            {col9 && <th className=" py-2 title-font w-[107px]  tracking-wider font-medium text-gray-900 text-sm">Added By</th>}
+                            {col6 && <th className=" py-2 title-font w-[79px]  tracking-wider font-medium text-gray-900 text-sm">Payment Status</th>}
+                            {col7 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Grand Total</th>}
+                            {col8 && <th className=" py-2 title-font w-[55px]  tracking-wider font-medium text-gray-900 text-sm">Payment due</th>}
+                            {col9 && <th className=" py-2 title-font w-[107px]  tracking-wider font-medium text-gray-900 text-sm">Action</th>}
 
                         </tr>
                     </thead>
                     <tbody >
                         {record.map((value, index) => {
                             return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""}`}>
-                                {col1 && <td className='py-1 flex '>
-                                    <div onClick={() => { toggleDropdown(index) }} className='flex px-2 py-1 relative cursor-pointer items-center bg-green-600 rounded-xl text-white justify-center'>
-                                        <h1 className='text-sm'>Action</h1>
-                                        <AiFillCaretDown size={10} />
-                                        {actionList[index] &&
-                                            <ul className='absolute top-5 left-10 z-20 flex flex-col items-start w-[200px] bg-white text-gray-600 shadow-xl shadow-gray-400 '>
-
-                                                <li className='w-full'>
-                                                    <Link onClick={() => { setIsCliked(!isCliked); setShowId(value.id); setIsshow(true); }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
-                                                        <FaEye size={15} />
-                                                        <h1 className='text-sm'>View</h1>
-                                                    </Link >
-                                                </li>
-                                                <li className='w-full'>
-                                                    <div onClick={() => { }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
-                                                        <FaPrint size={15} />
-                                                        <h1 className='text-sm'>Print</h1>
-                                                    </div>
-                                                </li>
-                                                <li className='w-full'>
-                                                    <Link to={`/home/purchase-order/eidt/${value.id}`} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
-                                                        <FaEdit size={15} />
-                                                        <h1 className='text-sm'>Edit</h1>
-                                                    </Link>
-                                                </li>
-                                                <li className='w-full'>
-                                                    <div onClick={() => { }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
-                                                        <FaTrash size={15} />
-                                                        <h1 className='text-sm'>Delete</h1>
-                                                    </div>
-                                                </li>
-                                                <li className='w-full'>
-                                                    <div onClick={() => { }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
-                                                        <FaDownload size={15} />
-                                                        <h1 className='text-sm'>Download PDF</h1>
-                                                    </div>
-                                                </li>
-                                                <li className=' w-full'>
-                                                    <Link className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
-                                                        <FaTruck size={15} />
-                                                        <h1 className='text-sm'>Edit Shipping</h1>
-                                                    </Link >
-                                                </li>
-                                                <li className='w-full'>
-                                                    <Link className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
-                                                        <FaEnvelope size={15} />
-                                                        <h1 className='text-sm'>Send Notification</h1>
-                                                    </Link>
-                                                </li>
-
-                                            </ul>
-                                        }
-                                    </div>
-                                </td>}
+                                {col1 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col2 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col3 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col4 && <td className="px-1 py-1">{value.Role}</td>}
@@ -314,10 +256,41 @@ const PrchsOrderTbl = () => {
                                     <button onClick={() => { setIsCliked(true); setUpdateStatus(true); setUpid(value.id) }} className='bg-green-400 text-white px-2 text-xs rounded-xl'>status</button>
                                 </td>}
                                 {col7 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
-                                {col8 && <td className="px-1 py-1">
-                                    <button onClick={() => { setIsCliked(true); setShippingStatus(true); setShipid(value.id) }} className='bg-orange-400 text-white px-2 text-xs rounded-xl'>status</button>
+                                {col8 && <td className="px-1 py-1">{value.Username} </td>}
+                                {col9 && <td className='py-1 flex justify-center'>
+                                    <div onClick={() => { toggleDropdown(index) }} className='flex px-2 py-1 relative cursor-pointer items-center bg-green-600 rounded-xl text-white justify-center'>
+                                        <h1 className='text-sm text-center'>Action</h1>
+                                        <AiFillCaretDown size={10} />
+                                        {actionList[index] &&
+                                            <ul className='absolute top-5 right-10 z-20 flex flex-col items-start w-[120px] bg-white text-gray-600 shadow-xl shadow-gray-400 '>
+                                                <li className='w-full'>
+                                                    <Link to={`/home/purchase-return/edit/${value.id}`} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                        <FaEdit size={15} />
+                                                        <h1 className='text-sm'>Edit</h1>
+                                                    </Link>
+                                                </li>
+                                                <li className=' w-full'>
+                                                    <Link className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                        <FaMoneyBillAlt size={15} />
+                                                        <h1 className='text-sm'>Add Payment </h1>
+                                                    </Link >
+                                                </li>
+                                                <li className=' w-full'>
+                                                    <Link className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                        <FaMoneyBillAlt size={15} />
+                                                        <h1 className='text-sm'>View Payment </h1>
+                                                    </Link >
+                                                </li>
+                                                <li className='w-full'>
+                                                    <div onClick={() => { }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                        <FaTrash size={15} />
+                                                        <h1 className='text-sm'>Delete</h1>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        }
+                                    </div>
                                 </td>}
-                                {col9 && <td className="px-1 py-1">{value.Role}</td>}
 
                             </tr>
                         })}
@@ -358,7 +331,7 @@ const PrchsOrderTbl = () => {
                 <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/50 w-full min-h-screen'>
                     <div className='flex flex-col w-full md:w-[80%]  mt-10 bg-white px-5 pt-2'>
                         <div className='flex items-end justify-end '>
-                            <MdCancel onClick={() => { setIsCliked(!isCliked); setShowId(0); setUpdateStatus(false); setShippingStatus(false)}} size={20} />
+                            <MdCancel onClick={() => { setIsCliked(!isCliked); setShowId(0); setUpdateStatus(false); }} size={20} />
 
                         </div>
                         {displayData()}
@@ -371,4 +344,4 @@ const PrchsOrderTbl = () => {
     )
 }
 
-export default PrchsOrderTbl
+export default PurchaseReturnTbl

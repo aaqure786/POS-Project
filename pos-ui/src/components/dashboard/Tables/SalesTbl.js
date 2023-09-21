@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
-import {  FaBarcode, FaColumns, FaEdit, FaEnvelope, FaEye, FaFileCsv, FaFileExcel, FaFilePdf, FaMoneyBillAlt, FaPrint, FaSearch, FaTrash, FaUndo } from 'react-icons/fa'
+import {  FaColumns, FaEdit, FaEnvelope, FaEye, FaFileCsv, FaFileExcel, FaFilePdf, FaMoneyBillAlt, FaPrint, FaSearch, FaTrash, FaTruck, FaUndo } from 'react-icons/fa'
 import { useReactToPrint } from 'react-to-print';
 import { CSVLink } from 'react-csv';
 import * as XLSX from 'xlsx'
@@ -9,6 +9,7 @@ import * as htmlToImage from 'html-to-image';
 import { MdCancel } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import ViewSell from '../sell/ViewSell';
+import EditShipping from '../sell/EditShipping';
 
 
 const SalesTbl = () => {
@@ -120,6 +121,8 @@ const SalesTbl = () => {
     const [col18, setCol18] = useState(true)
     const [isedit, setIsedit] = useState(false)
     const [editId, setEditId] = useState(0)
+    const [editShipId, setEditShipId] = useState(0)
+    const [iseditship, setIseditship] = useState(false)
     const [isCliked, setIsCliked] = useState(false)
     const [actionList, setActionList] = useState(Array(record.length).fill(false))
 
@@ -163,6 +166,8 @@ const SalesTbl = () => {
     const displayData = () => {
         if(showId !==0 && isshow === true){
             return <ViewSell id={showId} />
+          }else if (iseditship === true && editShipId !== 0){
+            return <EditShipping id={editShipId}/>
           }
     }
 
@@ -303,9 +308,9 @@ const SalesTbl = () => {
                                                     </div>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
-                                                        <FaBarcode size={15} />
-                                                        <h1 className='text-sm'>Lables</h1>
+                                                    <div onClick={() => { setEditShipId(value.id); setIseditship(!iseditship); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                        <FaTruck size={15} />
+                                                        <h1 className='text-sm'>Edit Shipping</h1>
                                                     </div>
                                                 </li>
                                                 <li className='mt-5 w-full'>

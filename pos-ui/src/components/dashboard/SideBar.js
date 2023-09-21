@@ -98,10 +98,10 @@ const SideBar = () => {
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>List Products</h1>
         </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/products/create"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Add Product</h1>
-        </Link>
+        </NavLink>
         <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '> Print Lables </h1>
@@ -157,22 +157,22 @@ const SideBar = () => {
         <BiSolidChevronLeft size={20} className='mx-1' />
       </div>
       {li3 && <div className='flex flex-col mx-4'>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/purchase-order"} className='flex hover:text-black  py-1 items-center  aria-[current=page]:font-bold aria-[current=page]:text-black justify-start'>
           <BsArrowRight size={15} />
-          <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Purchase Order</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+          <h1 className=' mt-1 ml-5 text-gray-500 text-sm  '>Purchase Order</h1>
+        </NavLink>
+        <Link to={"/home/purchase"} className='flex hover:text-black  py-1 items-center aria-[current=page]:font-bold aria-[current=page]:text-black   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>List Purchases</h1>
         </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/purchase/create"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Add Purchase</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/home/purchase-return"} className='flex hover:text-black aria-[current=page]:font-bold py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
-          <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>List Purchase Return</h1>
-        </Link>
+          <h1 className=' mt-1 ml-5 text-gray-500 text-sm  '>List Purchase Return</h1>
+        </NavLink>
       </div>
       }
       {/* Sell */}

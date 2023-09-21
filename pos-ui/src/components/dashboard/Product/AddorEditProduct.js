@@ -2,10 +2,15 @@ import React, { useRef, useState } from 'react'
 import { BiChevronDown } from 'react-icons/bi';
 import { FaInfoCircle, FaPlusCircle } from 'react-icons/fa';
 import JoditEditor from 'jodit-react';
+import { AiTwotoneFolderOpen } from 'react-icons/ai';
+import { useParams } from 'react-router-dom';
 
 
-const AddProduct = () => {
+const AddorEditProduct = () => {
   const editor = useRef(null)
+  const params = useParams()
+  const id = params.id
+  
 
   const dummyData = [
     {
@@ -58,67 +63,60 @@ const AddProduct = () => {
       Email: "username6@gmail.com"
     }
   ]
+  // const [description, setDescription] = useState('')
 
   const [skuInfor, setSkuInfor] = useState(false)
   const [skuInfor1, setSkuInfor1] = useState(false)
   const [infor, setInfor] = useState(false)
-  const [appTax, setAppTax] = useState(false)
   const [open, setOpen] = useState(false)
   const [isOpen1, setIsOpen1] = useState(false)
   const [productImei, setProductImei] = useState(false)
   const [isSelling, setIsSelling] = useState(false)
+  const inpuRef = useRef()
+  const inpuRef1 = useRef()
   const [isWoocommerce, setIsWoocommerce] = useState(false)
-  
 
   const [inputValue, setInputValue] = useState('')
   const [inputValue1, setInputValue1] = useState('')
-  const [inputValue2, setInputValue2] = useState('')
-  const [isserror, setIsserror] = useState(false)
   const [formData, setFormData] = useState({
     productName: "",
     sku: "",
     barcodeType: "",
     unit: "",
-    brand: "",
-    category: "",
     businessLocation: "",
     manageStock: false,
     alertQuantity: 0,
     productDescription: "",
     productImage: "",
     productBroucher: "",
-    sellingPriceType:"",
     imeiSerialNumber: false,
     notforSelling: false,
-    applicableTax:"",
     weight: 0,
-    customFld:"",
-    customFld1:"",
-    customFld2:"",
-    customFld3:"",
     servieStaffTime: "",
     woocommerceSync: false,
     productType: ""
   })
+ 
+  const [isserror, setIsserror] = useState(false)
   const handleClick = (e) => {
     e.preventDefault();
     if (formData.productName.length === 0 ||
       formData.barcodeType.length === 0 ||
       formData.unit.length === 0 ||
-      formData.sellingPriceType.length === 0 
+      formData.productType.length === 0
     ) {
       setIsserror(true)
-      
-    }else {
+      console.log(isserror)
+    } else if (id) {
+      console.log("Handle Update", formData)
+    } else {
       console.log("Handle save ", formData)
     }
   }
-
-
   return (
-    <div className='w-full flex flex-col bg-white p-5 min-h-screen'>
+    <div className='w-full flex flex-col bg-gray-100 p-5 min-h-screen'>
       <h1 className='text-xl  text-start mb-4'>Add new Product</h1>
-      <div className='w-full p-5 border-t-[3px]  border-blue-600 pb-[100px] rounded-xl'>
+      <div className='w-full p-5 border-t-[3px] bg-white  border-blue-600 pb-[100px] rounded-xl'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
           <div className='flex flex-col'>
             <h1 className='flex text-start font-bold'>
@@ -126,7 +124,7 @@ const AddProduct = () => {
               <span className='text-red-400'>{isserror && formData.productName.length === 0 ? "Required field" : ""}</span>
 
             </h1>
-            <input value={formData.productName} onChange={(e) => { setFormData({ ...formData, productName: e.target.value }) }} type='text' placeholder='Product Name' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+            <input type='text' value={formData.productName} onChange={(e) => { setFormData({ ...formData, productName: e.target.value }) }} placeholder='Product Name' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
           </div>
           <div className='flex flex-col relative'>
             <div className='flex '>
@@ -264,26 +262,11 @@ const AddProduct = () => {
             </div>
 
           </div>
-          <div className='flex flex-col'>
-            <h1 className='flex text-start font-bold'>Brand:</h1>
-            <select value={formData.brand} onChange={(e) => { setFormData({ ...formData, brand: e.target.value }) }} type='text' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none'>
-              <option value={"Please Select"}>Please Select</option>
-              <option value={"Test Brand"}>Test Brand</option>
 
-            </select>
-          </div>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
 
-          <div className='flex flex-col'>
-            <h1 className='flex text-start font-bold'>Category:</h1>
-            <select value={formData.category} onChange={(e) => { setFormData({ ...formData, category: e.target.value }) }} type='text' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none'>
-              <option value={"Please Select"}>Please Select</option>
-              <option value={"Test cat 2-2"}>Test cat 2-2</option>
-              <option value={"Test Category 1"}>Test Category 1</option>
 
-            </select>
-          </div>
           <div className='flex flex-col relative mt-7'>
             <div className='flex'>
               <input value={formData.manageStock} onChange={(e) => { setFormData({ ...formData, manageStock: e.target.value }) }} type='checkbox' className='w-6 h-6 border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
@@ -329,6 +312,7 @@ const AddProduct = () => {
           </div>
         </div>
         <div className='flex w-full mt-3'>
+
           <div className='flex flex-col w-[67%]'>
             <h1 className='flex text-start font-bold'>Description:</h1>
             <JoditEditor
@@ -337,79 +321,55 @@ const AddProduct = () => {
               value={formData.productDescription} onChange={(newContent) => { setFormData({ ...formData, productDescription: newContent }) }}
             />
           </div>
+          <div className=' flex flex-col w-[30%] mx-[1.5%]'>
+            <h2 className='text-start font-bold '> Product Image:</h2>
+            <div className='flex'>
+              {/* value={formData.img_data} onChange={ (e)=>setFormData({...formData,  img_data: e.target.value})} */}
+              <input value={formData.productImage}  readOnly type='text' className='px-3  border-[1px] border-gray-700  focus:outline-none w-[60%]' />
+              <input value={formData.productImage} onChange={(e) => { setFormData({ ...formData, productImage: e.target.value }) }} className='px-3   focus:outline-none w-[60%] hidden' type='file' ref={inpuRef} accept='application/pdf,text/csv,application/zip,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/jpg,image/png' />
+              <div onClick={() => { inpuRef.current?.click(); }} className='flex cursor-pointersu bg-blue-600 text-white w-[40%] items-center justify-center'>
+                <AiTwotoneFolderOpen size={32} />
+                Browse
+              </div>
+            </div>
+            <p className='text-start  flex '>Max File size: 5MB:
+              <br />
+              Aspec Ration should be 1:1
+            </p>
+
+          </div>
+
+
         </div>
+
+        <div className=' flex flex-col mt-5 w-[30%] mx-[1.5%]'>
+          <h2 className='text-start font-bold '> Product Broucher:</h2>
+          <div className='flex'>
+            {/* value={formData.img_data} onChange={ (e)=>setFormData({...formData,  img_data: e.target.value})} */}
+            <input value={formData.productBroucher} readOnly type='text' className='px-3  border-[1px] border-gray-700  focus:outline-none w-[60%]' />
+            <input value={formData.productBroucher} onChange={(e) => { setFormData({ ...formData, productBroucher: e.target.value }) }} className='px-3   focus:outline-none w-[60%] hidden' type='file' ref={inpuRef1} accept='application/pdf,text/csv,application/zip,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/jpg,image/png' />
+            <div onClick={() => { inpuRef1.current?.click(); }} className='flex cursor-pointersu bg-blue-600 text-white w-[40%] items-center justify-center'>
+              <AiTwotoneFolderOpen size={32} />
+              Browse
+            </div>
+          </div>
+          <p className='text-start  flex '>Max File size: 5MB:
+            <br />
+            Allowed File: .pdf, .csv, .zip, .doc, .docx, .jpeg, .jpg, .png
+          </p>
+
+        </div>
+
+
+
+
+
+      </div>
+      <div className='w-full p-5 border-t-[3px] bg-white  mt-5 border-blue-600 pb-[100px] rounded-xl'>
+
         <div className='grid grid-cols-1 md:grid-cols-3 mt-3 gap-4'>
 
-          <div className='flex flex-col '>
-            <h1 className='flex text-start font-bold'>Applicable Tax:</h1>
-            <div className='flex flex-col relative'>
-              <div className='flex '>
-                <input
-                  onClick={() => setAppTax(!appTax)}
-                  className='bg-white w-full  flex items-center   focus:outline-none justify-between p-2  border-[1px] border-gray-600'
-                  value={formData.applicableTax}
-                  onChange={(e) => { setFormData({ ...formData, applicableTax: e.target.value }) }}
-                  placeholder='Select Value'
-                />
-                <BiChevronDown size={20} className={`${appTax && "rotate-180"} absolute top-1 right-3`} />
 
-
-              </div>
-              {appTax &&
-                <ul
-
-                  className={`bg-white  w-[250px] mx-[30px] border-[1px] absolute top-8 z-10 right-0 border-gray-600 overflow-y-auto ${appTax ? "max-h-60" : "max-h-0"} `}
-                >
-                  <div className="flex items-center px-2 sticky top-0 bg-white">
-                    <input
-                      type="text"
-                      value={inputValue2}
-                      onChange={(e) => setInputValue2(e.target.value.toLowerCase())}
-                      className="placeholder:text-gray-700 p-1 outline-none border-[1px] border-gray-500"
-                    />
-                  </div>
-                  {dummyData?.map((data) => (
-                    <li
-                      key={data?.Name}
-                      className={`p-2 text-sm hover:bg-sky-600 hover:text-white
-                                        ${data?.Name?.toLowerCase() === formData.applicableTax?.toLowerCase() &&
-                        "bg-sky-600 text-white"
-                        }
-                                         ${data?.Name?.toLowerCase().startsWith(inputValue2)
-                          ? "block"
-                          : "hidden"
-                        }`}
-                      onClick={() => {
-                        if (data?.Name?.toLowerCase() !== formData.applicableTax.toLowerCase()) {
-                        
-                          setFormData({ ...formData, applicableTax: data?.Name })
-                          setAppTax(false);
-                          setInputValue2("");
-                        }
-                      }}
-                    >
-                      {data?.Name}
-                    </li>
-                  ))}
-                </ul>
-              }
-            </div>
-
-          </div>
-
-          <div className='flex flex-col'>
-          <h1 className='flex text-start font-bold'>
-              Selling Price Tax Type:*
-              <span className='text-red-400'>{isserror && formData.sellingPriceType.length === 0 ? "Required field" : ""}</span>
-
-            </h1>
-            <select value={formData.sellingPriceType} onChange={(e) => { setFormData({ ...formData, sellingPriceType: e.target.value }) }} type='text' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none'>
-              <option value={"Please Select"}>Please Select</option>
-              <option value={"Inclusive"}>Inclusive</option>
-              <option value={"Exclusive"}>Exclusive</option>
-
-            </select>
-          </div>
           <div className='flex flex-col relative mt-7'>
             <div className='flex'>
               <input value={formData.imeiSerialNumber} onChange={(e) => { setFormData({ ...formData, imeiSerialNumber: e.target.value }) }} type='checkbox' className='w-6 h-6 border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
@@ -448,26 +408,16 @@ const AddProduct = () => {
 
 
         </div>
-
-        <div className='grid grid-cols-1 md:grid-cols-4 mt-5 gap-4'>
-          <div className='flex flex-col'>
-            <h1 className='flex text-start font-bold'>Custom Field 1:</h1>
-            <input value={formData.customFld} onChange={(e) => { setFormData({ ...formData, customFld: e.target.value }) }}  type='text' placeholder='Custom Field 1' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+        <div className='flex flex-col mt-5 w-1/3'>
+          <div className='flex flex-col mt-2'>
+            <h1 className='flex text-start font-bold'>Weight:</h1>
+            <input value={formData.weight} onChange={(e) => { setFormData({ ...formData, weight: e.target.value }) }} type='text' placeholder='Weight' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
           </div>
-          <div className='flex flex-col'>
-            <h1 className='flex text-start font-bold'>Custom Field 2:</h1>
-            <input value={formData.customFld1} onChange={(e) => { setFormData({ ...formData, customFld1: e.target.value }) }} type='text' placeholder='Custom Field 2' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-          </div>
-          <div className='flex flex-col'>
-            <h1 className='flex text-start font-bold'>Custom Field 3:</h1>
-            <input value={formData.customFld2} onChange={(e) => { setFormData({ ...formData, customFld2: e.target.value }) }} type='text' placeholder='Custom Field 3' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-          </div>
-          <div className='flex flex-col'>
-            <h1 className='flex text-start font-bold'>Custom Field 4:</h1>
-            <input value={formData.customFld3} onChange={(e) => { setFormData({ ...formData, customFld3: e.target.value }) }} type='text' placeholder='Custom Field 4' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+          <div className='flex flex-col mt-2'>
+            <h1 className='flex text-start font-bold'>Service staff timer/Preparation time (In minutes)::</h1>
+            <input value={formData.servieStaffTime} onChange={(e) => { setFormData({ ...formData, servieStaffTime: e.target.value }) }} type='text' placeholder='Service staff timer/Preparation time (In minutes):' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
           </div>
         </div>
-        <div className='flex flex-col relative mt-7'>
         <div className='flex'>
           <input value={formData.woocommerceSync} onChange={(e) => { setFormData({ ...formData, woocommerceSync: e.target.value }) }} type='checkbox' className='w-6 h-6 border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
           <div className='flex mx-2'>
@@ -482,11 +432,28 @@ const AddProduct = () => {
           </div>
 
         </div>
+
+      </div>
+      <div className='w-full p-5 border-t-[3px] bg-white  mt-5 border-blue-600 pb-[100px] rounded-xl'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+          <div className='flex flex-col'>
+            <h1 className='flex text-start font-bold'>
+              Product Type:*
+              <span className='text-red-400'>{isserror && formData.productType.length === 0 ? "Required field" : ""}</span>
+
+            </h1>
+            <select value={formData.productType} onChange={(e) => { setFormData({ ...formData, productType: e.target.value }) }} type='text' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none'>
+              <option value={"single"}>Single</option>
+              <option value={"variable"}>Variable</option>
+              <option value={"combo"}>Combo</option>
+
+            </select>
+          </div>
+
+
         </div>
 
       </div>
-
-
       <div className='flex items-end justify-end mt-5'>
         <button onClick={handleClick} className='bg-green-500 px-2 py-2 items-center justify-center flex'>Save</button>
       </div>
@@ -494,4 +461,4 @@ const AddProduct = () => {
   )
 }
 
-export default AddProduct
+export default AddorEditProduct
