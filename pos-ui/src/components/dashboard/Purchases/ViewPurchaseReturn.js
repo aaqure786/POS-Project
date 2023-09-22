@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import {FaPrint} from "react-icons/fa"
 import { useReactToPrint } from 'react-to-print';
 
-const ViewPurchaseOrder = () => {
+const ViewPurchaseReturn = (props) => {
     const dummyData = [
         {
             id: 1,
@@ -62,12 +62,12 @@ const ViewPurchaseOrder = () => {
         copyStyles: true,
     });
     return (
-        <div className='w-full  flex  flex-col  bg-white'>
+        <div className='w-full md:w-[80%]  flex  flex-col  bg-white'>
             <div className='w-full px-2 my-2' ref={printRef}>
             <div className='flex items-start '>
                 <h1 className='text-xl'> Purchase order Detials (</h1>
                 <h1 className='text-xl font-bold'>Reference No:</h1>
-                <h1 className='text-xl '>#PO2023/0011 )</h1>
+                <h1 className='text-xl '>{props.id} )</h1>
             </div>
             <div className='h-[1px] bg-gray-300 mt-1 w-full'></div>
             <div className='flex items-end justify-end'>
@@ -237,4 +237,4 @@ const ViewPurchaseOrder = () => {
     )
 }
 
-export default ViewPurchaseOrder
+export default ViewPurchaseReturn

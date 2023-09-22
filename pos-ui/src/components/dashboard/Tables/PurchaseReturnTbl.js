@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
-import { FaColumns, FaEdit,  FaFileCsv, FaFileExcel, FaFilePdf, FaMoneyBillAlt, FaPrint, FaSearch, FaTrash } from 'react-icons/fa'
+import { FaColumns, FaEdit, FaEye, FaFileCsv, FaFileExcel, FaFilePdf, FaMoneyBillAlt, FaPrint, FaSearch, FaTrash } from 'react-icons/fa'
 import { useReactToPrint } from 'react-to-print';
 import { CSVLink } from 'react-csv';
 import * as XLSX from 'xlsx'
@@ -8,8 +8,9 @@ import { jsPDF } from 'jspdf';
 import * as htmlToImage from 'html-to-image';
 import { MdCancel } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import ViewPurchaseOrder from '../Purchases/ViewPurchaseOrder';
-import EditStatus from '../Purchases/EditStatus';
+import AddPayment from '../payments/AddPayment';
+import ViewPayment from '../payments/ViewPayment';
+import ViewPurchaseReturn from '../Purchases/ViewPurchaseReturn';
 
 
 const PurchaseReturnTbl = () => {
@@ -112,10 +113,12 @@ const PurchaseReturnTbl = () => {
     const [col9, setCol9] = useState(true)
 
     const [isCliked, setIsCliked] = useState(false)
-    const [updateStatus, setUpdateStatus] = useState(false)
     const [upid, setUpid] = useState(0)
     const [showId, setShowId] = useState(0)
     const [isshow, setIsshow] = useState(false)
+    const [ispayment, setIspayment] = useState(false)
+    const [isAddpayment, setIsAddpayment] = useState(false)
+
     const [actionList, setActionList] = useState(Array(record.length).fill(false))
 
     const toggleDropdown = (index) => {
@@ -153,11 +156,13 @@ const PurchaseReturnTbl = () => {
         }
     }
     const displayData = () => {
-        if (showId !== 0 && isshow === true) {
-            return <ViewPurchaseOrder id={showId} />
-        } else if (updateStatus === true) {
-            return <EditStatus id={upid} />
-        } 
+        if (isshow === true) {
+            return <ViewPurchaseReturn id={showId} />
+        } else if (isAddpayment === true) {
+            return <AddPayment id={upid} />
+        } else if (ispayment === true) {
+            return <ViewPayment id={upid} />
+        }
     }
 
 
@@ -229,31 +234,31 @@ const PurchaseReturnTbl = () => {
 
             </div>
             <div className='flex flex-col  overflow-x-scroll  mt-5 mx-5' ref={printRef} >
-                <table id='usertbl' className="table-auto  mb-10   px-5 ">
+                <table id='usertbl' className="table-fixed w-full  mb-10   px-5 ">
                     <thead>
                         <tr className='h-[50px] bg-gray-100'>
-                            {col1 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm">Date</th>}
-                            {col2 && <th className=" py-2 title-font w-[70px]  tracking-wider font-medium text-gray-900 text-sm">Reference No</th>}
-                            {col3 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Parent Purchase</th>}
-                            {col4 && <th className=" py-2 title-font w-[101px]  tracking-wider font-medium text-gray-900 text-sm">Location</th>}
-                            {col5 && <th className=" py-2 title-font w-[57px]  tracking-wider font-medium text-gray-900 text-sm">Supplier</th>}
-                            {col6 && <th className=" py-2 title-font w-[79px]  tracking-wider font-medium text-gray-900 text-sm">Payment Status</th>}
-                            {col7 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Grand Total</th>}
-                            {col8 && <th className=" py-2 title-font w-[55px]  tracking-wider font-medium text-gray-900 text-sm">Payment due</th>}
-                            {col9 && <th className=" py-2 title-font w-[107px]  tracking-wider font-medium text-gray-900 text-sm">Action</th>}
+                            {col1 && <th className=" py-2 title-font w-[60px]  tracking-wider font-bold text-gray-900 text-sm">Date</th>}
+                            {col2 && <th className=" py-2 title-font w-[70px]  tracking-wider font-bold text-gray-900 text-sm">Reference No</th>}
+                            {col3 && <th className=" py-2 title-font w-[75px]  tracking-wider font-bold text-gray-900 text-sm">Parent Purchase</th>}
+                            {col4 && <th className=" py-2 title-font w-[101px]  tracking-wider font-bold text-gray-900 text-sm">Location</th>}
+                            {col5 && <th className=" py-2 title-font w-[57px]  tracking-wider font-bold text-gray-900 text-sm">Supplier</th>}
+                            {col6 && <th className=" py-2 title-font w-[79px]  tracking-wider font-bold text-gray-900 text-sm">Payment Status</th>}
+                            {col7 && <th className=" py-2 title-font w-[75px]  tracking-wider font-bold text-gray-900 text-sm">Grand Total</th>}
+                            {col8 && <th className=" py-2 title-font w-[55px]  tracking-wider font-bold text-gray-900 text-sm">Payment due</th>}
+                            {col9 && <th className=" py-2 title-font w-[107px]  tracking-wider font-bold text-gray-900 text-sm">Action</th>}
 
                         </tr>
                     </thead>
                     <tbody >
                         {record.map((value, index) => {
-                            return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""}`}>
+                            return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-100" : ""} cursor-pointer`}  >
                                 {col1 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col2 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col3 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col4 && <td className="px-1 py-1">{value.Role}</td>}
                                 {col5 && <td className=" py-1 px-1">{value.Name}</td>}
                                 {col6 && <td className=" py-1 px-1">
-                                    <button onClick={() => { setIsCliked(true); setUpdateStatus(true); setUpid(value.id) }} className='bg-green-400 text-white px-2 text-xs rounded-xl'>status</button>
+                                    <button onClick={() => { setIsCliked(true); setIspayment(true); setUpid(value.id) }} className='bg-green-400 text-white px-2 text-xs rounded-xl'>status</button>
                                 </td>}
                                 {col7 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col8 && <td className="px-1 py-1">{value.Username} </td>}
@@ -270,16 +275,22 @@ const PurchaseReturnTbl = () => {
                                                     </Link>
                                                 </li>
                                                 <li className=' w-full'>
-                                                    <Link className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
-                                                        <FaMoneyBillAlt size={15} />
-                                                        <h1 className='text-sm'>Add Payment </h1>
-                                                    </Link >
+                                                    <button onClick={() => { setIsCliked(true); setIsshow(true); setShowId(value.id) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                        <FaEye size={15} />
+                                                        <h1 className='text-sm'>View</h1>
+                                                    </button>
                                                 </li>
                                                 <li className=' w-full'>
-                                                    <Link className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <button onClick={() => { setIsCliked(true); setIsAddpayment(true); setUpid(value.id) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                        <FaMoneyBillAlt size={15} />
+                                                        <h1 className='text-sm'>Add Payment </h1>
+                                                    </button>
+                                                </li>
+                                                <li className=' w-full'>
+                                                    <button onClick={() => { setIsCliked(true); setIspayment(true); setUpid(value.id) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaMoneyBillAlt size={15} />
                                                         <h1 className='text-sm'>View Payment </h1>
-                                                    </Link >
+                                                    </button >
                                                 </li>
                                                 <li className='w-full'>
                                                     <div onClick={() => { }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
@@ -297,7 +308,15 @@ const PurchaseReturnTbl = () => {
 
 
                     </tbody>
-
+                    <tfoot className='bg-gray-200 w-full'>
+                        <tr>
+                        <td colSpan={5} className=' w-[520.25px] border-[1px] border-white font-bold items-center justify-center'>Total:</td>
+                        <td  className='items-center border-[1px] border-white justify-center font-bold'>Received - 1  Due- 2</td>
+                        <td  className='items-center border-[1px] border-white justify-center font-bold'>Rs 4,500.00</td>
+                        <td  className='items-center border-[1px] border-white justify-center font-bold'>Rs 4,050.00 </td>
+                        <td  className='items-center border-[1px] border-white justify-center'></td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
             {isCliked &&
@@ -328,15 +347,16 @@ const PurchaseReturnTbl = () => {
                 </ul>
             </nav>
             {isCliked &&
-                <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/50 w-full min-h-screen'>
-                    <div className='flex flex-col w-full md:w-[80%]  mt-10 bg-white px-5 pt-2'>
-                        <div className='flex items-end justify-end '>
-                            <MdCancel onClick={() => { setIsCliked(!isCliked); setShowId(0); setUpdateStatus(false); }} size={20} />
+                <div className='absolute top-0 flex flex-col items-center justify-center right-0 bg-black/50 w-full min-h-screen'>
+                    <div className={`flex flex-col w-full md:w-[80%] mt-10 bg-white px-5 pt-2`}>
+                        <div className='flex w-full  items-end justify-end '>
+                            <MdCancel onClick={() => { setIsCliked(!isCliked); setShowId(0); setIsshow(false); setShowId(0);  setIsAddpayment(false); setUpid(0); setIspayment(false); }} size={20} />
 
                         </div>
-                        {displayData()}
+                        
                     </div>
-
+                    {displayData()}
+                    
                 </div>
 
             }

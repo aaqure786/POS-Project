@@ -422,11 +422,11 @@ const ContactTbl = () => {
             </nav>
             {isCliked &&
                 <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen'>
-                    <div className='flex items-end justify-end w-full md:w-[75%]  mt-10 bg-white px-5 pt-2'>
+                    <div className='flex flex-col items-end justify-end w-full md:w-[75%]  mt-10 bg-white px-5 pt-2'>
                         <MdCancel onClick={() => { setIsCliked(!isCliked); setEditId(0);; setIsedit(false); }} size={20} />
-
-                    </div>
+                        
                     {displayData()}
+                    </div>
                 </div>
 
             }
