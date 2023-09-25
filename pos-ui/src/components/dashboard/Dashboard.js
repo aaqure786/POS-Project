@@ -1,5 +1,5 @@
 import React from 'react'
-import { AiFillInfoCircle, AiOutlineCalendar,  } from 'react-icons/ai'
+import { AiFillInfoCircle, AiOutlineCalendar, } from 'react-icons/ai'
 import Chart1 from './Chart1'
 import Chart2 from './Chart2'
 import SlspmntDueTbl from './Tables/SlspmntDueTbl'
@@ -160,14 +160,18 @@ const Dashboard = () => {
                 <SlsOrderTbl />
             </div>
             <div className='mt-3 flex'>
-                <PrchsOrderTbl />
+                <div className=' w-[96%] mx-[2%] shadow-md my-5 shadow-gray-400 min-h-[300px] border-t-[2px] border-yellow-600 rounded-xl'>
+                    <h1 className=' text-2xl font-semibold text-start mx-5 mt-3'>Sales Order</h1>
+
+                    <PrchsOrderTbl />
+                </div>
             </div>
 
             <div className='mt-3 flex'>
                 <PndngShpmntTbl />
             </div>
 
-            
+
         </>
 
     )

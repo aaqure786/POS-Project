@@ -8,9 +8,9 @@ const AddorEditContact = (props) => {
     console.log(type)
     const [iserror, setIserror] = useState(false)
     const [moreInfor, setMoreInfor] = useState(false)
-    const [radioVal, setRadioVal] = useState('')
     const [formData, setFormData] = useState({
         contactType: type,
+        radioVal:"",
         contact_id:"",
         customer_grp:"",
         prefix:"",
@@ -50,7 +50,7 @@ const AddorEditContact = (props) => {
     })
 
     const handleClick = () => {
-        if ((formData.firstName.length === 0 && radioVal ==="individual")||
+        if ((formData.firstName.length === 0 && formData.radioVal ==="individual")||
         formData.contactType.length === 0 || 
         formData.mobile.length === 0) {
             setIserror(true)
@@ -84,11 +84,11 @@ const AddorEditContact = (props) => {
                     </div>
                     <div className='grid grid-cols-2'>
                         <div className='flex items-center '>
-                            <input type='radio' className='w-5 h-5' name='contact-type-r' value='individual' onChange={(e) => { setRadioVal(e.target.value) }} />
+                            <input type='radio' className='w-5 h-5' name='contact-type-r' value='individual' onChange={(e) => { setFormData({...formData, radioVal: e.target.value}) }} />
                             <h1 className='flex text-lg text-start mx-1'>Individual</h1>
                         </div>
                         <div className='flex items-center'>
-                            <input type='radio' className='w-5 h-5' name='contact-type-r' value='business' onChange={(e) => { setRadioVal(e.target.value) }} />
+                            <input type='radio' className='w-5 h-5' name='contact-type-r' value='business' onChange={(e) => { setFormData({...formData, radioVal: e.target.value}) }} />
                             <h1 className='flex text-lg text-start mx-1'>Business</h1>
                         </div>
 
@@ -124,14 +124,14 @@ const AddorEditContact = (props) => {
                         <div ></div>
                     </div>
                 }
-                {radioVal === "individual" &&
+                {formData.radioVal === "individual" &&
                     <div className='grid grid-cols-1 md:grid-cols-4 mt-2 gap-2'>
                         <div className='flex flex-col'>
                             <h1 className='flex text-sm text-start'>Prefix:</h1>
                             <input value={formData.prefix} onChange={(e) => { setFormData({ ...formData, prefix: e.target.value }) }} type='text' placeholder='Mr / Mrs / Miss' className='px-2 py-[3px] w-full border-[1px] border-gray-600 focus:outline-none' />
                         </div>
                         <div className='flex flex-col'>
-                            <h1 className='flex text-sm text-start'> First Name:* <p className='text-red-400'>{iserror && formData.firstName.length === 0 && radioVal ==="individual" ? "Required Field":""}</p></h1>
+                            <h1 className='flex text-sm text-start'> First Name:* <p className='text-red-400'>{iserror && formData.firstName.length === 0 && formData.radioVal ==="individual" ? "Required Field":""}</p></h1>
                             <input value={formData.firstName} onChange={(e) => { setFormData({ ...formData, firstName: e.target.value }) }} type='text' placeholder='First Name' className='px-2 py-[3px] w-full border-[1px] border-gray-600 focus:outline-none' />
                         </div>
                         <div className='flex flex-col'>
@@ -145,7 +145,7 @@ const AddorEditContact = (props) => {
 
                     </div>
                 }
-                {radioVal === "business" &&
+                {formData.radioVal === "business" &&
                     <div className='grid grid-cols-1 md:grid-cols-4 mt-2 gap-2'>
                         <div className='flex flex-col'>
                             <h1 className='flex text-sm text-start'>Business Name:</h1>
@@ -191,7 +191,7 @@ const AddorEditContact = (props) => {
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-4 gap-2 mt-2'>
 
-                    {radioVal === "individual" &&
+                    {formData.radioVal === "individual" &&
                         <div className='flex flex-col '>
                             <h1 className='flex text-sm text-start'>Date of Birth:</h1>
                             <div className='flex'>

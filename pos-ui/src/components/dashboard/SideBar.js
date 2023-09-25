@@ -94,50 +94,54 @@ const SideBar = () => {
         <BiSolidChevronLeft size={20} className='mx-1' />
       </div>
       {li2 && <div className='flex flex-col mx-4'>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/products"} className='flex hover:text-black aria-[current=page]:font-bold  aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>List Products</h1>
-        </Link>
+        </NavLink>
         <NavLink to={"/home/products/create"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Add Product</h1>
         </NavLink>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/update-product-price"} className='flex hover:text-black  aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start'>
+          <BsArrowRight size={15} />
+          <h1 className=' mt-1 ml-5 text-gray-500 text-sm '> Update Price </h1>
+        </NavLink>
+        <NavLink to={"/home/lables/show"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '> Print Lables </h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/home/variation-templates"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Variations</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/home/import-products"} className='flex hover:text-black  py-1 items-center aria-[current=page]:font-bold aria-[current=page]:text-black  justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Import Products</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/home/import-opening-stock"} className='flex hover:text-black  py-1 items-center  aria-[current=page]:font-bold aria-[current=page]:text-black justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Import Opening Stocks</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/home/selling-price-group"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Selling Price Group</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/home/units"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Units</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/home/taxonomies/product"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Categories</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/home/brands"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Brands</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/home/warranties"} className='flex hover:text-black  py-1 items-center aria-[current=page]:font-bold aria-[current=page]:text-black  justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Warranties</h1>
-        </Link>
+        </NavLink>
       </div>
       }
       {/* Manufacturing */}

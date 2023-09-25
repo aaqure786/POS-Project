@@ -13,7 +13,7 @@ import EditShipping from '../sell/EditShipping';
 import EditStatus from '../Purchases/EditStatus';
 
 
-const PrchsOrderTbl = () => {
+const ProductsTbl = () => {
     const dummyData = [
         {
             id: 1,
@@ -111,7 +111,9 @@ const PrchsOrderTbl = () => {
     const [col7, setCol7] = useState(true)
     const [col8, setCol8] = useState(true)
     const [col9, setCol9] = useState(true)
-
+    const [col10, setCol10] = useState(true)
+    const [col11, setCol11] = useState(true)
+    const [col12, setCol12] = useState(true)
     const [isCliked, setIsCliked] = useState(false)
     const [updateStatus, setUpdateStatus] = useState(false)
     const [upid, setUpid] = useState(0)
@@ -208,15 +210,18 @@ const PrchsOrderTbl = () => {
                         <h1 className='text-sm'>Column Visibility</h1>
                         {colvis && <div className='absolute top-7 shadow-md shadow-gray-400 bg-white w-[150px]'>
                             <ul className='flex flex-col items-center justify-center'>
-                                <li className={` w-full py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Action</li>
-                                <li className={` w-full py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>Date</li>
-                                <li className={` w-full py-1 ${col3 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol3(!col3) }}>Reference No</li>
-                                <li className={` w-full py-1 ${col4 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol4(!col4) }}>Location</li>
-                                <li className={` w-full py-1 ${col5 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol5(!col5) }}>Supplier</li>
-                                <li className={` w-full py-1 ${col6 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol6(!col6) }}>Status</li>
-                                <li className={` w-full py-1 ${col7 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol7(!col7) }}>Quantity Remaining</li>
-                                <li className={` w-full py-1 ${col8 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol8(!col8) }}>Shipping Status</li>
-                                <li className={` w-full py-1 ${col9 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol9(!col9) }}>Payment Due</li>
+                                <li className={` w-full py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Product Image</li>
+                                <li className={` w-full py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>Action</li>
+                                <li className={` w-full py-1 ${col3 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol3(!col3) }}>Porduct</li>
+                                <li className={` w-full py-1 ${col4 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol4(!col4) }}>Business Location</li>
+                                <li className={` w-full py-1 ${col5 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol5(!col5) }}>Unit Purchase Price</li>
+                                <li className={` w-full py-1 ${col6 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol6(!col6) }}>Selling Price</li>
+                                <li className={` w-full py-1 ${col7 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol7(!col7) }}>Current Stock</li>
+                                <li className={` w-full py-1 ${col8 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol8(!col8) }}>Product Tpye</li>
+                                <li className={` w-full py-1 ${col9 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol9(!col9) }}>Category</li>
+                                <li className={` w-full py-1 ${col10 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol10(!col10) }}>Brand</li>
+                                <li className={` w-full py-1 ${col11 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol11(!col11) }}>Tax</li>
+                                <li className={` w-full py-1 ${col12 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol12(!col12) }}>SKU</li>
 
                             </ul>
                         </div>}
@@ -238,8 +243,9 @@ const PrchsOrderTbl = () => {
                 <table id='usertbl' className="table-fixed w-full  mb-10   px-5 ">
                     <thead>
                         <tr className='h-[50px] bg-gray-100'>
-                            {col1 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm">Action</th>}
-                            {col2 && <th className=" py-2 title-font w-[70px]  tracking-wider font-medium text-gray-900 text-sm">Date</th>}
+                            <th className='flex items-center justify-center'><input type='checkbox' /> </th>
+                            {col1 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm"></th>}
+                            {col2 && <th className=" py-2 title-font w-[70px]  tracking-wider font-medium text-gray-900 text-sm">Action</th>}
                             {col3 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Reference No</th>}
                             {col4 && <th className=" py-2 title-font w-[101px]  tracking-wider font-medium text-gray-900 text-sm">Location</th>}
                             {col5 && <th className=" py-2 title-font w-[57px]  tracking-wider font-medium text-gray-900 text-sm">Supplier</th>}
@@ -253,7 +259,13 @@ const PrchsOrderTbl = () => {
                     <tbody >
                         {record.map((value, index) => {
                             return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""}`}>
-                                {col1 && <td className='py-1 flex '>
+                                <td className='flex justify-center items-center'><input type='checkbox' /> </td>
+                                {col1 && <td className="px-1 py-1 text-sm mx-1">
+                                    <div className='flex items-center justify-center'>
+                                        <img src='' alt='imagee' />
+                                    </div>
+                                    </td>}
+                                {col2 && <td className='py-1 flex '>
                                     <div onClick={() => { toggleDropdown(index) }} className='flex px-2 py-1 relative cursor-pointer items-center bg-green-600 rounded-xl text-white justify-center'>
                                         <h1 className='text-sm'>Action</h1>
                                         <AiFillCaretDown size={10} />
@@ -307,19 +319,16 @@ const PrchsOrderTbl = () => {
                                         }
                                     </div>
                                 </td>}
-                                {col2 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
-                                {col3 && <td className="px-1 py-1"> {value.Name}</td>}
-                                {col4 && <td className="px-1 py-1">{value.Role}</td>}
+                                {col3 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
+                                {col4 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col5 && <td className=" py-1 px-1">{value.Name}</td>}
-                                {col6 && <td className=" py-1 px-1">
-                                    <button onClick={() => { setIsCliked(true); setUpdateStatus(true); setUpid(value.id) }} className='bg-green-400 text-white px-2 text-xs rounded-xl'>status</button>
-                                </td>}
+                                {col6 && <td className=" py-1 px-1">{value.Name}</td>}
                                 {col7 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
-                                {col8 && <td className="px-1 py-1">
-                                    <button onClick={() => { setIsCliked(true); setShippingStatus(true); setShipid(value.id) }} className='bg-orange-400 text-white px-2 text-xs rounded-xl'>status</button>
-                                </td>}
+                                {col8 && <td className=" py-1 px-1">{value.Name}</td>}
                                 {col9 && <td className="px-1 py-1">{value.Role}</td>}
-
+                                {col10 && <td className=" py-1 px-1">{value.Name}</td>}
+                                {col11 && <td className="px-1 py-1">{value.Role}</td>}
+                                {col12 && <td className=" py-1 px-1">{value.Name}</td>}
                             </tr>
                         })}
 
@@ -372,4 +381,4 @@ const PrchsOrderTbl = () => {
     )
 }
 
-export default PrchsOrderTbl
+export default ProductsTbl

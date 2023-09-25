@@ -33,6 +33,17 @@ import AddorEditPurchaseOrder from './components/dashboard/Purchases/AddorEditPu
 import Purchase from './components/dashboard/Purchases/Purchase';
 import PurchaseReturn from './components/dashboard/Purchases/PurchaseReturn';
 import AddorEditPucReturn from './components/dashboard/Purchases/AddorEditPucReturn';
+import Product from './components/dashboard/Product/Product';
+import UpdatePrice from './components/dashboard/Product/UpdatePrice';
+import ImportProducts from './components/dashboard/Product/ImportProducts';
+import ImportOpeningStock from './components/dashboard/Product/ImportOpeningStock';
+import PrintLables from './components/dashboard/Product/PrintLables';
+import Variations from './components/dashboard/Product/variations/Variations';
+import Units from './components/dashboard/Product/units/Units';
+import SellingPriceGrp from './components/dashboard/Product/sellingPriceGrp/SellingPriceGrp';
+import Categories from './components/dashboard/Product/category/Categories';
+import Brand from './components/dashboard/Product/brands/Brand';
+import Warranties from './components/dashboard/Product/warranties/Warranties';
 
 
 function App() {
@@ -85,9 +96,20 @@ function App() {
             <Route path='/home/purchase-return' element={<PurchaseReturn />} />
             <Route path='/home/purchase-return/create' element={<AddorEditPucReturn />} />
             <Route path='/home/purchase-return/edit/:id' element={<AddorEditPucReturn />} />
+            <Route path='/home/products' element={<Product/>} />
+            <Route path='/home/update-product-price' element={<UpdatePrice/>} />
+            <Route path='/home/import-products' element={<ImportProducts/>} />
+            <Route path='/home/import-opening-stock' element={<ImportOpeningStock/>} />
+            <Route path='/home/lables/show' element={<PrintLables/>} />
+            <Route path='/home/variation-templates' element={<Variations />} />
+            <Route path='/home/units' element={<Units />} />
+            <Route path='/home/selling-price-group' element={<SellingPriceGrp />} />
+            <Route path='/home/taxonomies/product' element={<Categories />} />
+            <Route path='/home/brands' element={<Brand />} />
+            <Route path='/home/warranties' element={<Warranties />} />
 
-
-
+            
+ 
           </Route>
 
         </Routes>

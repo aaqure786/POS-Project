@@ -1,14 +1,16 @@
 import React, { useRef, useState } from 'react'
-import { FaColumns,  FaFileCsv, FaFileExcel, FaFilePdf, FaPrint, FaSearch } from 'react-icons/fa'
+import { FaColumns, FaEdit, FaFileCsv, FaFileExcel, FaFilePdf, FaInfoCircle, FaPrint, FaSearch } from 'react-icons/fa'
 import { useReactToPrint } from 'react-to-print';
 import { CSVLink } from 'react-csv';
 import * as XLSX from 'xlsx'
 import { jsPDF } from 'jspdf';
 import * as htmlToImage from 'html-to-image';
-// import { Link } from 'react-router-dom';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { MdCancel } from 'react-icons/md';
+import AddorEditUnits from '../Product/units/AddorEditUnits';
 
 
-const StockReportTbl = () => {
+const UnitsTbl = () => {
     const dummyData = [
         {
             id: 1,
@@ -101,19 +103,8 @@ const StockReportTbl = () => {
     const [col2, setCol2] = useState(true)
     const [col3, setCol3] = useState(true)
     const [col4, setCol4] = useState(true)
-    const [col5, setCol5] = useState(true)
-    const [col6, setCol6] = useState(true)
-    const [col7, setCol7] = useState(true)
-    const [col8, setCol8] = useState(true)
-    
-    
-    // const [actionList, setActionList] = useState(Array(record.length).fill(false))
+    const [info, setInfo] = useState(false)
 
-    // const toggleDropdown = (index) => {
-    //     const dropDownAction =[...actionList];
-    //     dropDownAction[index] = !dropDownAction[index];
-    //     setActionList(dropDownAction);
-    // };
 
     const csvData = [
         ["Username", "Name", "Role", "Email"],
@@ -143,13 +134,31 @@ const StockReportTbl = () => {
             setCrpage(crpage + 1)
         }
     }
-    
+    const [isAdd, setIsAdd] = useState(false)
+    const [isEdit, setIsEdit] = useState(false)
+    const [iseidtId, setIseidtId] = useState(0)
+    const [isClicked, setIsClicked] = useState(false)
+    const displayData = () => {
+        if (isAdd === true) {
+            return <AddorEditUnits id={0} />
+        } else if (isEdit === true && iseidtId !== 0) {
+            return <AddorEditUnits id={iseidtId} />
+        }
+    }
 
 
     return (
         <div>
-            
-            <div className='flex  flex-col md:flex-row  items-center justify-center mt-3 md:justify-between mx-5'>
+            <div className='flex justify-between mt-2 text-sm mx-5'>
+                <h1 className='text-xl font-semibold text-start p-5'>All Variations</h1>
+                <button onClick={() => { setIsAdd(true); setIsClicked(true) }} className='flex items-center justify-center mx-5 font-semibold w-20 h-10 rounded-md mt-3 text-white bg-blue-500'>
+                    <AiOutlinePlus size={15} /> Add
+
+                </button>
+
+            </div>
+            <div className='flex mt-5 flex-col md:flex-row  items-center justify-center md:justify-between mx-5'>
+
 
                 <div className='flex items-center justify-center my-2 md:my-0'>
                     <h1 className='text-sm mx-1'>Show</h1>
@@ -187,15 +196,10 @@ const StockReportTbl = () => {
                         <h1 className='text-sm'>Column Visibility</h1>
                         {colvis && <div className='absolute top-7 shadow-md shadow-gray-400 bg-white w-[150px]'>
                             <ul className='flex flex-col items-center justify-center'>
-                                <li className={` w-full py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Product</li>
-                                <li className={` w-full py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>SKU</li>
-                                <li className={` w-full py-1 ${col3 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol3(!col3) }}>Purchase Quantity</li>
-                                <li className={` w-full py-1 ${col4 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol4(!col4) }}>Total Sold</li>
-                                <li className={` w-full py-1 ${col5 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol5(!col5) }}>Total Unit Transfered</li>
-                                <li className={` w-full py-1 ${col6 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol6(!col6) }}>Total Returned</li>
-                                <li className={` w-full py-1 ${col7 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol7(!col7) }}>Current Stock </li>
-                                <li className={` w-full py-1 ${col8 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol8(!col8) }}>Current Stock Value</li>
-                                
+                                <li className={` w-full py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Name</li>
+                                <li className={` w-full py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>Short Name</li>
+                                <li className={` w-full py-1 ${col3 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol3(!col3) }}>Allow decimal</li>
+                                <li className={` w-full py-1 ${col4 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol4(!col4) }}>Actions</li>
                             </ul>
                         </div>}
                     </button>
@@ -204,70 +208,94 @@ const StockReportTbl = () => {
                         <h1 className='text-sm'>Export to PDF</h1>
                     </button>
                 </div>
-                <div className='flex items-center justify-center  w-[250px] md:w-auto my-2 md:my-0 border-[1px] border-black'>
+                <div className='flex items-center justify-center  w-[300px] md:w-auto my-2 md:my-0 border-[1px] border-black'>
                     <FaSearch size={15} className=' mt-1 mx-1' />
-                    <input className=' focus:outline-none px-2 py-1' type='search' id="search" name='serch' placeholder='Search' />
+                    <input className=' focus:outline-none px-2' type='search' id="search" name='serch' placeholder='Search' />
                 </div>
 
 
             </div>
-            <div className='flex flex-col  overflow-x-scroll  mt-5 mx-5' ref={printRef} >
-                <table id='usertbl' className="table-fixed w-full  mb-10   px-5 ">
+
+
+            <div className='flex flex-col justify-center items-center mt-5 mx-5' ref={printRef} >
+                <table id='usertbl' className="table-auto w-full mb-10  whitespace-no-wrap ">
                     <thead>
-                        <tr className='h-[50px]'>
-                            {col1 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Product</th>}
-                            {col2 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">SKU</th>}
-                            {col3 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Purchase Quantity</th>}
-                            {col4 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Total Sold</th>}
-                            {col5 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Total Unit Transfered</th>}
-                            {col6 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Total Returned</th>}
-                            {col7 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Current Stock</th>}
-                            {col8 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Current Stock Value</th>}
-                            
+                        <tr>
+                            {col1 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Name</th>}
+                            {col2 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Short Name</th>}
+                            {col3 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200 relative">
+                                <div className='flex mx-2 justify-center'>
+                                    <h1 className=' font-semibold'>Allow decimal:</h1>
+                                    <FaInfoCircle onMouseOver={() => { setInfo(true) }} onMouseLeave={() => { setInfo(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
+                                    {info &&
+                                        <div className='flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-8 p-2 z-10 bg-white shadow-md shadow-gray-300'>
+                                            <p className='text-start mt-2 text-gray-600'>Decimal Allows you to sell the related products in fractions</p>
+
+                                        </div>
+                                    }
+                                </div>
+                            </th>}
+                            {col4 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Actions</th>}
+
                         </tr>
                     </thead>
                     <tbody >
                         {record.map((value, index) => {
-                            return <tr key={index} className=''>
-                                {col1 && <td className=" py-1 px-1">{value.Email}</td>}
-                                {col2 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
+                            return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-100" : ""}`}>
+                                {col1 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
+                                {col2 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col3 && <td className="px-1 py-1"> {value.Name}</td>}
-                                {col4 && <td className="px-1 py-1">{value.Role}</td>}
-                                {col5 && <td className=" py-1 px-1">{value.Email}</td>}
-                                {col6 && <td className=" py-1 px-1">{value.Role}</td>}
-                                {col7 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
-                                {col8 && <td className="px-1 py-1"> {value.Name}</td>}
                                 
+                                {col4 && <td className='py-1 flex justify-center'>
+                                    <button onClick={() => { setIsClicked(true); setIsEdit(true); setIseidtId(value.id) }} className='flex mx-1 p-1 items-center bg-blue-600 text-white justify-center'>
+                                        <FaEdit size={15} />
+                                        <h1 className='text-sm'>Edit</h1>
+                                    </button>
+                                    <button  className='flex mx-3 p-1 items-center bg-red-600 text-white justify-center'>
+                                        <FaEdit size={15} />
+                                        <h1 className='text-sm'>Delete</h1>
+                                    </button>
+                                </td>}
                             </tr>
                         })}
 
 
                     </tbody>
-                    <tfoot>
-                        <tr></tr>
-                    </tfoot>
                 </table>
+                <nav className='  my-2 w-full'>
+                    <ul className='flex justify-end'>
+                        <li>
+                            <button disabled={crpage === 1 ? true : false} className='p-3 mx-1 bg-green-400 text-white' onClick={prevPage}> Previous</button>
+                        </li>
+                        {
+                            numbers.map((n, i) => {
+                                return <li key={i} className={`${crpage === n ? 'bg-blue-500' : ''} py-3 px-4 mx-1 border-[1px] border-gray-400`}>
+                                    <button onClick={() => { setCrpage(n) }}>{n}</button>
+                                </li>
+                            })
+                        }
+                        <li>
+                            <button className='p-3 bg-green-400 text-white mx-1 ' onClick={nextPage}> Next</button>
+                        </li>
+                    </ul>
+                </nav>
+
+                {isClicked &&
+                    <div className='absolute top-0  flex flex-col  items-center  right-0 bg-black/50 w-full min-h-screen'>
+                        <div className='w-full md:w-[50%]   mt-10 bg-white px-5 pt-2'>
+                            <div className='flex items-end justify-end '>
+                                <MdCancel onClick={() => { setIsClicked(false); setIsAdd(false); setIsEdit(false); setIseidtId(0) }} size={20} />
+
+                            </div>
+                            {displayData()}
+                        </div>
+
+                    </div>
+
+                }
             </div>
-            <nav className='  my-2 w-full'>
-                <ul className='flex justify-end'>
-                    <li>
-                        <button disabled={crpage === 1 ? true : false} className='p-3 mx-1 bg-green-400 text-white' onClick={prevPage}> Previous</button>
-                    </li>
-                    {
-                        numbers.map((n, i) => {
-                            return <li key={i} className={`${crpage === n ? 'bg-blue-500' : ''} py-3 px-4 mx-1 border-[1px] border-gray-400`}>
-                                <button onClick={() => { setCrpage(n) }}>{n}</button>
-                            </li>
-                        })
-                    }
-                    <li>
-                        <button className='p-3 bg-green-400 text-white mx-1 ' onClick={nextPage}> Next</button>
-                    </li>
-                </ul>
-            </nav>
-            
         </div>
     )
 }
 
-export default StockReportTbl
+export default UnitsTbl

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { FaDownload } from "react-icons/fa"
 
-const ImportProduct = () => {
+const ImportOpeningStock = () => {
     const ref = useRef();
     const record = [
         {
@@ -11,48 +11,34 @@ const ImportProduct = () => {
             subinstruction: "",
         },
         {
-            columnName: "Purchase Quantity",
+            columnName: "Location",
+            required: "Required (If blank first business location will be used)",
+            instruction: "Name of the business location",
+            subinstruction: "",
+        },
+        {
+            columnName: "Quantity ",
             required: "Required",
             instruction: "",
             subinstruction: "",
         },
         {
-            columnName: "Unit Cost (Before Discount)",
-            required: "Optional",
-            instruction: "",
-            subinstruction: "",
-        },
-        {
-            columnName: "Discount Percent",
-            required: "Optional",
-            instruction: "",
-            subinstruction: "",
-        },
-        {
-            columnName: "Product Tax",
-            required: "Optional",
+            columnName: "Unit Cost (Before Tax) ",
+            required: "Required",
             instruction: "",
             subinstruction: "",
         },
         {
             columnName: "Lot Number",
             required: "Optional",
-            instruction: "Only if Lot number is enabled. You can enable Lot number from",
-            subinstruction: "Business Settings > Purchases > Enable Lot number",
-        },
-        {
-            columnName: "MFG Date",
-            required: "Optional",
-            instruction: "Only if Product Expiry is enabled. You can enable Product expiry from",
-            subinstruction: "Business Settings > Product > Enable Product Expiry",
-            dateFormat: "Format: yyyy-mm-dd; Ex: 2021-11-25"
+            
         },
         {
             columnName: "EXP Date",
-            required: "ReqOptionaluired",
-            instruction: "Only if Product Expiry is enabled. You can enable Product expiry from",
-            subinstruction: "Business Settings > Product > Enable Product Expiry",
-            dateFormat: "Format: yyyy-mm-dd; Ex: 2021-11-25"
+            required: "Optional",
+            instruction: "Stock Expiry date in Bussiness",
+            subinstruction: "Date Format mm/dd/yyyy",
+            subinstruction1: "Type: text, Example: 09/23/2023"
         }
 
     ]
@@ -60,8 +46,8 @@ const ImportProduct = () => {
         ref.current?.click();
     }
     return (
-        <div className='flex flex-col min-h-screen bg-white p-5 relative'>
-            <h1 className='text-xl  text-start mb-4 absolute -top-5'>Import Products</h1>
+        <div className='flex flex-col min-h-screen bg-white p-5 '>
+            <h1 className='text-xl  text-start mb-4 '>Import Opening Stock</h1>
             <div onClick={handleFileUpload} className='flex flex-col w-full p-3'>
                 <h1 className='text-xl  text-start '>File To Import</h1>
                 <div className='flex w-full h-[200px] border-[2px] border-gray-700 cursor-pointer items-center justify-center '>
@@ -92,12 +78,12 @@ const ImportProduct = () => {
                     {record.map((value, index) => {
                         return <tr key={index} className={`${(index + 1) % 2 !== 0 ? "bg-gray-100" : ""}`}>
                             <td className="px-1 py-1"> {index + 1}</td>
-                            <td className="px-1 py-1">{value.columnName}</td>
+                            <td className="px-1 py-1 flex items-center">{value.columnName} <sapn className="text-xs mx-1 mt-1">({value.required})</sapn></td>
                             <td className=" py-1 px-1">
-                                <div className='flex flex-col justify-start'>
+                                <div className='flex flex-col justify-start '>
                                     <p className='font-bold text-start'>{value.instruction}</p>
-                                    <p className='font-bold text-red-500 text-start'>{value.subinstruction}</p>
-                                    <p className='text-xl text-start'>{value.dateFormat}</p>
+                                    <p className=' text-start'>{value.subinstruction}</p>
+                                    <p className=' text-start'>{value.subinstruction1}</p>
 
                                 </div>
                             </td>
@@ -119,4 +105,4 @@ const ImportProduct = () => {
     )
 }
 
-export default ImportProduct
+export default ImportOpeningStock
