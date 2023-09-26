@@ -9,8 +9,8 @@ import * as htmlToImage from 'html-to-image';
 import { MdCancel } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import ViewPurchaseOrder from '../Purchases/ViewPurchaseOrder';
-import EditShipping from '../sell/EditShipping';
 import EditStatus from '../Purchases/EditStatus';
+import AddorEditPurchase from '../payments/AddPayment';
 
 
 const PrchsOrderTbl = () => {
@@ -161,7 +161,7 @@ const PrchsOrderTbl = () => {
         } else if (updateStatus === true) {
             return <EditStatus id={upid} />
         } else if (shippingStatus === true) {
-            return <EditShipping id={shipid} />
+            return <AddorEditPurchase id={shipid} />
         }
     }
 

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { FaCalendar, FaInfoCircle, FaSearch, FaTimes, FaTrash, FaUser } from 'react-icons/fa'
+import { FaArrowDown, FaCalendar, FaInfoCircle, FaSearch, FaTimes, FaTrash, FaUser } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import { BiChevronDown } from 'react-icons/bi'
 import { AiOutlineSearch, AiTwotoneFolderOpen } from 'react-icons/ai'
@@ -60,12 +60,72 @@ const AddorEditPucReturn = () => {
             Email: "username6@gmail.com"
         }
     ]
-    const [searchData, setSearchData] = useState('')
     const [inputValue, setInputValue] = useState('')
+    const [inputValue1, setInputValue1] = useState('')
+
     const [open, setOpen] = useState(false)
     const [isAddSupplier, setIsAddSupplier] = useState(false)
     const [info, setInfo] = useState(false)
     const [info1, setInfo1] = useState(false)
+    const [productName, setProductName] = useState('')
+    const [lotNumber, setLotNumber] = useState(0.00)
+    const [unitPrice, setUnitPrice] = useState(0.00)
+    const [quantity, setQuantity] = useState(0.00)
+    const [unitType, setUnitType] = useState('')
+    const [isUpdate, setIsUpdate] = useState(false)
+    const [selectedRow, setSelectedRow] = useState(-1)
+    const [inputData, setInputData] = useState([])
+    const AddToArray = () => {
+        if (isUpdate === true && selectedRow !== -1) {
+            let newArray = inputData
+            let subTotal = 0
+            subTotal = quantity * unitPrice
+            newArray[selectedRow] = { productName, lotNumber, quantity, unitType, unitPrice, subTotal }
+            setInputData(newArray)
+            setSelectedRow(-1)
+            setIsUpdate(false)
+            setProductName("")
+            setLotNumber(0.00)
+            setQuantity(0.00)
+            setUnitPrice(0.00)
+        } else {
+            let subTotal = 0
+            subTotal = quantity * unitPrice
+            setInputData(current => [...current, { productName, lotNumber, quantity, unitType, unitPrice, subTotal }])
+            setProductName("")
+            setLotNumber(0.00)
+            setQuantity(0.00)
+            setUnitPrice(0.00)
+        }
+
+
+    }
+    const handleSelcetRow = (index) => {
+        let newArray = inputData[index]
+        console.log(newArray)
+
+        setProductName(newArray.productName)
+        setLotNumber(newArray.lotNumber)
+        setQuantity(newArray.quantity)
+        setUnitPrice(newArray.unitPrice)
+
+
+    }
+    const deleteByIndex = (index) => {
+        let newArray = [...inputData]
+        newArray.splice(index,1)
+        setInputData(newArray)
+    }
+
+    const findTotal = () => {
+        let total = 0
+        inputData.map(val => {
+            return total += val.subTotal
+        })
+        return total
+    }
+    const total = findTotal()
+    console.log(total)
     const [formData, setFormData] = useState({
         supplier: "",
         referenceNo: "",
@@ -100,14 +160,15 @@ const AddorEditPucReturn = () => {
     const inpuRef = useRef()
     const params = useParams()
     const id = params.id
-    console.log(id)
     const [isCliked, setIsCliked] = useState(false)
+    const [isClicked, setIsClicked] = useState(false)
+
     const [newProduct, setNewProduct] = useState(false)
     const [isProductUpload, setIsProductUpload] = useState(false)
 
     const handleClick = (e) => {
 
-         if (id) {
+        if (id) {
             if (formData.supplier.length === 0 ||
                 formData.purchaseDate.length === 0) {
                 setIsserror(true)
@@ -270,19 +331,80 @@ const AddorEditPucReturn = () => {
 
                     </div>
                 </div>
-               
-                
+
+
             </div>
             <div className='flex  w-full   flex-col   p-5 mt-5 bg-white border-t-[3px] rounded-md border-blue-600'>
-                    <h1 className=' text-start font-bold flex m-3'> Search Products:</h1>
-                
-                <div className='flex flex-col md:flex-row mt-5 w-full items-center justify-center'>
-                    <div className='flex md:w-[60%] mt-4 md:mt-0'>
-                        < FaSearch size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
-                        <input value={searchData} onChange={(e) => { setSearchData(e.target.value) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                <h1 className=' text-start font-bold flex m-3'> Search Products:</h1>
 
+                <div className='flex flex-col  mt-5 w-full items-center justify-center'>
+                    <div className='flex  md:w-[60%] mt-4 md:mt-0 relative'>
+                        <div className='flex w-full'>
+                            < FaSearch size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
+                            <input onClick={() => { setIsClicked(!isClicked) }} value={inputValue1} onChange={(e) => { setInputValue1(e.target.value) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 w-full py-[2px] border-[1px] border-gray-600 focus:outline-none' />
+                        </div>
+                        {isClicked &&
+                            <ul
+
+                                className={`bg-white w-full    border-[1px]   z-10 absolute top-8 border-gray-600  ${isClicked ? "max-h-60" : "max-h-0"} `}
+                            >
+
+                                {dummyData?.map((data) => (
+                                    <li
+                                        key={data?.Name}
+                                        className={`p-1 px-9 text-start text-sm hover:bg-sky-600 hover:text-white
+                                ${data?.Name?.toLowerCase() === inputValue1?.toLowerCase() &&
+                                            "bg-sky-600 text-white"
+                                            }
+                                 ${data?.Name?.toLowerCase().startsWith(inputValue)
+                                                ? "block"
+                                                : "hidden"
+                                            }`}
+                                        onClick={() => {
+                                            if (data?.Name?.toLowerCase() !== inputValue1.toLowerCase()) {
+                                                setInputValue1(data?.Name)
+                                                let name = data?.Name
+                                                setProductName(name)
+                                                setUnitType(data?.unitType || "Lit")
+                                                setInputValue1('')
+                                                setIsClicked(!isClicked);
+                                            }
+                                        }}
+                                    >
+                                        {data?.Name}
+                                    </li>
+                                ))}
+                            </ul>
+                        }
                     </div>
-                    
+                    <div className='grid grid-cols-5 gap-3 mt-4 items-center justify-center w-5/6'>
+                        <div className='flex flex-col'>
+                            <h1 className='font-semibold text-start'>Product Name</h1>
+                            <input type='text' name="name" value={productName} readOnly className='border-[1px] border-black focus:outline-none' />
+                        </div>
+                        <div className='flex flex-col'>
+                            <h1 className='font-semibold text-start'>Lot Number</h1>
+                            <input type='text' name="lotNumber" value={lotNumber} onChange={(e) => setLotNumber(e.target.value)} className='border-[1px] border-black focus:outline-none' />
+                        </div>
+                        <div className='flex flex-col'>
+                            <h1 className='font-semibold text-start'>Quantity</h1>
+                            <input name="quantity" type='text' value={quantity} onChange={(e) => setQuantity(e.target.value)} className='border-[1px] border-black focus:outline-none' />
+                        </div>
+
+                        <div className='flex flex-col'>
+                            <h1 className='font-semibold text-start'>Unit price</h1>
+                            <input name="unitprice" value={unitPrice} onChange={(e) => setUnitPrice(e.target.value)} type='number' className='border-[1px]  border-black focus:outline-none' />
+                        </div>
+                        <div className='flex'>
+                            {/* <div className='flex flex-col'>
+                                <h1 className='font-semibold text-start'>Subtotal</h1>
+                                <input type='number' name="subTotal" value={subTotal}   className='border-[1px] w-2/3   border-black focus:outline-none' />
+                            </div> */}
+                            <FaArrowDown onClick={AddToArray} size={20} style={{ color: "white", backgroundColor: "green" }} className='mx-3 w-1/3 h-10 mt-2' />
+                        </div>
+                    </div>
+
+
                 </div>
                 <div className='flex overflow-x-scroll  mt-5 ' >
                     <table className="table-auto w-full    mb-2   px-5 ">
@@ -294,19 +416,19 @@ const AddorEditPucReturn = () => {
                                 <th className=" py-2 title-font  tracking-wider font-bold text-white text-sm ">Unit Price</th>
                                 <th className=" py-2 title-font  tracking-wider font-bold text-white text-sm ">Subtotal</th>
                                 <th className=" py-2 title-font  tracking-wider font-bold text-white text-sm "><FaTrash size={20} /> </th>
-                                
+
                             </tr>
                         </thead>
                         <tbody >
-                            {dummyData.map((value, index) => {
-                                return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""}`}>
-                                    
-                                    <td className=" py-1 px-1">{value.Name}</td>
-                                    <td className=" py-1 px-1">{value.Role}</td>
-                                    <td className="px-1 py-1 text-sm">{value.Username}</td>
-                                    <td className="px-1 py-1"> {value.Name}</td>
-                                    <td className="px-1 py-1 text-sm">{value.Username}</td>
-                                    <td className="px-1 py-1 text-red-400"> <FaTimes size={15} /> </td>
+                            {inputData.map((value, index) => {
+                                return <tr title='Double Click to Edit me' onDoubleClick={() => { handleSelcetRow(index); setIsUpdate(true); setSelectedRow(index) }} key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""}`}>
+
+                                    <td className=" py-1 px-1">{value.productName}</td>
+                                    <td className=" py-1 px-1">{value.lotNumber}</td>
+                                    <td className="px-1 py-1 text-sm">{value.quantity}{value.unitType}</td>
+                                    <td className="px-1 py-1"> {value.unitPrice}</td>
+                                    <td className="px-1 py-1 text-sm">{value.subTotal}</td>
+                                    <td className="px-1 py-1 text-red-400"> <FaTimes size={15} onClick={(e) => { deleteByIndex(index) }} className='cursor-pointer' /> </td>
                                 </tr>
                             })}
 
@@ -321,27 +443,27 @@ const AddorEditPucReturn = () => {
                 <div className='flex flex-col items-end mt-5 justify-end'>
                     <div className='flex '>
                         <h1 className='font-bold mx-2'>Total Items</h1>
-                        <h1 className=' mx-2'> {dummyData.length}.00</h1>
+                        <h1 className=' mx-2'> {inputData.length}.00</h1>
 
                     </div>
                     <div className='flex '>
                         <h1 className='font-bold mx-2'>Net Total Amount</h1>
-                        <h1 className=' mx-2'> 0.00</h1>
+                        <h1 className=' mx-2'> {total}</h1>
 
                     </div>
                 </div>
                 <div className='flex flex-col w-full md:w-1/3'>
-                        <h1 className='flex text-sm text-start font-bold'>Purchase Tax:</h1>
-                        <select value={formData.purchaseTaxType} onChange={(e) => { setFormData({ ...formData, purchaseTaxType: e.target.value }) }} type='text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
-                            <option value={""}>None</option>
-                            <option value={"sss"}>sss</option>
-                            <option value={"Nikki Wolf"}>Nikki Wolf</option>
-                            <option value={"Nikki Wolf"}>Nikki Wolf</option>
-                            <option value={"Pepsi"}>Pepsi</option>
+                    <h1 className='flex text-sm text-start font-bold'>Purchase Tax:</h1>
+                    <select value={formData.purchaseTaxType} onChange={(e) => { setFormData({ ...formData, purchaseTaxType: e.target.value }) }} type='text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
+                        <option value={""}>None</option>
+                        <option value={"sss"}>sss</option>
+                        <option value={"Nikki Wolf"}>Nikki Wolf</option>
+                        <option value={"Nikki Wolf"}>Nikki Wolf</option>
+                        <option value={"Pepsi"}>Pepsi</option>
 
-                        </select>
+                    </select>
 
-                    </div>
+                </div>
             </div>
             <div className='flex items-end justify-end mt-5'>
                 <button onClick={handleClick} className='bg-green-500 px-2 py-2 items-center justify-center flex'>{id ? "Update" : "Save"}</button>

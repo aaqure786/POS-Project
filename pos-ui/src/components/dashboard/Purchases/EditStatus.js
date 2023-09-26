@@ -7,9 +7,9 @@ const EditStatus = (props) => {
         console.log("Handle Update")
     }
     return (
-        <div className='w-full p-5 items-center justify-center flex flex-col'>
+        <div className='w-1/2 p-5 items-center  flex flex-col'>
             <h1 className='text-start text-lg'>Edit Status</h1>
-            <div className='w-1/2 border-t-[3px] rounded-xl border-blue-400 p-5'>
+            <div className='w-full border-t-[3px] justify-center rounded-xl border-blue-400 p-5'>
             <div className='flex flex-col '>
                 <h1 className='flex text-sm text-start font-bold'>Shipping Status:</h1>
 
