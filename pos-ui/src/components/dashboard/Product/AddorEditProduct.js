@@ -1,16 +1,16 @@
 import React, { useRef, useState } from 'react'
 import { BiChevronDown } from 'react-icons/bi';
-import { FaInfoCircle, FaPlusCircle } from 'react-icons/fa';
+import { FaInfoCircle, FaMinus, FaPlus, FaPlusCircle, FaSearch, FaTimes, FaTrash } from 'react-icons/fa';
 import JoditEditor from 'jodit-react';
 import { AiTwotoneFolderOpen } from 'react-icons/ai';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const AddorEditProduct = () => {
   const editor = useRef(null)
   const params = useParams()
   const id = params.id
-  
+
 
   const dummyData = [
     {
@@ -63,10 +63,10 @@ const AddorEditProduct = () => {
       Email: "username6@gmail.com"
     }
   ]
-  // const [description, setDescription] = useState('')
 
   const [skuInfor, setSkuInfor] = useState(false)
   const [skuInfor1, setSkuInfor1] = useState(false)
+  // const [info, setInfo] = useState(false)
   const [infor, setInfor] = useState(false)
   const [open, setOpen] = useState(false)
   const [isOpen1, setIsOpen1] = useState(false)
@@ -75,9 +75,15 @@ const AddorEditProduct = () => {
   const inpuRef = useRef()
   const inpuRef1 = useRef()
   const [isWoocommerce, setIsWoocommerce] = useState(false)
-
+  const [variationValue1, setVariationValue1] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [inputValue1, setInputValue1] = useState('')
+  const [inputValue2, setInputValue2] = useState('')
+  const [isClicked, setIsClicked] = useState(false)
+  const [isAdSlngPrcGrp, setIsAdSlngPrcGrp] = useState(false)
+  const [isOpeningStock, setIsOpeningStock] = useState(false)
+  const [isAddOther, setIsAddOther] = useState(false)
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     productName: "",
     sku: "",
@@ -94,12 +100,102 @@ const AddorEditProduct = () => {
     weight: 0,
     servieStaffTime: "",
     woocommerceSync: false,
-    productType: ""
+    productType: "",
+    variationType: [{ variationTempleateID: "", variation: [{ subSKU: "", value: "", variationImage: "" }] }],
+    combo: [],
+    netTotal: 0,
+    dfltSellingPrice: 0,
+    margin: 0
   })
- 
+  // if (index === -1)
+  const handleSubChange = (e, index, i) => {
+
+    const updatedData = formData.variationType.map((item, ind) => {
+      if (ind === index) {
+        // Create a new copy of the item with the modified subItem
+        return {
+          ...item,
+          variation: item.variation.map((subItem, x) =>
+            x === i ? { ...subItem, [e.target.name]: e.target.value } : subItem
+          ),
+        };
+      }
+      return item;
+    });
+    setFormData({ ...formData, variationType: updatedData });
+  }
+
+  const handleChange = (e, index) => {
+    const updatedData = formData.variationType.map((item, ind) => {
+      if (ind === index) {
+        // Create a new copy of the item with the modified subItem
+        return {
+          ...item, variationTempleateID: e.target.value, variation: []
+        };
+      }
+      return item;
+    });
+    console.log(updatedData)
+    setFormData({ ...formData, variationType: updatedData });
+  }
+  const handleComboCahange = (index, e) => {
+    const updatedData = formData.combo.map((item, ind) => {
+      if (ind === index) {
+        // Create a new copy of the item with the modified subItem
+        return {
+          ...item, [e.target.name]: e.target.value
+        };
+      }
+      return item;
+    });
+    console.log(updatedData)
+    setFormData({ ...formData, combo: updatedData });
+  }
+
+  const addToArray = (name) => {
+    let updatedData = formData.combo
+    updatedData = [...updatedData, { productName: name, quantity: "", unit: "", unitType: [{ value: "" }], ppexcludeTax: "", totalAmountExcluedeTax: "" }]
+    setFormData({ ...formData, combo: updatedData });
+
+  }
+
+  const handleValues = (e, index) => {
+    setVariationValue1([...variationValue1, { value: e.target.value }])
+    const updatedData1 = formData.variationType.map((item, ind) => {
+      if (ind === index) {
+        // Create a new copy of the item with the modified subItem
+        return {
+          ...item, variation: [...item.variation, { subSKU: "", value: e.target.value, variationImage: "" }]
+        };
+      }
+      return item;
+    });
+    setFormData({ ...formData, variationType: updatedData1 });
+
+  }
+
+  const handleRemove = (index, i) => {
+    let number = i
+    const updatedData1 = formData.variationType
+    updatedData1[index].variation.splice(number, 1)
+    setFormData({ ...formData, variationType: updatedData1 });
+
+  }
+  const deleteByIndex = (index) => {
+    let updatedData1 = formData.combo
+    updatedData1.splice(index, 1)
+    setFormData({ ...formData, combo: updatedData1 });
+  }
+
+
+  const addRow = () => {
+    let newArray = formData.variationType
+    newArray = [...newArray, { variationTempleateID: "", variation: [{ subSKU: "", value: "", variationImage: "" }] }]
+    setFormData({ ...formData, variationType: newArray })
+  }
   const [isserror, setIsserror] = useState(false)
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
+
     if (formData.productName.length === 0 ||
       formData.barcodeType.length === 0 ||
       formData.unit.length === 0 ||
@@ -111,6 +207,17 @@ const AddorEditProduct = () => {
       console.log("Handle Update", formData)
     } else {
       console.log("Handle save ", formData)
+    }
+    if (isAdSlngPrcGrp) {
+      navigate("/home/products/add-selling-prices/1")
+      setIsAdSlngPrcGrp(false)
+    } else if (isOpeningStock) {
+      navigate("/home/opening-stock/add/1")
+    }else if (isAddOther){
+      setTimeout(() => {
+        navigate("/home/products/create")
+      }, 1000);
+
     }
   }
   return (
@@ -325,7 +432,7 @@ const AddorEditProduct = () => {
             <h2 className='text-start font-bold '> Product Image:</h2>
             <div className='flex'>
               {/* value={formData.img_data} onChange={ (e)=>setFormData({...formData,  img_data: e.target.value})} */}
-              <input value={formData.productImage}  readOnly type='text' className='px-3  border-[1px] border-gray-700  focus:outline-none w-[60%]' />
+              <input value={formData.productImage} readOnly type='text' className='px-3  border-[1px] border-gray-700  focus:outline-none w-[60%]' />
               <input value={formData.productImage} onChange={(e) => { setFormData({ ...formData, productImage: e.target.value }) }} className='px-3   focus:outline-none w-[60%] hidden' type='file' ref={inpuRef} accept='application/pdf,text/csv,application/zip,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/jpg,image/png' />
               <div onClick={() => { inpuRef.current?.click(); }} className='flex cursor-pointersu bg-blue-600 text-white w-[40%] items-center justify-center'>
                 <AiTwotoneFolderOpen size={32} />
@@ -443,9 +550,9 @@ const AddorEditProduct = () => {
 
             </h1>
             <select value={formData.productType} onChange={(e) => { setFormData({ ...formData, productType: e.target.value }) }} type='text' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none'>
-              <option value={"single"}>Single</option>
-              <option value={"variable"}>Variable</option>
-              <option value={"combo"}>Combo</option>
+              <option value={"Single"}>Single</option>
+              <option value={"Variable"}>Variable</option>
+              <option value={"Combo"}>Combo</option>
 
             </select>
           </div>
@@ -453,9 +560,270 @@ const AddorEditProduct = () => {
 
         </div>
 
+        {formData.productType === "Variable" &&
+          <div className='flex flex-col mt-5'>
+            <div className='flex items-start'>
+              <h1 className='text-lg text-start'>Add Variation:*</h1>
+              <div className='flex items-center justify-center bg-blue-600 rounded-sm p-2 mx-1'>
+                <FaPlus onClick={addRow} size={15} style={{ color: "white" }} className='cursor-pointer' />
+              </div>
+
+
+            </div>
+            <div className='flex overflow-x-scroll  mt-5 ' >
+              <table className="table-auto  w-full  mb-2   px-5 ">
+                <thead>
+                  <tr className='py-1 bg-green-500'>
+                    <th className=" py-2 title-font w-[20%] text-start border-[1px] border-white  tracking-wider font-bold text-white text-sm ">Variation</th>
+                    <th className=" py-2 title-font w-[80%] text-start border-[1px] border-white tracking-wider font-bold text-white text-sm ">Variation Value</th>
+
+                  </tr>
+
+                </thead>
+                <tbody >
+                  {formData.variationType.map((val, index) => {
+                    return <tr key={index} className='min-h-[300px] text-start'>
+                      <td className='flex flex-col'>
+
+                        <select value={val.variationTempleateID} onChange={(e) => { handleChange(e, index) }} type='text' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none'>
+                          <option value={"Please Select"}>Please Select</option>
+                          <option value={"Test Variation"}>Test Variation</option>
+                          <option value={"Size"}>Size</option>
+
+                        </select>
+
+                        {val.variationTempleateID.length > 0 &&
+                          <div className='mt-5'>
+                            <h1 className='font-semibold text-xs text-start'>Selecet Variation Values</h1>
+                            <select value={''} onChange={(e) => { handleValues(e, index) }} className='w-full border-[1px] border-black py-1 px-1 focus:outline-none' >
+                              {val.variationTempleateID === "Test Variation" ?
+                                <>
+                                  <option value={""}>Please Select</option>
+                                  <option value={"Small"}>Small</option>
+                                  <option value={"Medium"}>Medium</option>
+                                  <option value={"Large"}>Large</option>
+                                </>
+                                :
+                                <>
+                                  <option value={""}>Please Select</option>
+                                  <option value={"7"}>7</option>
+                                  <option value={"8"}>8</option>
+                                  <option value={"9"}>9</option>
+                                  <option value={"10"}>10</option>
+
+                                </>
+                              }
+                            </select>
+                          </div>
+                        }
+
+                      </td>
+                      <td className=''>
+                        <table className="table-auto  w-full  items-start">
+                          <thead>
+                            <tr className='mt-[2px]'>
+                              <th className='w-[25%]'>
+                                <div className='flex px-2 py-1 border-[1px] border-white  relative bg-blue-700 mt-[2px]'>
+
+                                  <h1 className='text-start font-bold text-white'>SKU:</h1>
+                                  {/* <FaInfoCircle onMouseOver={() => { setInfo(true) }} onMouseLeave={() => { setInfo(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
+                                  {info &&
+                                    <div className='flex flex-col w-[180px] rounded-md  border-[2px] border-gray-400 absolute top-8 p-2 20 bg-white shadow-md shadow-gray-300'>
+                                      <p className='text-start'>SKU is Optional</p>
+                                      <p className='text-start mt-3'>Keep it blank to automatically generate sku</p>
+
+                                    </div>
+                                  } */}
+                                </div>
+                              </th>
+                              <th className='w-[25%]'>
+                                <div className='flex px-2 py-1 border-[1px] border-white  bg-blue-700 mt-[2px]'>
+                                  <h1 className='text-start font-bold text-white'>Value</h1>
+                                </div>
+                              </th>
+                              <th className='w-[45%]'>
+                                <div className='flex px-2 py-1 border-[1px] border-white  bg-blue-700 mt-[2px]'>
+                                  <h1 className='text-start font-bold text-white'>Variation Images</h1>
+                                </div>
+                              </th>
+                              <th className='w-[5%]'>
+                                <div className='flex px-1 py-2 border-[1px] border-white   bg-blue-700 mt-[2px]'>
+                                  <div className='flex items-center justify-center bg-green-600 rounded-sm px-1  mx-1'>
+                                    <FaPlus size={15} style={{ color: "white" }} />
+                                  </div>
+                                </div>
+
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {formData.variationType[index].variation.map((data, i) => {
+                              return <tr key={i}>
+                                <td>
+                                  <input type='text' name='subSKU' value={data.subSKU || ""} onChange={(e) => handleSubChange(e, index, i)} className='border-[1px] w-full border-black focus:outline-none' />
+
+                                </td>
+                                <td>
+                                  <input type='text' name='value' value={data.value || ""} onChange={(e) => handleSubChange(e, index, i)} className='border-[1px] w-full border-black focus:outline-none' />
+
+                                </td>
+                                <td>
+                                  <input type='file' name='variationImage' accept="image/*" value={data.variationImage || ''} onChange={(e) => handleSubChange(e, index, i)} className=' w-full px-3  focus:outline-none' />
+
+                                </td>
+                                <td>
+                                  <div onClick={() => { handleRemove(index, i) }} className='flex items-center justify-center bg-red-500 cursor-pointer rounded-sm px-1 py-1  '>
+                                    <FaMinus size={15} style={{ color: "white" }} />
+                                  </div>
+                                </td>
+                              </tr>
+                            })}
+
+                          </tbody>
+
+                        </table>
+                      </td>
+
+                    </tr>
+                  })}
+
+
+                </tbody>
+                <tfoot>
+                  <tr></tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        }
+
+        {formData.productType === "Combo" &&
+          <div className='flex  w-full   flex-col  p-5 mt-5 bg-white border-t-[3px] rounded-md border-blue-600'>
+            <div className='flex flex-col md:flex-row mt-5 w-full items-center justify-center'>
+              <div className='flex flex-col   w-[50%] items-center justify-center'>
+                <div className='flex w-full   md:mt-0 relative'>
+                  <div className='flex w-full'>
+                    < FaSearch size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
+                    <input onClick={() => { setIsClicked(!isClicked) }} value={inputValue2} onChange={(e) => { setInputValue2(e.target.value) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 w-full py-[2px] border-[1px] border-gray-600 focus:outline-none' />
+                  </div>
+                  {isClicked &&
+                    <ul
+
+                      className={`bg-white w-full    border-[1px]   z-10 absolute top-8 border-gray-600  ${isClicked ? "max-h-60" : "max-h-0"} `}
+                    >
+
+                      {dummyData?.map((data) => (
+                        <li
+                          key={data?.Name}
+                          className={`p-1 px-9 text-start text-sm hover:bg-sky-600 hover:text-white
+                          ${data?.Name?.toLowerCase() === inputValue2?.toLowerCase() &&
+                            "bg-sky-600 text-white"
+                            }
+                           ${data?.Name?.toLowerCase().startsWith(inputValue2)
+                              ? "block"
+                              : "hidden"
+                            }`}
+                          onClick={() => {
+                            if (data?.Name?.toLowerCase() !== inputValue2.toLowerCase()) {
+                              setInputValue1(data?.Name)
+                              let name = data?.Name
+                              addToArray(name)
+                              setInputValue2('')
+                              setIsClicked(!isClicked);
+                            }
+                          }}
+                        >
+                          {data?.Name}
+                        </li>
+                      ))}
+                    </ul>
+                  }
+                </div>
+
+
+
+              </div>
+
+            </div>
+
+
+            <div className='flex overflow-x-scroll  mt-5 ' >
+              <table className="table-auto w-full   mb-2   px-5 ">
+                <thead>
+                  <tr className='h-[50px] bg-green-500'>
+                    <th className=" py-2 title-font  tracking-wider font-bold text-white text-sm ">Product Name</th>
+                    <th className=" py-2 title-font  tracking-wider font-bold text-white text-sm ">Quantity</th>
+                    <th className=" py-2 title-font  tracking-wider font-bold text-white text-sm ">Purchase Price (Excluding Tax) </th>
+                    <th className=" py-2 title-font  tracking-wider font-bold text-white text-sm ">Total Amount (Exc. Tax)</th>
+                    <th className=" py-2 title-font  tracking-wider font-bold text-white text-sm "><FaTrash size={15} /> </th>
+
+                  </tr>
+                </thead>
+                <tbody >
+                  {formData.combo.map((value, index) => {
+                    return <tr title='Double Click to Edit me' key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""}`}>
+                      <td className=" py-1 px-1">{value.productName}</td>
+                      <td className="px-1 py-1 text-sm flex flex-col">
+                        <input type='number' name='quantity' required value={value.quantity} onChange={(e) => { handleComboCahange(index, e) }} className='border-[1px] px-2  w-1/3 border-gray-400 focus:outline-none' />
+                        <select value={value.unit} name='unit' onChange={(e) => { handleComboCahange(index, e) }} type='text' className='border-[1px] px-2  border-gray-400 focus:outline-none'>
+                          {value.unitType.map((val, ind) => {
+                            return <option value={val.value}>{val.value}</option>
+
+                          })}
+                        </select>
+                      </td>
+                      <td className="px-1 py-1"> {value.ppexcludeTax}</td>
+                      <td className="px-1 py-1">{value.totalAmountExcluedeTax}</td>
+                      <td className="px-1 py-1 text-red-400"> <FaTimes size={15} onClick={() => { deleteByIndex(index); }} className='cursor-pointer' /> </td>
+
+                    </tr>
+                  })}
+
+
+                </tbody>
+                <tfoot>
+                  <tr></tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <div className='flex flex-col items-end justify-end'>
+              <div className='flex flex-col justify-end w-1/2   mt-5 '>
+
+                <div className='flex justify-between'>
+                  <h1 className='font-bold mx-2'>Net Total Amount</h1>
+                  <h1 className=' mx-2'>{formData.netTotal}</h1>
+
+                </div>
+              </div>
+
+
+              <div className='flex justify-end  items-end w-1/2  mt-5 '>
+                <div className='flex justify-between w-full'>
+
+                  <div className='flex flex-col'>
+                    <h1 className='font-bold mx-2'>x Margin(%)</h1>
+                    <input value={formData.margin} onChange={(e) => { setFormData({ ...formData, margin: e.target.value }) }} type='text' placeholder='Alert Quantity' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+
+                  </div>
+                  <div className='flex flex-col'>
+                    <h1 className='font-bold mx-2'>Default Selling Price</h1>
+                    <input value={formData.dfltSellingPrice} onChange={(e) => { setFormData({ ...formData, dfltSellingPrice: e.target.value }) }} type='text' placeholder='Alert Quantity' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+
       </div>
       <div className='flex items-end justify-end mt-5'>
-        <button onClick={handleClick} className='bg-green-500 px-2 py-2 items-center justify-center flex'>Save</button>
+        <button onClick={() => { handleClick(); setIsAdSlngPrcGrp(true) }} className='bg-orange-500 text-lg px-2 py-2 items-center justify-center flex'>Save & Add Selling-Price-Group Prices</button>
+        <button onClick={() => { handleClick(); setIsOpeningStock(true) }} className='bg-blue-500 text-lg px-2 py-2 text-white items-center justify-center flex'>Save & Add Opening Stock</button>
+        <button onClick={() => { handleClick(); setIsAddOther(true) }} className='bg-red-500 text-lg px-2 py-2 text-white items-center justify-center flex'>Save & Add Another</button>
+
+        <button onClick={handleClick} className='bg-green-500 text-lg px-2 py-2 items-center justify-center flex'>Save</button>
       </div>
     </div>
   )

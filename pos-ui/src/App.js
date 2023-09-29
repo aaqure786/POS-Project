@@ -44,6 +44,8 @@ import SellingPriceGrp from './components/dashboard/Product/sellingPriceGrp/Sell
 import Categories from './components/dashboard/Product/category/Categories';
 import Brand from './components/dashboard/Product/brands/Brand';
 import Warranties from './components/dashboard/Product/warranties/Warranties';
+import AddorEditSellingPriceGrps from './components/dashboard/Product/AddorEditSellingPriceGrps';
+import AddOpeningStock from './components/dashboard/Product/openingStock/AddOpeningStock';
 
 
 function App() {
@@ -107,7 +109,9 @@ function App() {
             <Route path='/home/taxonomies/product' element={<Categories />} />
             <Route path='/home/brands' element={<Brand />} />
             <Route path='/home/warranties' element={<Warranties />} />
-
+            <Route path='/home/products/add-selling-prices/:id' element={<AddorEditSellingPriceGrps />} />
+            <Route path='/home/opening-stock/add/:id' element={<AddOpeningStock/>} />
+            
             
  
           </Route>
