@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
-import {  FaColumns, FaEdit, FaEnvelope, FaEye, FaFileCsv, FaFileExcel, FaFilePdf, FaMoneyBillAlt, FaPrint, FaSearch, FaTrash, FaTruck, FaUndo } from 'react-icons/fa'
+import { FaColumns, FaEdit, FaEnvelope, FaEye, FaFileCsv, FaFileExcel, FaFilePdf, FaMoneyBillAlt, FaPrint, FaSearch, FaTrash, FaTruck, FaUndo } from 'react-icons/fa'
 import { useReactToPrint } from 'react-to-print';
 import { CSVLink } from 'react-csv';
 import * as XLSX from 'xlsx'
@@ -10,6 +10,7 @@ import { MdCancel } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import ViewSell from '../sell/ViewSell';
 import EditShipping from '../sell/EditShipping';
+import ViewPayment from '../payments/ViewPayment';
 
 
 const SalesTbl = () => {
@@ -120,14 +121,15 @@ const SalesTbl = () => {
     const [col17, setCol17] = useState(true)
     const [col18, setCol18] = useState(true)
     const [isedit, setIsedit] = useState(false)
-    const [editId, setEditId] = useState(0)
+    const [isShowPayment, setIsShowPayment] = useState(false)
+    const [paymentId, setPaymentId] = useState(0)
     const [editShipId, setEditShipId] = useState(0)
     const [iseditship, setIseditship] = useState(false)
     const [isCliked, setIsCliked] = useState(false)
     const [actionList, setActionList] = useState(Array(record.length).fill(false))
 
     const toggleDropdown = (index) => {
-        const dropDownAction =[...actionList];
+        const dropDownAction = [...actionList];
         dropDownAction[index] = !dropDownAction[index];
         setActionList(dropDownAction);
     };
@@ -164,18 +166,20 @@ const SalesTbl = () => {
     const [isshow, setIsshow] = useState(false)
     const [showId, setShowId] = useState(0)
     const displayData = () => {
-        if(showId !==0 && isshow === true){
+        if (showId !== 0 && isshow === true) {
             return <ViewSell id={showId} />
-          }else if (iseditship === true && editShipId !== 0){
-            return <EditShipping id={editShipId}/>
-          }
+        } else if (iseditship === true && editShipId !== 0) {
+            return <EditShipping id={editShipId} />
+        } else if (isShowPayment === true) {
+            return <ViewPayment id={paymentId} />
+        }
     }
 
 
 
     return (
         <div>
-            
+
             <div className='flex  flex-col md:flex-row  items-center justify-center mt-3 md:justify-between mx-5'>
 
                 <div className='flex items-center justify-center my-2 md:my-0'>
@@ -232,7 +236,7 @@ const SalesTbl = () => {
                                 <li className={` w-full py-1 ${col16 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol16(!col16) }}>Sell note</li>
                                 <li className={` w-full py-1 ${col17 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol17(!col17) }}>Staff note</li>
                                 <li className={` w-full py-1 ${col18 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol18(!col18) }}>Shipping Detils</li>
-                                
+
                             </ul>
                         </div>}
                     </button>
@@ -270,7 +274,7 @@ const SalesTbl = () => {
                             {col16 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Sell note</th>}
                             {col17 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Staff note</th>}
                             {col18 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Shipping Detils</th>}
-                            
+
                         </tr>
                     </thead>
                     <tbody >
@@ -282,27 +286,27 @@ const SalesTbl = () => {
                                         <AiFillCaretDown size={10} />
                                         {actionList[index] &&
                                             <ul className='absolute top-5 left-10 z-20 flex flex-col items-start w-[200px] bg-white text-gray-600 shadow-xl shadow-gray-400 '>
-                                                                                           
+
                                                 <li className='w-full'>
-                                                    <Link onClick={()=>{setIsCliked(true); setIsshow(true); setShowId(value.id)}}  className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link onClick={() => { setIsCliked(true); setIsshow(true); setShowId(value.id) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEye size={15} />
                                                         <h1 className='text-sm'>View</h1>
                                                     </Link >
                                                 </li>
                                                 <li className='w-full'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <div onClick={() => {  setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaPrint size={15} />
                                                         <h1 className='text-sm'>Print</h1>
                                                     </div>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <Link to={`/home/sells/edit/${value.id}`} onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link to={`/home/sells/edit/${value.id}`} onClick={() => {  setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEdit size={15} />
                                                         <h1 className='text-sm'>Edit</h1>
                                                     </Link >
                                                 </li>
                                                 <li className='w-full'>
-                                                    <div onClick={() => { setEditId(value.id); setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <div onClick={() => {  setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaTrash size={15} />
                                                         <h1 className='text-sm'>Delete</h1>
                                                     </div>
@@ -314,31 +318,31 @@ const SalesTbl = () => {
                                                     </div>
                                                 </li>
                                                 <li className='mt-5 w-full'>
-                                                    <Link   className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaMoneyBillAlt size={15} />
                                                         <h1 className='text-sm'>Add Payment</h1>
                                                     </Link >
                                                 </li>
                                                 <li className='w-full'>
-                                                    <Link    className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaMoneyBillAlt size={15} />
                                                         <h1 className='text-sm'>View Payment</h1>
                                                     </Link>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <Link   className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaUndo size={15} />
                                                         <h1 className='text-sm'>Purchase Return</h1>
                                                     </Link>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <Link   className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEdit size={15} />
                                                         <h1 className='text-sm'>Update Status</h1>
                                                     </Link>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <Link   className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEnvelope size={15} />
                                                         <h1 className='text-sm'>Item Received Notification</h1>
                                                     </Link>
@@ -352,7 +356,10 @@ const SalesTbl = () => {
                                 {col4 && <td className="px-1 py-1">{value.Role}</td>}
                                 {col5 && <td className=" py-1 px-1">{value.Email}</td>}
                                 {col6 && <td className=" py-1 px-1">{value.Role}</td>}
-                                {col7 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
+                                {col7 && <td className="px-1 py-1 text-sm">
+                                    <button onClick={() => { setIsCliked(true); setIsShowPayment(true); setPaymentId(value.id) }} className='bg-green-400 text-white px-2 text-xs rounded-xl'>status</button>
+
+                                </td>}
                                 {col8 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col9 && <td className="px-1 py-1">{value.Role}</td>}
                                 {col10 && <td className=" py-1 px-1">{value.Email}</td>}
@@ -393,12 +400,14 @@ const SalesTbl = () => {
             </nav>
             {isCliked &&
                 <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen'>
-                    <div className='flex flex-col w-full md:w-[75%]  mt-10 bg-white px-5 pt-2'>
-                    <div className='flex items-end justify-end '>
-                        <MdCancel onClick={() => { setIsCliked(!isCliked); setEditId(0);; setIsedit(false); setIsshow(false); setShowId(0); }} size={20} />
+                    <div className='flex flex-col   w-full md:w-[75%]  mt-10 bg-white px-5 pt-2'>
+                        <div className='flex items-end justify-end '>
+                            <MdCancel onClick={() => { setIsCliked(!isCliked);  setIsedit(false); setIsshow(false); setShowId(0); }} size={20} />
 
-                    </div>
-                    {displayData()}
+                        </div>
+                        <div className='flex items-start justify-center'>
+                        {displayData()}
+                        </div>
                     </div>
                 </div>
 

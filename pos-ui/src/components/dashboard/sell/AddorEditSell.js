@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { FaCalendar, FaChevronCircleDown, FaGift, FaInfo, FaInfoCircle, FaMapMarker, FaMoneyBillAlt, FaPlus, FaPlusCircle, FaSearch, FaTable, FaTimes, FaTrash, FaUser, FaUserSecret } from 'react-icons/fa'
+import { FaCalendar, FaChevronCircleDown, FaGift, FaInfo, FaInfoCircle, FaMapMarker, FaMinus, FaMoneyBillAlt, FaPlus, FaPlusCircle, FaSearch, FaTable, FaTimes, FaTrash, FaUser, FaUserSecret } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import { BiChevronDown } from 'react-icons/bi'
 import { AiOutlineSearch, AiTwotoneFolderOpen } from 'react-icons/ai'
@@ -60,15 +60,16 @@ const AddorEditSell = () => {
             Email: "username6@gmail.com"
         }
     ]
-    const [searchData, setSearchData] = useState('')
     const [inputValue, setInputValue] = useState('')
+    const [inputValue1, setInputValue1] = useState('')
+
     const [open, setOpen] = useState(false)
     const [open1, setOpen1] = useState(false)
 
     const [selected, setSelected] = useState('')
     const [addExpenses, setAddExpenses] = useState(false)
     const [isAddSupplier, setIsAddSupplier] = useState(false)
-
+    const [isClicked, setIsClicked] = useState(false)
     const [info2, setInfo2] = useState(false)
     const [info3, setInfo3] = useState(false)
     const [info4, setInfo4] = useState(false)
@@ -83,6 +84,7 @@ const AddorEditSell = () => {
         tables: "",
         serviceStaff: "",
         businesLocation: "",
+        inputData: [],
         payTerm: "",
         payTerm1: "",
         discountType: "",
@@ -116,21 +118,52 @@ const AddorEditSell = () => {
     })
     const params = useParams()
     const id = params.id
+    const type = params.type
+
+    const handleChange = (e, index) => {
+        const updatedData = formData.inputData.map((item, ind) => {
+            if (ind === index) {
+                // Create a new copy of the item with the modified subItem
+                return {
+                    ...item, [e.target.name]: e.target.value
+                };
+            }
+            return item;
+        });
+        console.log(updatedData)
+        setFormData({ ...formData, inputData: updatedData });
+    }
+
+    const deleteByIndex = (index) => {
+        let newArray = [...formData.inputData]
+        newArray.splice(index, 1)
+        setFormData({ ...formData, inputData: newArray })
+    }
+
+    const findTotal = () => {
+        let total = 0
+        formData.inputData.map(val => {
+            return total += val.lineTotal
+        })
+        return total
+    }
+    const total = findTotal()
+
     const [isserror, setIsserror] = useState(false)
     const handleClick = (e) => {
 
-        if(formData.customer.length===0 ||
-            formData.salesDate.length===0 ||
-            formData.status.length===0 ||
-            formData.discountType.length===0 ||
-            formData.discountAmount.length===0 ||
-            formData.orderTaxType.length===0 ||
-            formData.amount.length===0 ||
-            formData.paymentDate.length===0 ||
-            formData.paymentMethod.length===0){
+        if (formData.customer.length === 0 ||
+            formData.salesDate.length === 0 ||
+            formData.status.length === 0 ||
+            formData.discountType.length === 0 ||
+            formData.discountAmount.length === 0 ||
+            formData.orderTaxType.length === 0 ||
+            formData.amount.length === 0 ||
+            formData.paymentDate.length === 0 ||
+            formData.paymentMethod.length === 0) {
             setIsserror(true)
             console.log(isserror)
-        } else if(id) {
+        } else if (id) {
             console.log("Handle Update", formData)
         } else {
             console.log("Handle Save", formData)
@@ -139,7 +172,7 @@ const AddorEditSell = () => {
     const inpuRef = useRef()
     const inpuRef1 = useRef()
 
-    
+
     const [isCliked, setIsCliked] = useState(false)
     const [newProduct, setNewProduct] = useState(false)
     const [isProductUpload, setIsProductUpload] = useState(false)
@@ -156,7 +189,7 @@ const AddorEditSell = () => {
 
     return (
         <div className='w-full p-5 bg-gray-100'>
-            <h1 className='text-xl text-start font-bold '>{id ? "Edit Purchase" : "Add Purchase"}</h1>
+            <h1 className='text-xl text-start font-bold '>{id ? `Edit ${type ? type : "Sale"}`  : `Add ${type ? type : "Sale"}`}</h1>
             <div className='flex my-3 w-full md:w-1/3 relative'>
                 < FaMapMarker size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
                 <select value={formData.businesLocation} onChange={(e) => { setFormData({ ...formData, businesLocation: e.target.value }) }} type="text" className='px-2 py-1 w-full border-[1px] border-gray-600 focus:outline-none'>
@@ -285,7 +318,7 @@ const AddorEditSell = () => {
                                                 }`}
                                             onClick={() => {
                                                 if (data?.Name?.toLowerCase() !== formData.customer.toLowerCase()) {
-                                                    setFormData( {...formData,  customer: data?.Name});
+                                                    setFormData({ ...formData, customer: data?.Name });
                                                     setOpen(false);
                                                     setInputValue("");
                                                 }
@@ -430,15 +463,53 @@ const AddorEditSell = () => {
             <div className='flex  w-full   flex-col  p-5 mt-5 bg-white border-t-[3px] rounded-md border-blue-600'>
                 <div className='flex flex-col items-center justify-center md:flex-row w-full'>
                     <div className='flex md:w-[60%] mt-4 md:mt-0'>
-                        < FaSearch size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
-                        <input value={searchData} onChange={(e) => { setSearchData(e.target.value) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                        <div className='flex w-full   md:mt-0 relative'>
+                            <div className='flex w-full'>
+                                < FaSearch size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
+                                <input onClick={() => { setIsClicked(!isClicked) }} value={inputValue1} onChange={(e) => { setInputValue1(e.target.value) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 w-full py-[2px] border-[1px] border-gray-600 focus:outline-none' />
+                            </div>
+                            {isClicked &&
+                                <ul
+
+                                    className={`bg-white w-full    border-[1px]   z-10 absolute top-8 border-gray-600  ${isClicked ? "max-h-60" : "max-h-0"} `}
+                                >
+
+                                    {dummyData?.map((data) => (
+                                        <li
+                                            key={data?.Name}
+                                            className={`p-1 px-9 text-start text-sm hover:bg-sky-600 hover:text-white
+                                ${data?.Name?.toLowerCase() === inputValue1?.toLowerCase() &&
+                                                "bg-sky-600 text-white"
+                                                }
+                                 ${data?.Name?.toLowerCase().startsWith(inputValue)
+                                                    ? "block"
+                                                    : "hidden"
+                                                }`}
+                                            onClick={() => {
+                                                if (data?.Name?.toLowerCase() !== inputValue1.toLowerCase()) {
+                                                    setInputValue1(data?.Name)
+                                                    let name = data?.Name
+                                                    let array = formData.inputData
+                                                    array = [...array, { productName: name }]
+                                                    setFormData({ ...formData, inputData: array })
+                                                    setInputValue1('')
+                                                    setIsClicked(!isClicked);
+                                                }
+                                            }}
+                                        >
+                                            {data?.Name}
+                                        </li>
+                                    ))}
+                                </ul>
+                            }
+                        </div>
                         <FaPlusCircle onClick={() => { setNewProduct(true); setIsCliked(true) }} size={20} style={{ color: "blue" }} className='w-8 h-8 p-1 border-[1px] border-gray-600' />
 
                     </div>
 
                 </div>
                 <div className='flex overflow-x-scroll  mt-5 ' >
-                    <table className="table-fixed  mb-2 w-full  px-5 ">
+                    <table className="table-auto  mb-2 w-full  px-5 ">
                         <thead>
                             <tr className='h-[50px]'>
                                 <th className=" py-2 title-font  tracking-wider font-bold  text-sm ">Product</th>
@@ -451,14 +522,53 @@ const AddorEditSell = () => {
                             </tr>
                         </thead>
                         <tbody >
-                            {dummyData.map((value, index) => {
-                                return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""}`}>
-                                    <td className=" py-1 px-1">{value.Username}</td>
-                                    <td className="px-1 py-1 text-sm">{value.Username}</td>
-                                    <td className="px-1 py-1"> {value.Name}</td>
-                                    <td className="px-1 py-1">{value.Role}</td>
-                                    <td className=" py-1 px-1">{value.Name}</td>
-                                    <td className="px-1 py-1 text-red-400"> <FaTimes size={15} /> </td>
+                            {formData.inputData.map((value, index) => {
+                                return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""} `}>
+                                    <td className=" py-1 px-1">
+                                        <div className='flex flex-col'>
+                                            <p className='text-start'>{value.productName}</p>
+                                            <textarea rows={2} type='text' name="info" value={value.info}  onChange={(e) => { handleChange(e, index) }} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                            <h1 className='text-xs text-start text-gray-500'>Add product IMEI, Serial number or other informations here.</h1>
+                                        </div>
+                                    </td>
+                                    <td className="px-1 py-1 text-sm">
+                                        <div className='flex flex-col'>
+                                            <div className='flex'>
+                                                <FaMinus size={15} className='border-[1px] h-8 text-red-400 w-1/6 p-1 border-black' />
+                                                <input type='number' name="quantity" value={value.quantity} className='border-[1px] w-4/6 px-1 py-1 border-black focus:outline-none' />
+                                                <FaPlus size={15} className='border-[1px] h-8 w-1/6 p-1 text-green-400 border-black' />
+
+                                            </div>
+                                            <select name="unit" value={value.unit} onChange={(e) => { handleChange(e, index) }} className='border-[1px] mt-2 w-full px-1 py-1 border-black focus:outline-none'>
+                                                <option value={"Litter"}>Litter</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td className="px-1 py-1">
+                                        <div className='flex flex-col'>
+                                            <input name="unitPrice" type='number' value={value.unitPrice} onChange={(e) => handleChange(e, index)} className='border-[1px] w-full px-1 py-1 border-black focus:outline-none' />
+                                            <h1 className='text-xs mt-3 text-gray-500'>Previous Unit Price:  Rs. {20.50}</h1>
+
+                                        </div>
+                                    </td>
+                                    <td className="px-1 py-1">
+                                        <div className='flex flex-col'>
+                                            <input name="discount" type='number' value={value.discount} onChange={(e) => handleChange(e, index)} className='border-[1px] w-full px-1 py-1 border-black focus:outline-none' />
+                                            <select name="discountType" value={value.discountType} onChange={(e) => { handleChange(e, index) }} className='border-[1px] mt-2 w-full px-1 py-1 border-black focus:outline-none'>
+                                                <option value={"Fixed"}>Fixed</option>
+                                                <option value={"Percentage"}>Percentage</option>
+
+                                            </select>
+
+                                        </div>
+                                    </td>
+
+                                    <td className=" py-1 px-1 text-start">
+                                        <input name="subtotal" type='number' value={value.subtotal = (value.quantity * value.unitPrice)} onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                    </td>
+                                    <td className="px-1 py-1 ">
+                                        <FaTimes size={15} onClick={() => { deleteByIndex(index) }} className='cursor-pointer text-red-400' />
+                                    </td>
                                 </tr>
                             })}
 
@@ -473,12 +583,12 @@ const AddorEditSell = () => {
                 <div className='flex flex-col items-end mt-5 justify-end'>
                     <div className='flex '>
                         <h1 className='font-bold mx-2'>Total Items</h1>
-                        <h1 className=' mx-2'> {dummyData.length}.00</h1>
+                        <h1 className=' mx-2'> {formData.inputData.length}.00</h1>
 
                     </div>
                     <div className='flex '>
                         <h1 className='font-bold mx-2'>Net Total Amount</h1>
-                        <h1 className=' mx-2'> 0.00</h1>
+                        <h1 className=' mx-2'> {total}</h1>
 
                     </div>
                 </div>
@@ -705,7 +815,7 @@ const AddorEditSell = () => {
                         <div className='flex text-sm text-start font-bold'>
                             <h1>Payment method:*</h1>
                             <h2 className='text-red-400'>{isserror && formData.paymentMethod.length === 0 ? "Required field" : ""}</h2>
-                        
+
                         </div>
                         <div className='flex'>
                             < FaMoneyBillAlt size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FaCubes, FaFilter, FaHourglassHalf } from 'react-icons/fa'
+import { FaFilter } from 'react-icons/fa'
 import { BiChevronDown } from 'react-icons/bi'
 import { DefinedRange } from 'react-date-range';
 
@@ -7,10 +7,9 @@ import { format } from 'date-fns';
 import { addDays } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
-import ProductsTbl from '../Tables/ProductsTbl';
-import StockReportTbl from '../Tables/StockReportTbl';
+import SalesTbl from '../Tables/SalesTbl';
 
-const PurchaseOrder = () => {
+const Sells = () => {
     const dummyData = [
         {
             id: 1,
@@ -70,15 +69,17 @@ const PurchaseOrder = () => {
         }
     ])
     const [formData, setFormData] = useState({
-        supplier: "",
+        customer: "",
         Date: "",
         businesLocation: "",
-        status: "",
-        shippingStatus: ""
+        paymentStatus: "",
+        shippingStatus: "",
+        users:"",
+        subscription:"",
+        sources:""
+
 
     })
-    const [products, setProducts] = useState(true)
-    const [stock, setStock] = useState(false)
     const [inputValue, setInputValue] = useState('')
     const [open, setOpen] = useState(false)
     const [open1, setOpen1] = useState(false)
@@ -88,7 +89,7 @@ const PurchaseOrder = () => {
     return (
         <div className='flex flex-col items-center min-h-screen justify-self-center w-full p-5 bg-gray-100'>
             <div className='flex justify-start items-start w-full'>
-                <h1 className='text-xl font-semibold'>Purchase Order</h1>
+                <h1 className='text-xl font-semibold'>Sales</h1>
 
             </div>
             <div className='flex flex-col mt-4 w-full bg-white rounded-md p-3 items-start justify-start'>
@@ -107,15 +108,15 @@ const PurchaseOrder = () => {
                         </div>
                         <div className='flex flex-col'>
                             <div className='flex text-sm text-start font-bold'>
-                                <h1>Supplier:</h1>
+                                <h1>Customer:</h1>
                             </div>
                             <div className='flex flex-col relative'>
                                 <div className='flex'>
                                     <input
                                         onClick={() => setOpen(!open)}
                                         className='bg-white w-full  flex items-center  focus:outline-none justify-between px-2  py-1 mt-1 border-[1px] border-gray-600'
-                                        value={formData.supplier}
-                                        onChange={(e) => { setFormData({ ...formData, supplier: e.target.value }) }}
+                                        value={formData.customer}
+                                        onChange={(e) => { setFormData({ ...formData, customer: e.target.value }) }}
 
                                         placeholder='Select Value'
                                     />
@@ -163,12 +164,42 @@ const PurchaseOrder = () => {
                             </div>
                         </div>
                         <div className='flex flex-col'>
-                            <h1 className='text-start font-bold'>Status:</h1>
-                            <select value={formData.businesLocation} onChange={(e) => { setFormData({ ...formData, businesLocation: e.target.value }) }} type="text" className='px-2 py-1 w-full border-[1px] border-gray-600 focus:outline-none'>
+                            <h1 className='text-start font-bold'>Payment Status:</h1>
+                            <select value={formData.paymentStatus} onChange={(e) => { setFormData({ ...formData, paymentStatus: e.target.value }) }} type="text" className='px-2 py-1 w-full border-[1px] border-gray-600 focus:outline-none'>
                                 <option value={"All"}>All</option>
-                                <option value={"Ordered"}>Ordered</option>
+                                <option value={"Paid"}>Paid</option>
+                                <option value={"Due"}>Due</option>
                                 <option value={"Partial"}>Partial</option>
-                                <option value={"Completed"}>Completed</option>
+                                <option value={"Overdue"}>Overdue</option>
+
+                            </select>
+                        </div>
+                        <div className='flex flex-col relative'>
+                            <h1 className='text-sm font-semibold text-start mb-2'>Date Range:</h1>
+                            <input
+                                value={`${format(range[0].startDate, "MM/dd/yyyy")} - ${format(range[0].endDate, "MM/dd/yyyy")}`}
+                                readOnly
+                                className='focus:outline-none  border-[1px] bg-gray-200 border-black px-4 py-1'
+                                onClick={() => { setOpen3(!open3) }} />
+                            {open3 &&
+                                <div onClick={() => { setOpen3(!open3) }} className='absolute top-16 z-10'>
+                                    <DefinedRange
+                                        onChange={item => setRange([item.selection])}
+                                        ranges={range}
+
+                                    />
+                                </div>
+
+                            }
+                        </div>
+                        <div className='flex flex-col'>
+                            <h1 className='text-start font-bold'>Users:</h1>
+                            <select value={formData.users} onChange={(e) => { setFormData({ ...formData, users: e.target.value }) }} type="text" className='px-2 py-1 w-full border-[1px] border-gray-600 focus:outline-none'>
+                                <option value={"All"}>All</option>
+                                <option value={"Demo Admin"}>Demo Admin</option>
+                                <option value={"Ismail Shah"}>Ismail Shah</option>
+
+
                             </select>
                         </div>
                         <div className='flex flex-col'>
@@ -228,74 +259,38 @@ const PurchaseOrder = () => {
                                 }
                             </div>
                         </div>
-                        <div className='flex flex-col relative'>
-                            <h1 className='text-sm font-semibold text-start mb-2'>Date Range:</h1>
-                            <input
-                                value={`${format(range[0].startDate, "MM/dd/yyyy")} - ${format(range[0].endDate, "MM/dd/yyyy")}`}
-                                readOnly
-                                className='focus:outline-none  border-[1px] bg-gray-200 border-black px-4 py-1'
-                                onClick={() => { setOpen3(!open3) }} />
-                            {open3 &&
-                                <div onClick={() => { setOpen3(!open3) }} className='absolute top-16 z-10'>
-                                    <DefinedRange
-                                        onChange={item => setRange([item.selection])}
-                                        ranges={range}
 
-                                    />
-                                </div>
-
-                            }
+                        <div className='flex'>
+                            <input type='checkbox' value={formData.subscription} onChange={(e) => { setFormData({ ...formData, users: e.target.value }) }} className='w-5 h-5 mx-2' />
+                            <h1 className='text-sm'>Subscriptions</h1>
                         </div>
+                        <div className='flex flex-col'>
+                            <h1 className='text-start font-bold'>Sources:</h1>
+                            <select value={formData.sources} onChange={(e) => { setFormData({ ...formData, sources: e.target.value }) }} type="text" className='px-2 py-1 w-full border-[1px] border-gray-600 focus:outline-none'>
+                                <option value={"All"}>All</option>
+                                <option value={"Woocommerce"}>Woocommerce</option>
+                            </select>
+                        </div>
+
+
                     </div>}
 
             </div>
 
-            <div className='w-full bg-white mt-5  flex flex-col  '>
-                <div className='flex flex-col md:flex-row'>
-                    <div onClick={() => { setProducts(true); setStock(false) }} className={`flex   py-1 ${products ? "border-t-[3px]  border-blue-500" : "border-b-[1px] border-gray-500"} h-[50px] `}>
+            <div className='flex flex-col bg-white border-t-[3px] rounded-md w-full mt-5 border-blue-500'>
+                <div className='flex justify-between mt-2 text-sm mx-5'>
+                    <h1 className='text-xl font-semibold text-start p-5'>All Sales</h1>
+                    <Link to={'/home/sells/create'} className='flex items-center justify-center mx-5 font-semibold w-20 h-10 rounded-md mt-3 text-white bg-blue-500'>
+                        <AiOutlinePlus size={15} /> Add
 
-                        <div className='flex  cursor-pointer items-center justify-center'>
-                            <FaCubes size={20} />
-                            <h1 className='text-lg font-bold'>All Products</h1>
-                        </div>
-
-                    </div>
-                    <div onClick={() => { setStock(true); setProducts(false); }} className={`flex md:mx-3 py-1  ${stock ? "border-t-[3px]  border-blue-500" : "border-b-[1px] border-gray-500"} h-[50px] `}>
-
-                        <div className='flex cursor-pointer  items-center justify-center'>
-                            <FaHourglassHalf size={20} />
-                            <h1 className='text-lg font-bold'>Stock Report</h1>
-                        </div>
-
-                    </div>
-
-
-                </div>
-                <div className='flex'>
-                    {products &&
-                        <div className='flex flex-col'>
-                            <div className='flex justify-end mt-2 text-sm mx-5'>
-                                <Link to={'/home/purchase-order/create'} className='flex items-center justify-center mx-5 font-semibold w-20 h-10 rounded-md mt-3 text-white bg-blue-500'>
-                                    <AiOutlinePlus size={15} /> Add
-
-                                </Link>
-
-                            </div>
-
-                            <ProductsTbl />
-
-                        </div>
-                    }
-                    {stock && <StockReportTbl />}
-
+                    </Link>
 
                 </div>
 
+                <SalesTbl />
             </div>
-
-            
         </div>
     )
 }
 
-export default PurchaseOrder
+export default Sells

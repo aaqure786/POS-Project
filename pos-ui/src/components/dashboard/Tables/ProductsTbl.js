@@ -14,7 +14,7 @@ import EditStatus from '../Purchases/EditStatus';
 
 
 const ProductsTbl = () => {
-    const dummyData = [
+    const [dummyData,setDummyData] = useState([
         {
             id: 1,
             Username: "username",
@@ -64,7 +64,34 @@ const ProductsTbl = () => {
             Role: "Admin",
             Email: "username6@gmail.com"
         }
-    ]
+    ])
+
+    const handleChange = (e)=>{
+        const {name, checked} = e.target
+        if(name === "allSelect"){
+            const checkedValue = dummyData.map((val)=>{
+                return{
+                    ...val, isChecked: checked
+                }
+            })
+            setDummyData(checkedValue)
+        }
+    }
+
+    const handleSingle = (e,index)=>{
+        const { checked} = e.target
+        
+            const checkedValue = dummyData.map((val,ind)=>{
+                if(ind === index){
+                    return{
+                        ...val, isChecked: checked
+                    }
+                }
+               return val
+            })
+            setDummyData(checkedValue)
+        
+    }
     const printRef = useRef()
     let xlDatas = []
     //Export to Excel
@@ -243,7 +270,7 @@ const ProductsTbl = () => {
                 <table id='usertbl' className="table-fixed w-full  mb-10   px-5 ">
                     <thead>
                         <tr className='h-[50px] bg-gray-100'>
-                            <th className='flex items-center justify-center'><input type='checkbox' /> </th>
+                            <th className='flex items-center justify-center'><input type='checkbox' name='allSelect' onChange={(e)=>{handleChange(e)}} /> </th>
                             {col1 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm"></th>}
                             {col2 && <th className=" py-2 title-font w-[70px]  tracking-wider font-medium text-gray-900 text-sm">Action</th>}
                             {col3 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Reference No</th>}
@@ -258,8 +285,8 @@ const ProductsTbl = () => {
                     </thead>
                     <tbody >
                         {record.map((value, index) => {
-                            return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""}`}>
-                                <td className='flex justify-center items-center'><input type='checkbox' /> </td>
+                            return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""} ${value.isChecked ? "bg-blue-800/60":""}`}>
+                                <td className='flex justify-center items-center'><input type='checkbox' name={index} checked={value?.isChecked || false} onChange={(e)=>{handleSingle(e,index)}} /> </td>
                                 {col1 && <td className="px-1 py-1 text-sm mx-1">
                                     <div className='flex items-center justify-center'>
                                         <img src='' alt='imagee' />
@@ -336,6 +363,14 @@ const ProductsTbl = () => {
                     </tbody>
 
                 </table>
+            </div>
+            <div className='flex w-1/2 ml-10'>
+                <button className='bg-red-500 px-1 text-xs text-white mx-2 rounded-md py-1'>Delete Selected</button>
+                <button className='bg-green-500 px-1 text-xs text-white mx-2 rounded-md py-1'>Delete Selected</button>
+                <button className='bg-blue-500 px-1 text-xs text-white mx-2 rounded-md py-1'>Delete Selected</button>
+                <button className='bg-orange-500 px-1 text-xs mx-2 rounded-md py-1'>Delete Selected</button>
+                <button className='bg-yellow-500 px-1 text-xs mx-2 rounded-md py-1'>Delete Selected</button>
+            
             </div>
             {isCliked &&
                 <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen'>
