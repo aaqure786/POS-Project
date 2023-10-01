@@ -410,7 +410,7 @@ const AddorEditProduct = () => {
         </div>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
 
-          <div className='flex flex-col'>
+          <div className='flex flex-col relative'>
             <h1 className='flex text-start font-bold'>Alert Quantity:
             <FaInfoCircle onMouseOver={() => { setInfor1(true) }} onMouseLeave={() => { setInfor1(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
               {infor1 &&
