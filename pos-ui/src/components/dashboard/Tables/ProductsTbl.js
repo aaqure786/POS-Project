@@ -273,13 +273,16 @@ const ProductsTbl = () => {
                             <th className='flex items-center justify-center'><input type='checkbox' name='allSelect' onChange={(e)=>{handleChange(e)}} /> </th>
                             {col1 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm"></th>}
                             {col2 && <th className=" py-2 title-font w-[70px]  tracking-wider font-medium text-gray-900 text-sm">Action</th>}
-                            {col3 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Reference No</th>}
-                            {col4 && <th className=" py-2 title-font w-[101px]  tracking-wider font-medium text-gray-900 text-sm">Location</th>}
-                            {col5 && <th className=" py-2 title-font w-[57px]  tracking-wider font-medium text-gray-900 text-sm">Supplier</th>}
-                            {col6 && <th className=" py-2 title-font w-[79px]  tracking-wider font-medium text-gray-900 text-sm">Status</th>}
-                            {col7 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Quantity Remaining</th>}
-                            {col8 && <th className=" py-2 title-font w-[55px]  tracking-wider font-medium text-gray-900 text-sm">Payment Status</th>}
-                            {col9 && <th className=" py-2 title-font w-[107px]  tracking-wider font-medium text-gray-900 text-sm">Added By</th>}
+                            {col3 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Product</th>}
+                            {col4 && <th className=" py-2 title-font w-[101px]  tracking-wider font-medium text-gray-900 text-sm">Business Location</th>}
+                            {col5 && <th className=" py-2 title-font w-[57px]  tracking-wider font-medium text-gray-900 text-sm">Unit Purchase Price</th>}
+                            {col6 && <th className=" py-2 title-font w-[79px]  tracking-wider font-medium text-gray-900 text-sm">Selling Price</th>}
+                            {col7 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Current Stock</th>}
+                            {col8 && <th className=" py-2 title-font w-[55px]  tracking-wider font-medium text-gray-900 text-sm">Product type</th>}
+                            {col9 && <th className=" py-2 title-font w-[107px]  tracking-wider font-medium text-gray-900 text-sm">Categoryy</th>}
+                            {col10 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Brand</th>}
+                            {col11 && <th className=" py-2 title-font w-[55px]  tracking-wider font-medium text-gray-900 text-sm">Tax</th>}
+                            {col12 && <th className=" py-2 title-font w-[107px]  tracking-wider font-medium text-gray-900 text-sm">SKU</th>}
 
                         </tr>
                     </thead>

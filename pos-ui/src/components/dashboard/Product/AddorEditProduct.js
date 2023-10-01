@@ -68,13 +68,14 @@ const AddorEditProduct = () => {
   const [skuInfor1, setSkuInfor1] = useState(false)
   // const [info, setInfo] = useState(false)
   const [infor, setInfor] = useState(false)
+  const [infor1, setInfor1] = useState(false)
+
   const [open, setOpen] = useState(false)
   const [isOpen1, setIsOpen1] = useState(false)
   const [productImei, setProductImei] = useState(false)
   const [isSelling, setIsSelling] = useState(false)
   const inpuRef = useRef()
   const inpuRef1 = useRef()
-  const [isWoocommerce, setIsWoocommerce] = useState(false)
   const [variationValue1, setVariationValue1] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [inputValue1, setInputValue1] = useState('')
@@ -369,6 +370,19 @@ const AddorEditProduct = () => {
             </div>
 
           </div>
+          <div className='flex flex-col relative'>
+            <div className='flex '>
+              <h1 className='text-start font-bold'>Business Location:</h1>
+              <FaInfoCircle onMouseOver={() => { setInfor(true) }} onMouseLeave={() => { setInfor(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
+              {infor &&
+                <div className='flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-8 p-2 z-10 bg-white shadow-md shadow-gray-300'>
+                  <p className='text-start'>Location Where Product will be available</p>
+
+                </div>
+              }
+            </div>
+            <input value={formData.businessLocation} onChange={(e) => { setFormData({ ...formData, businessLocation: e.target.value }) }} type='text' placeholder='Business Location' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+          </div>
 
         </div>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
@@ -397,31 +411,25 @@ const AddorEditProduct = () => {
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
 
           <div className='flex flex-col'>
-            <h1 className='flex text-start font-bold'>Alert Quantity:</h1>
-            <input value={formData.alertQuantity} onChange={(e) => { setFormData({ ...formData, alertQuantity: e.target.value }) }} type='text' placeholder='Alert Quantity' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-          </div>
-          <div className='flex flex-col relative'>
-            <div className='flex '>
-              <h1 className='text-start font-bold'>Business Location:</h1>
-              <FaInfoCircle onMouseOver={() => { setInfor(true) }} onMouseLeave={() => { setInfor(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
-              {infor &&
+            <h1 className='flex text-start font-bold'>Alert Quantity:
+            <FaInfoCircle onMouseOver={() => { setInfor1(true) }} onMouseLeave={() => { setInfor1(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
+              {infor1 &&
                 <div className='flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-8 p-2 z-10 bg-white shadow-md shadow-gray-300'>
-                  <p className='text-start'>Location Where Product will be available</p>
+                  <p className='text-start'>Get Alert when product stock reaches or goes below the specified quantity</p>
+                  <p className='text-start text-xs'>Product with low stock will be displaed in dashbodar - Product Stock Alert Section</p>
 
                 </div>
               }
-            </div>
-            <input value={formData.businessLocation} onChange={(e) => { setFormData({ ...formData, businessLocation: e.target.value }) }} type='text' placeholder='Business Location' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+            </h1>
+            <input value={formData.alertQuantity} onChange={(e) => { setFormData({ ...formData, alertQuantity: e.target.value }) }} type='text' placeholder='Alert Quantity' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
           </div>
-          <div className='flex flex-col'>
-            <h1 className='flex text-start font-bold'>Weight:</h1>
-            <input value={formData.weight} onChange={(e) => { setFormData({ ...formData, weight: e.target.value }) }} type='number' placeholder='Weight' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-          </div>
+          
+          
         </div>
         <div className='flex w-full mt-3'>
 
           <div className='flex flex-col w-[67%]'>
-            <h1 className='flex text-start font-bold'>Description:</h1>
+            <h1 className='flex text-start font-bold'>Product Description:</h1>
             <JoditEditor
               className='w-full h-[300px] border-[1px] border-gray-500'
               ref={editor}
@@ -525,7 +533,7 @@ const AddorEditProduct = () => {
             <input value={formData.servieStaffTime} onChange={(e) => { setFormData({ ...formData, servieStaffTime: e.target.value }) }} type='text' placeholder='Service staff timer/Preparation time (In minutes):' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
           </div>
         </div>
-        <div className='flex'>
+        {/* <div className='flex'>
           <input value={formData.woocommerceSync} onChange={(e) => { setFormData({ ...formData, woocommerceSync: e.target.value }) }} type='checkbox' className='w-6 h-6 border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
           <div className='flex mx-2'>
             <h1 className='text-start font-bold'>Disable Woocommerce Sync</h1>
@@ -538,7 +546,7 @@ const AddorEditProduct = () => {
             }
           </div>
 
-        </div>
+        </div> */}
 
       </div>
       <div className='w-full p-5 border-t-[3px] bg-white  mt-5 border-blue-600 pb-[100px] rounded-xl'>
@@ -803,12 +811,12 @@ const AddorEditProduct = () => {
 
                   <div className='flex flex-col'>
                     <h1 className='font-bold mx-2'>x Margin(%)</h1>
-                    <input value={formData.margin} onChange={(e) => { setFormData({ ...formData, margin: e.target.value }) }} type='text' placeholder='Alert Quantity' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+                    <input value={formData.margin} onChange={(e) => { setFormData({ ...formData, margin: e.target.value }) }} type='text' placeholder='Margin' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
 
                   </div>
                   <div className='flex flex-col'>
                     <h1 className='font-bold mx-2'>Default Selling Price</h1>
-                    <input value={formData.dfltSellingPrice} onChange={(e) => { setFormData({ ...formData, dfltSellingPrice: e.target.value }) }} type='text' placeholder='Alert Quantity' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+                    <input value={formData.dfltSellingPrice} onChange={(e) => { setFormData({ ...formData, dfltSellingPrice: e.target.value }) }} type='text' placeholder='Default Selling Prie' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
 
                   </div>
                 </div>
