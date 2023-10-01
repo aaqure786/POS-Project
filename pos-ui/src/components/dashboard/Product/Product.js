@@ -10,7 +10,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import ProductsTbl from '../Tables/ProductsTbl';
 import StockReportTbl from '../Tables/StockReportTbl';
 
-const PurchaseOrder = () => {
+const Product = () => {
     const dummyData = [
         {
             id: 1,
@@ -88,7 +88,7 @@ const PurchaseOrder = () => {
     return (
         <div className='flex flex-col items-center min-h-screen justify-self-center w-full p-5 bg-gray-100'>
             <div className='flex justify-start items-start w-full'>
-                <h1 className='text-xl font-semibold'>Purchase Order</h1>
+                <h1 className='text-xl font-semibold'>Product</h1>
 
             </div>
             <div className='flex flex-col mt-4 w-full bg-white rounded-md p-3 items-start justify-start'>
@@ -275,7 +275,7 @@ const PurchaseOrder = () => {
                     {products &&
                         <div className='flex flex-col'>
                             <div className='flex justify-end mt-2 text-sm mx-5'>
-                                <Link to={'/home/purchase-order/create'} className='flex items-center justify-center mx-5 font-semibold w-20 h-10 rounded-md mt-3 text-white bg-blue-500'>
+                                <Link to={'/home/products/create'} className='flex items-center justify-center mx-5 font-semibold w-20 h-10 rounded-md mt-3 text-white bg-blue-500'>
                                     <AiOutlinePlus size={15} /> Add
 
                                 </Link>
@@ -298,4 +298,4 @@ const PurchaseOrder = () => {
     )
 }
 
-export default PurchaseOrder
+export default Product
