@@ -266,30 +266,30 @@ const ProductsTbl = () => {
 
             </div>
             
-            <div className='flex flex-col  overflow-x-scroll  mt-5 mx-5' ref={printRef} >
-                <table id='usertbl' className="table-fixed w-full  mb-10   px-5 ">
+            <div className='flex flex-col items-center justify-center  overflow-x-scroll  mt-5 mx-5' ref={printRef} >
+                <table id='usertbl' className="table-fixed w-full mb-10   px-5 ">
                     <thead>
                         <tr className='h-[50px] bg-gray-100'>
-                            <th className='flex items-center justify-center'><input type='checkbox' name='allSelect' onChange={(e)=>{handleChange(e)}} /> </th>
-                            {col1 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm"></th>}
-                            {col2 && <th className=" py-2 title-font w-[70px]  tracking-wider font-medium text-gray-900 text-sm">Action</th>}
-                            {col3 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Product</th>}
-                            {col4 && <th className=" py-2 title-font w-[101px]  tracking-wider font-medium text-gray-900 text-sm">Business Location</th>}
-                            {col5 && <th className=" py-2 title-font w-[57px]  tracking-wider font-medium text-gray-900 text-sm">Unit Purchase Price</th>}
-                            {col6 && <th className=" py-2 title-font w-[79px]  tracking-wider font-medium text-gray-900 text-sm">Selling Price</th>}
-                            {col7 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Current Stock</th>}
-                            {col8 && <th className=" py-2 title-font w-[55px]  tracking-wider font-medium text-gray-900 text-sm">Product type</th>}
-                            {col9 && <th className=" py-2 title-font w-[107px]  tracking-wider font-medium text-gray-900 text-sm">Categoryy</th>}
-                            {col10 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm">Brand</th>}
-                            {col11 && <th className=" py-2 title-font w-[55px]  tracking-wider font-medium text-gray-900 text-sm">Tax</th>}
-                            {col12 && <th className=" py-2 title-font w-[107px]  tracking-wider font-medium text-gray-900 text-sm">SKU</th>}
+                            <th className='text-center'><input type='checkbox' name='allSelect' onChange={(e)=>{handleChange(e)}} /> </th>
+                            {col1 && <th className=" py-2 title-font   tracking-wider font-medium text-gray-900 text-sm"></th>}
+                            {col2 && <th className=" py-2 title-font   tracking-wider font-medium text-gray-900 text-sm">Action</th>}
+                            {col3 && <th className=" py-2 title-font   tracking-wider font-medium text-gray-900 text-sm">Product</th>}
+                            {col4 && <th className=" py-2 title-font   tracking-wider font-medium text-gray-900 text-sm">Business Location</th>}
+                            {col5 && <th className=" py-2 title-font   tracking-wider font-medium text-gray-900 text-sm">Unit Purchase Price</th>}
+                            {col6 && <th className=" py-2 title-font   tracking-wider font-medium text-gray-900 text-sm">Selling Price</th>}
+                            {col7 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm">Current Stock</th>}
+                            {col8 && <th className=" py-2 title-font   tracking-wider font-medium text-gray-900 text-sm">Product type</th>}
+                            {col9 && <th className=" py-2 title-font tracking-wider font-medium text-gray-900 text-sm">Categoryy</th>}
+                            {col10 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm">Brand</th>}
+                            {col11 && <th className=" py-2 title-font   tracking-wider font-medium text-gray-900 text-sm">Tax</th>}
+                            {col12 && <th className=" py-2 title-font   tracking-wider font-medium text-gray-900 text-sm">SKU</th>}
 
                         </tr>
                     </thead>
                     <tbody >
                         {record.map((value, index) => {
                             return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""} ${value.isChecked ? "bg-blue-800/60":""}`}>
-                                <td className='flex justify-center items-center'><input type='checkbox' name={index} checked={value?.isChecked || false} onChange={(e)=>{handleSingle(e,index)}} /> </td>
+                                <td className='text-center'><input type='checkbox' name={index} checked={value?.isChecked || false} onChange={(e)=>{handleSingle(e,index)}} /> </td>
                                 {col1 && <td className="px-1 py-1 text-sm mx-1">
                                     <div className='flex items-center justify-center'>
                                         <img src='' alt='imagee' />

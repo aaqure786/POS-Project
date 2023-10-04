@@ -196,14 +196,14 @@ const SideBar = () => {
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Add Sale</h1>
         </NavLink>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/pos"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>List POS</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        <NavLink to={"/pos/create"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>POS</h1>
-        </Link>
+        </NavLink>
         <NavLink to={"/home/sell/create/draft"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Add Draft</h1>

@@ -212,10 +212,10 @@ const AddorEditRoles = () => {
         { name: "add_payroll", lable: "Add Payroll" },
         { name: "edit_payroll", lable: "Edit Payroll" },
         { name: "delete_payroll", lable: "Delete Payroll" },
-        { name: "asgn_todo's_to_others", lable: "Assign To Do's to others" },
-        { name: "add_todo's", lable: "Add To Do's" },
-        { name: "edit_todo's", lable: "Edit To Do's" },
-        { name: "delete_todo's", lable: "Delete To Do's" },
+        { name: "asgn_todos_to_others", lable: "Assign To Do's to others" },
+        { name: "add_todos", lable: "Add To Do's" },
+        { name: "edit_todos", lable: "Edit To Do's" },
+        { name: "delete_todos", lable: "Delete To Do's" },
         { name: "create_msg", lable: "Create Message" },
         { name: "view_msg", lable: "View Message" },
         { name: "axs_sales_targets", lable: " Access Sales Targets" }
@@ -243,18 +243,20 @@ const AddorEditRoles = () => {
         { name: "map_taxrate", lable: "Map Tax Rate" },
         { name: "axs_wocmrc_api_stng", lable: "Access Woocommerce Api Setting" }
     ])
-    const [firstName, setFirstName] = useState('')
+    const [formData, setFormData] = useState({
+        firstName: ""
+    })
     const [iserror, setIserror] = useState(false)
 
-    const handleClick = (e)=>{
+    const handleClick = (e) => {
         e.preventDefault()
-        if(firstName.length === 0){
+        if (formData.firstName.length === 0) {
             setIserror(true)
         }
-        else if (id){
-            console.log("Handle Update")
-        }else{
-            console.log("Handle Create")
+        else if (id) {
+            console.log("Handle Update", formData)
+        } else {
+            console.log("Handle Create", formData)
         }
 
     }
@@ -262,19 +264,27 @@ const AddorEditRoles = () => {
         const { name, checked } = e.target
         let tempData = array.map(val => val.name === name ? { ...val, isChecked: checked } : val)
         setArray(tempData)
+        setFormData({ ...formData, [name.replace(/_./g, (m) => m[1].toUpperCase())]: checked || false })
+
     }
 
     const handleAllSelect = (e, array, setArray, id) => {
         const { name, checked } = e.target
         if (name === id) {
             let tempData = array.map((val) => {
+                setFormData({ ...formData, [val.name.replace(/_./g, (m) => m[1].toUpperCase())]: checked || false })
                 return { ...val, isChecked: checked }
             });
             setArray(tempData)
         }
 
     }
+    // const toCamelCase = (str) =>{
+    //     str = str.replace(/-./g, (m) => m[1].toUpperCase())
+    //     console.log(str)
+    //     return str
 
+    // }
 
 
 
@@ -285,10 +295,10 @@ const AddorEditRoles = () => {
             <h1 className='text-2xl items-start flex mx-6 justify-start  font-semibold'>{id ? "Edit Role" : "Add Role"}</h1>
             <div className='flex flex-col rounded-md border-t-[3px] p-5 border-blue-600 bg-white w-[96%] mx-[2%] min-h-screen'>
                 <div className='flex flex-col items-start w-full'>
-                    
-                    <h1 className='text-lg flex'>First Name: *  <span className='text-red-500 mx-2 mt-1 text-sm'>{iserror && firstName.length === 0 ? "Required Field" : ""} </span></h1>
-                    <input type='text' value={firstName} onChange={(e) => {setFirstName(e.target.value)}}  placeholder='First Name' className='focus:outline-none w-full md:w-1/3 border-[1px] border-gray-300 px-2  rounded-sm p-1' />
-                     
+
+                    <h1 className='text-lg flex'>First Name: *  <span className='text-red-500 mx-2 mt-1 text-sm'>{iserror && formData.firstName.length === 0 ? "Required Field" : ""} </span></h1>
+                    <input type='text' value={formData.firstName} onChange={(e) => { setFormData({ ...formData, firstName: e.target.value }) }} placeholder='First Name' className='focus:outline-none w-full md:w-1/3 border-[1px] border-gray-300 px-2  rounded-sm p-1' />
+
                 </div>
                 <h1 className='flex text-lg font-semibold'>Permissions:</h1>
                 {/* Others */}
@@ -310,7 +320,9 @@ const AddorEditRoles = () => {
                             return <div key={index} className='flex  items-center justify-start'>
                                 <input type='checkbox'
                                     checked={data?.isChecked || false}
-                                    onChange={(e) => { handleChange(e, otherPerm, setOtherPerm) }}
+
+
+                                    onChange={(e) => { handleChange(e, otherPerm, setOtherPerm); }}
                                     name={data.name}
                                     className='w-5 h-5 mt-2 mx-2'
                                 />
@@ -932,7 +944,7 @@ const AddorEditRoles = () => {
                 <h1 className='flex text-sm mt-3'>Home:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
-                        
+
                     </div>
                     <div className='w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2'>
                         {homePerm.map((data, index) => {
@@ -955,7 +967,7 @@ const AddorEditRoles = () => {
                 <h1 className='flex text-sm mt-3'>Account:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
-                        
+
                     </div>
                     <div className='w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2'>
                         {accountPerm.map((data, index) => {
@@ -978,7 +990,7 @@ const AddorEditRoles = () => {
                 <h1 className='flex text-sm mt-3'>Booking:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
-                        
+
                     </div>
                     <div className='w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2'>
                         {bookingPerm.map((data, index) => {
@@ -1002,7 +1014,7 @@ const AddorEditRoles = () => {
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
-                            
+
 
                         </div>
                     </div>
@@ -1027,7 +1039,7 @@ const AddorEditRoles = () => {
                 <h1 className='flex text-sm mt-3'>Essentials:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
-                        
+
                     </div>
                     <div className='w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2'>
                         {essentialPerm.map((data, index) => {
@@ -1050,7 +1062,7 @@ const AddorEditRoles = () => {
                 <h1 className='flex text-sm mt-3'>Manufacturing:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
-                        
+
                     </div>
                     <div className='w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2'>
                         {manufacturingPerm.map((data, index) => {
@@ -1073,7 +1085,7 @@ const AddorEditRoles = () => {
                 <h1 className='flex text-sm mt-3'>Project:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
-                        
+
                     </div>
                     <div className='w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2'>
                         {projectPerm.map((data, index) => {
@@ -1096,7 +1108,7 @@ const AddorEditRoles = () => {
                 <h1 className='flex text-sm mt-3'>Super Admin:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
-                        
+
                     </div>
                     <div className='w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2'>
                         {superadminPerm.map((data, index) => {
@@ -1119,7 +1131,7 @@ const AddorEditRoles = () => {
                 <h1 className='flex text-sm mt-3'>Woocommerce:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
-                        
+
                     </div>
                     <div className='w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2'>
                         {woocommercePerm.map((data, index) => {
@@ -1139,7 +1151,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
 
-            ``<button onClick={handleClick} className='flex items-center  text-white w-20 bg-green-400 rounded-sm px-3 py-1 justify-start m-5'>{id ? "Update" : "Save"}</button>
+                ``<button onClick={handleClick} className='flex items-center  text-white w-20 bg-green-400 rounded-sm px-3 py-1 justify-start m-5'>{id ? "Update" : "Save"}</button>
 
             </div>
 

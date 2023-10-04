@@ -49,6 +49,8 @@ import AddOpeningStock from './components/dashboard/Product/openingStock/AddOpen
 import Sells from './components/dashboard/sell/Sells';
 import Draft from './components/dashboard/draft/Draft';
 import Quotations from './components/dashboard/quotations/Quotations';
+import Pos from './components/dashboard/Pos/Pos';
+import AddPos from './components/dashboard/Pos/AddPos';
 
 
 function App() {
@@ -117,6 +119,7 @@ function App() {
             <Route path='/home/sells' element={<Sells/>} />
             <Route path='/home/sells/draft' element={<Draft/>} />
             <Route path='/home/sells/quotations' element={<Quotations/>} />
+            <Route path='/home/pos' element={<Pos/>} />
             
             
             <Route path='/home/sell/create' element={<AddorEditSell/>} />
@@ -124,9 +127,13 @@ function App() {
 
             <Route path='/home/sells/:type/edit/:id' element={<AddorEditSell/>} />
             
+              
+              <Route path='/home/pos' element={<Pos />} />
             
- 
+
           </Route>
+          <Route path='/pos/create' element={<AddPos />} />
+          <Route path='/pos/edit/:id' element={<AddPos />} />
 
         </Routes>
       </BrowserRouter>

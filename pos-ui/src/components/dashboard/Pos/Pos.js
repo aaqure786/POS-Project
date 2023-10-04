@@ -7,9 +7,9 @@ import { format } from 'date-fns';
 import { addDays } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
-import SalesTbl from '../Tables/SalesTbl';
+import DraftTbl from '../Tables/DraftTbl';
 
-const Sells = () => {
+const Pos = () => {
     const dummyData = [
         {
             id: 1,
@@ -83,13 +83,14 @@ const Sells = () => {
     const [inputValue, setInputValue] = useState('')
     const [open, setOpen] = useState(false)
     const [open1, setOpen1] = useState(false)
+
     const [open3, setOpen3] = useState(false)
 
     const [isFilter, setIsFilter] = useState(false)
     return (
         <div className='flex flex-col items-center min-h-screen justify-self-center w-full p-5 bg-gray-100'>
             <div className='flex justify-start items-start w-full'>
-                <h1 className='text-xl font-semibold'>Sales</h1>
+                <h1 className='text-xl font-semibold'>POS</h1>
 
             </div>
             <div className='flex flex-col mt-4 w-full bg-white rounded-md p-3 items-start justify-start'>
@@ -275,22 +276,23 @@ const Sells = () => {
 
                     </div>}
 
+
             </div>
 
             <div className='flex flex-col bg-white border-t-[3px] rounded-md w-full mt-5 border-blue-500'>
-                <div className='flex justify-between mt-2 text-sm mx-5'>
-                    <h1 className='text-xl font-semibold text-start p-5'>All Sales</h1>
+                <div className='flex justify-between items-end mt-2 text-sm mx-5'>
+                    <h1 className='text-lg font-semibold'>List POS</h1>
                     <Link to={'/home/sells/create'} className='flex items-center justify-center mx-5 font-semibold w-20 h-10 rounded-md mt-3 text-white bg-blue-500'>
-                        <AiOutlinePlus size={15} /> Add
+                        <AiOutlinePlus size={15} /> Add Draft
 
                     </Link>
 
                 </div>
 
-                <SalesTbl />
+                <DraftTbl />
             </div>
         </div>
     )
 }
 
-export default Sells
+export default Pos

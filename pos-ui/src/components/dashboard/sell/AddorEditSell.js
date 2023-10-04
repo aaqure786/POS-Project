@@ -134,6 +134,15 @@ const AddorEditSell = () => {
         setFormData({ ...formData, inputData: updatedData });
     }
 
+    const handleIncDec = (index,type)=>{
+        const val = formData.inputData
+        if(type === "Inc"){
+            val[index].quantity += 1
+        }else{
+            val[index].quantity -= 1
+        }
+        setFormData({...formData, inputData: val})
+    }
     const deleteByIndex = (index) => {
         let newArray = [...formData.inputData]
         newArray.splice(index, 1)
@@ -143,7 +152,7 @@ const AddorEditSell = () => {
     const findTotal = () => {
         let total = 0
         formData.inputData.map(val => {
-            return total += val.lineTotal
+            return total += val.subtotal
         })
         return total
     }
@@ -490,7 +499,7 @@ const AddorEditSell = () => {
                                                     setInputValue1(data?.Name)
                                                     let name = data?.Name
                                                     let array = formData.inputData
-                                                    array = [...array, { productName: name }]
+                                                    array = [...array, { productName: name, quantity:0 , unitPrice:0, discount:0, subtotal: 0}]
                                                     setFormData({ ...formData, inputData: array })
                                                     setInputValue1('')
                                                     setIsClicked(!isClicked);
@@ -534,9 +543,9 @@ const AddorEditSell = () => {
                                     <td className="px-1 py-1 text-sm">
                                         <div className='flex flex-col'>
                                             <div className='flex'>
-                                                <FaMinus size={15} className='border-[1px] h-8 text-red-400 w-1/6 p-1 border-black' />
+                                                <FaMinus onClick={()=>{handleIncDec(index, "Dec")}} size={15} className='border-[1px] h-8 text-red-400 w-1/6 p-1 border-black' />
                                                 <input type='number' name="quantity" value={value.quantity} className='border-[1px] w-4/6 px-1 py-1 border-black focus:outline-none' />
-                                                <FaPlus size={15} className='border-[1px] h-8 w-1/6 p-1 text-green-400 border-black' />
+                                                <FaPlus onClick={()=>{handleIncDec(index,"Inc")}} size={15} className='border-[1px] h-8 w-1/6 p-1 text-green-400 border-black' />
 
                                             </div>
                                             <select name="unit" value={value.unit} onChange={(e) => { handleChange(e, index) }} className='border-[1px] mt-2 w-full px-1 py-1 border-black focus:outline-none'>

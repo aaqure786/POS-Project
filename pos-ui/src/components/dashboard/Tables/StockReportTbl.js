@@ -159,7 +159,7 @@ const StockReportTbl = () => {
     return (
         <div>
             
-            <div className='flex  flex-col md:flex-row  items-center justify-center mt-3 md:justify-between mx-5'>
+            <div className='flex  flex-col md:flex-row items-center justify-center mt-3 md:justify-between mx-5'>
 
                 <div className='flex items-center justify-center my-2 md:my-0'>
                     <h1 className='text-sm mx-1'>Show</h1>
@@ -232,29 +232,29 @@ const StockReportTbl = () => {
 
 
             </div>
-            <div className='flex flex-col overflow-x-hidden  mt-5 mx-5' ref={printRef} >
-                <table id='usertbl' className="table-auto w-full overflow-x-scroll  mb-10   px-5 ">
+            <div className='flex overflow-x-scroll  mt-5 mx-5' ref={printRef} >
+                <table id='usertbl'  className="table-fixed mb5  px-5">
                     <thead>
                         <tr className='h-[100px]'>
-                            {col1 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200"> Action</th>}
-                            {col2 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">SKU</th>}
-                            {col3 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Product</th>}
-                            {col4 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">variation</th>}
-                            {col5 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Category</th>}
-                            {col6 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Location</th>}
-                            {col7 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Unit Selling Price</th>}
-                            {col8 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Current Stock</th>}
-                            {col9 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Current Stock Value (By Purchase Price)</th>}
-                            {col10 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Current Stock Value (By Sale Price)</th>}
-                            {col11 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Potential Profit</th>}
-                            {col12 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Total Unit Sold</th>}
-                            {col13 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Total Unit Transfered</th>}
-                            {col14 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Total Unit Adjusted</th>}
-                            {col15 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Custom Field 1</th>}
-                            {col16 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Custom Field 2</th>}
-                            {col17 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Custom Field 3</th>}
-                            {col18 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Custom Field 4</th>}
-                            {col19 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Current Stock Manufactureing</th>}
+                            {col1 && <th className=" py-2  w-[140px]  tracking-wider  text-gray-900 text-xs bg-gray-200"> Action</th>}
+                            {col2 && <th className=" py-2 title-font w-[30px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">SKU</th>}
+                            {col3 && <th className=" py-2 title-font w-[53px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Product</th>}
+                            {col4 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">variation</th>}
+                            {col5 && <th className=" py-2 title-font w-[59px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Category</th>}
+                            {col6 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Location</th>}
+                            {col7 && <th className=" py-2 title-font w-[80px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Unit Selling Price</th>}
+                            {col8 && <th className=" py-2 title-font w-[50px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Current Stock</th>}
+                            {col9 && <th className=" py-2 title-font w-[65px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Current Stock Value (By Purchase Price)</th>}
+                            {col10 && <th className=" py-2 title-font w-[75px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Current Stock Value (By Sale Price)</th>}
+                            {col11 && <th className=" py-2 title-font w-[90px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Potential Profit</th>}
+                            {col12 && <th className=" py-2 title-font w-[30px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Total Unit Sold</th>}
+                            {col13 && <th className=" py-2 title-font w-[70px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Total Unit Transfered</th>}
+                            {col14 && <th className=" py-2 title-font w-[60px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Total Unit Adjusted</th>}
+                            {col15 && <th className=" py-2 title-font w-[50px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Custom Field 1</th>}
+                            {col16 && <th className=" py-2 title-font w-[50px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Custom Field 2</th>}
+                            {col17 && <th className=" py-2 title-font w-[50px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Custom Field 3</th>}
+                            {col18 && <th className=" py-2 title-font w-[50px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Custom Field 4</th>}
+                            {col19 && <th className=" py-2 title-font w-[105px]  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Current Stock Manufactureing</th>}
                             
                         </tr>
                     </thead>
@@ -265,17 +265,17 @@ const StockReportTbl = () => {
                                 {col2 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col3 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col4 && <td className="px-1 py-1">{value.Role}</td>}
-                                {col5 && <td className=" py-1 px-1">{value.Email}</td>}
+                                {col5 && <td className=" py-1 px-1">{value.Username}</td>}
                                 {col6 && <td className=" py-1 px-1">{value.Role}</td>}
                                 {col7 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col8 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col9 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col10 && <td className="px-1 py-1"> {value.Name}</td>}
-                                {col11 && <td className=" py-1 px-1">{value.Email}</td>}
+                                {col11 && <td className=" py-1 px-1">{value.Username}</td>}
                                 {col12 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col13 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col14 && <td className="px-1 py-1">{value.Role}</td>}
-                                {col15 && <td className=" py-1 px-1">{value.Email}</td>}
+                                {col15 && <td className=" py-1 px-1">{value.Username}</td>}
                                 {col16 && <td className=" py-1 px-1">{value.Role}</td>}
                                 {col17 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col18 && <td className="px-1 py-1"> {value.Name}</td>}
