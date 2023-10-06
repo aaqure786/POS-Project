@@ -56,7 +56,7 @@ const Navbra = () => {
                             <button className='hidden md:flex py-1.5 px-2 relative mx-1 bg-green-300 text-white' onMouseOver={() => { setCal(true) }} onMouseLeave={() => { setCal(false) }} onClick={() => { setShcal(!shcal) }}><FaCalculator size={15} />
                                 {cal && <div className="absolute top-8 text-sm rounded-sm flex z-10 text-white bg-black p-1">Calculator</div>}
                             </button>
-                            {shcal && <Calculator />}
+                            {shcal && <div className='absolute top-14 right-80 z-20'> <Calculator /></div>}
                             <button className='py-1 md:px-1 relative mx-1 bg-green-300 text-white flex items-center justify-center' onMouseOver={() => { setPos(true) }} onMouseLeave={() => { setPos(false) }}><FaThLarge size={15} /> <span className='mx-2 font-semibold text-sm'>POS</span>
                                 {pos && <div className="absolute text-sm rounded-sm flex top-8 z-10 text-white bg-black md:p-1">POS</div>}
                             </button>

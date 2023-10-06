@@ -8,6 +8,25 @@ import AddProduct from '../Product/AddorEditProduct'
 import AddorEditContact from "../contacts/AddorEditContact"
 import ProductItem from './ProductItem'
 import Payment from './Payment'
+import CardTransaction from './CardTransaction'
+import SuspendSale from './SuspendSale'
+import EditProduct from './EditProduct'
+import Calculator from "../Calculator"
+import SuspendedSale from './SuspendedSale'
+import RegisterDetails from './RegisterDetails'
+import CloseRegister from './CloseRegister'
+import EditDiscount from './EditDiscount'
+import EditOrderTax from './EditOrderTax'
+import EditShipping from './EditShipping'
+import RecentTransaction from './RecentTransaction'
+import moment from 'moment'
+
+
+
+
+
+
+
 
 const AddPos = () => {
   const dummyData = [
@@ -174,20 +193,23 @@ const AddPos = () => {
   ]
   const [inputValue, setInputValue] = useState('')
   const [inputValue1, setInputValue1] = useState('')
-
+  const [dynwidth, setDynwidth] = useState('')
   const [open, setOpen] = useState(false)
 
-
+  const [shcal, setShcal] = useState(false)
   const [isAddSupplier, setIsAddSupplier] = useState(false)
   const [isClicked, setIsClicked] = useState(false)
   const [info2, setInfo2] = useState(false)
+  const [info3, setInfo3] = useState(false)
+  const [info4, setInfo4] = useState(false)
+  const [info5, setInfo5] = useState(false)
   const [info1, setInfo1] = useState(false)
   const [isCard, setIsCard] = useState(false)
   const [isMultiplePay, setIsMultiplePay] = useState(false)
-
+  const [isSuspend, setIsSuspend] = useState(false)
   const [info, setInfo] = useState(false)
-
-
+  const [saleReturn, setSaleReturn] = useState(false)
+  const [sellReturn, setSellReturn] = useState('')
   const [formData, setFormData] = useState({
     customer: "",
     sellingPrice: "",
@@ -228,6 +250,8 @@ const AddPos = () => {
   })
   const params = useParams()
   const id = params.id
+
+
 
   const handleChange = (e, index) => {
     const updatedData = formData.inputData.map((item, ind) => {
@@ -271,7 +295,7 @@ const AddPos = () => {
   const handleClick = (e) => {
 
     if (formData.customer.length === 0 ||
-       formData.inputData.length === 0) {
+      formData.inputData.length === 0) {
       setIsserror(true)
       console.log(isserror)
     } else if (id) {
@@ -281,12 +305,25 @@ const AddPos = () => {
     }
   }
 
+  const handleSellReturn = () => {
+    console.log("Handle Sell Return ", sellReturn)
+  }
 
-  const date = new Date().getDate().toString()
-  const time = new Date().getTime().toString()
-  const dateTime = date + time
+
+  const dateTime = moment().date().toLocaleString();
   const [isCliked, setIsCliked] = useState(false)
   const [newProduct, setNewProduct] = useState(false)
+  const [editProduct, setEditProduct] = useState(false)
+  const [suspendedSale, setSuspendedSale] = useState(false)
+  const [prdName, setPrdName] = useState('')
+  const [registerDetail, setRegisterDetail] = useState(false)
+  const [closeRegister, setCloseRegister] = useState(false)
+  const [updateDiscount, setUpdateDiscount] = useState(false)
+  const [updateOrderTax, setUpdateOrderTax] = useState(false)
+  const [updateShipping, setUpdateShipping] = useState(false)
+  const [recentTrx, setRecentTrx] = useState(false)
+
+  const [proId, setProId] = useState(0)
   const displayData = () => {
     if (newProduct === true) {
       return <AddProduct />
@@ -294,12 +331,46 @@ const AddPos = () => {
       return <Payment />
     } else if (isAddSupplier === true) {
       return <AddorEditContact id={0} />
+    } else if (isCard === true) {
+      return <CardTransaction />
+    } else if (isSuspend === true) {
+      return <SuspendSale />
+    } else if (editProduct === true) {
+      return <EditProduct name={prdName} id={proId} />
+    } else if (suspendedSale === true) {
+      return <SuspendedSale />
+    } else if (registerDetail === true) {
+      return <RegisterDetails />
+    } else if (closeRegister === true) {
+      return <CloseRegister />
+    } else if (updateDiscount === true) {
+      return <EditDiscount />
+    } else if (updateOrderTax === true) {
+      return <EditOrderTax />
+    } else if (updateShipping === true) {
+      return <EditShipping />
+    } else if (recentTrx === true) {
+      return <RecentTransaction />
+    }
+
+
+  }
+  const openFullscreen = () => {
+    let elem = document.getElementById("POS")
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+      elem.msRequestFullscreen();
     }
   }
 
 
   return (
-    <div className='w-full p-3 bg-gray-300'>
+    <div id='POS' className='w-full p-3 bg-gray-300'>
 
       <div className='header w-full flex justify-between'>
         <div className='flex justify-between '>
@@ -364,22 +435,28 @@ const AddPos = () => {
             <FaMinusCircle size={15} className='mx-1' />
             <h1 className='text-xs'>Add Expense</h1>
           </div>
-          <div title='View Suspended Sales' className='p-1 bg-orange-500 text-white flex'>
+          <div onClick={() => { setIsCliked(true); setSuspendedSale(true) }} title='View Suspended Sales' className='p-1 bg-orange-500 text-white flex'>
             <FaPauseCircle size={15} className='mx-1' />
           </div>
-          <div title='Press F11 to go full screen' className='p-1 bg-blue-500 text-white flex'>
+          <div onClick={openFullscreen} title='Press F11 to go full screen' className='p-1 bg-blue-500 text-white flex'>
             <FaWindowMaximize size={15} className='mx-1' />
           </div>
-          <div title='Sell Return' className='p-1 bg-red-500 text-white flex'>
+          <div onClick={() => { setSaleReturn(!saleReturn) }} title='Sell Return' className='p-1 bg-red-500 text-white flex relative'>
             <FaUndo size={15} className='mx-1' />
+            {saleReturn && <div className='absolute top-8 z-10 -right-10 flex shadow-md shadow-gray-400 items-center justify-center bg-white flex-col h-[110px] w-[200px] p-2'>
+              <h2 className='text-gray-500 text-start'>Sell Return</h2>
+              <input type='text' value={sellReturn} onChange={(e) => { setSellReturn(e.target.value) }} className='border-[1px] rounded-md mt-3 border-gray-400 focus:outline-none' />
+              <button onClick={handleSellReturn} className='flex bg-red-500 w-1/3 items-center justify-center rounded-md text-white mt-2'>Send</button>
+            </div>}
           </div>
-          <div title='Calculator' className='p-1 bg-green-500 text-white flex'>
+          <div onClick={() => { setShcal(!shcal) }} title='Calculator' className='p-1 relative bg-green-500 text-white flex '>
             <FaCalculator size={15} className='mx-1' />
+            {shcal && <div className='absolute top-7 -right-14'> <Calculator /></div>}
           </div>
-          <div title='Register Details' className='p-1 bg-green-500 text-white flex'>
+          <div onClick={() => { setIsCliked(true); setRegisterDetail(true) }} title='Register Details' className='p-1 bg-green-500 text-white flex'>
             <FaBriefcase size={15} className='mx-1' />
           </div>
-          <div title='Close Register' className='p-1 bg-red-500 text-white flex'>
+          <div onClick={() => { setIsCliked(true); setCloseRegister(true) }} title='Close Register' className='p-1 bg-red-500 text-white flex'>
             <FaWindowClose size={15} className='mx-1' />
           </div>
           <div title='Go Back' className='p-1 bg-blue-400 text-white flex'>
@@ -540,7 +617,7 @@ const AddPos = () => {
             </div>
           </div>
 
-          <div className=' flex w-full'>
+          <div className=' flex flex-col   w-full'>
             <div className='flex w-full   mt-5 ' >
               <table className="table-fixed min-h-[200px]  mb-2 w-full  px-5 ">
                 <thead>
@@ -565,10 +642,10 @@ const AddPos = () => {
                 </thead>
                 <tbody >
                   {formData.inputData.map((value, index) => {
-                    return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""} `}>
+                    return <tr key={index} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""} items-center justify-center`}>
                       <td className=" py-1 px-1 text-center">
                         <div className='flex flex-col'>
-                          <p className='text-start'>{value.productName}</p>
+                          <p onClick={() => { setIsCliked(true); setEditProduct(true); setPrdName(value.productName); setProId(value.id); setDynwidth("50%") }} className='text-start text-blue-500 cursor-pointer flex items-center justify-center'>{value.productName}   <FaInfoCircle className='mx-2' title='Edit Product Unit Price and Tax' size={15} /></p>
                         </div>
                       </td>
                       <td className="px-1 py-1 text-sm flex items-center justify-center">
@@ -601,10 +678,73 @@ const AddPos = () => {
               </table>
             </div>
 
+
+            <div className='grig grid-cols-3 gap-3 flex w-full'>
+              <div className='flex items-center w-full'>
+                <h1 className='font-bold text-sm'>Items:</h1>
+                <h1 className=' text-sm'>Items: {formData.inputData.length}</h1>
+              </div>
+              <div className='flex items-center w-full'>
+                <h1 className='font-bold text-sm'>Total:</h1>
+                <h1 className=' text-sm'>Items: {total}</h1>
+              </div>
+              <div className='flex items-center w-full'>
+
+              </div>
+            </div>
+            <div className='grig grid-cols-3 flex gap-3 w-full'>
+
+              <div className='flex items-center w-full relative'>
+                <h1 className='font-bold text-sm mx-1'>Discount:</h1>
+                <FaInfoCircle style={{ color: "skyblue" }} onMouseOver={() => { setInfo3(true) }} onMouseLeave={() => { setInfo3(false) }} size={15} className='mx-1 ' />
+                {info3 &&
+                  <div className='flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-8 p-2 z-10 bg-white shadow-md shadow-gray-300'>
+                    <p className='text-start'>Set 'Default Sale Discount' for all sales in business Settings. Click on the edit icon below to add/update discount</p>
+
+                  </div>
+                }
+                <h1 className=' text-sm font-bold mx-1'>(-)</h1>
+                <FaEdit className='cursor-pointer' size={15} onClick={() => { setUpdateDiscount(true); setIsCliked(true); setDynwidth("50%"); }} />
+                <h1 className=' text-sm font-bold mx-1'>{0.00}</h1>
+
+              </div>
+
+              <div className='flex items-center w-full relative'>
+                <h1 className='font-bold text-sm mx-1'>Order Tax:</h1>
+                <FaInfoCircle style={{ color: "skyblue" }} onMouseOver={() => { setInfo4(true) }} onMouseLeave={() => { setInfo4(false) }} size={15} className='mx-1 ' />
+                {info4 &&
+                  <div className='flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-8 p-2 z-10 bg-white shadow-md shadow-gray-300'>
+                    <p className='text-start'>Set 'Default Sale Tax' for all sales in business Settings. Click on the edit icon below to add/update Order Tax</p>
+
+                  </div>
+                }
+                <h1 className=' text-sm font-bold mx-1'>(+)</h1>
+                <FaEdit className='cursor-pointer' size={15} onClick={() => { setUpdateOrderTax(true); setIsCliked(true); setDynwidth("50%"); }} />
+                <h1 className=' text-sm font-bold mx-1'>{0.00}</h1>
+
+              </div>
+
+              <div className='flex items-center w-full relative'>
+                <h1 className='font-bold text-sm mx-1'>Shipping:</h1>
+                <FaInfoCircle style={{ color: "skyblue" }} onMouseOver={() => { setInfo5(true) }} onMouseLeave={() => { setInfo5(false) }} size={15} className='mx-1 ' />
+                {info5 &&
+                  <div className='flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-8 p-2 z-10 bg-white shadow-md shadow-gray-300'>
+                    <p className='text-start'>Set Shipping Details and Shipping Charges. Click on the edit icon below to add/update Shipping Details and Shipping Charges</p>
+
+                  </div>
+                }
+                <h1 className=' text-sm font-bold mx-1'>(+)</h1>
+                <FaEdit className='cursor-pointer' size={15} onClick={() => { setUpdateShipping(true); setIsCliked(true); setDynwidth("50%"); }} />
+                <h1 className=' text-sm font-bold mx-1'>{0.00}</h1>
+
+              </div>
+
+            </div>
+
           </div>
         </div>
         <div className='flex overflow-y-scroll w-[40%]'>
-          <div className='grid grid-cols-3 gap-4 mx-2'>
+          <div className='grid grid-cols-3 gap-4 mx-2 '>
             {productData.map((val, index) => {
               return <div key={index} className='w-[150px] h-[100px] p-1'
                 onClick={() => {
@@ -623,37 +763,37 @@ const AddPos = () => {
         </div>
       </div>
 
-      <div className='footer w-full flex justify-between items-center p-2 h-[100px] fixed bottom-0 bg-gray-200'>
+      <div className='footer w-full flex justify-between items-center  h-[100px] fixed bottom-0 bg-gray-200'>
         <div className='grid grid-cols-4 md:grid-cols-9 gap-1 w-3/4'>
-          <div onClick={()=>{handleClick("draf")}} className='p-1 cursor-pointer items-center justify-center bg-blue-400 text-white flex'>
+          <div onClick={() => { handleClick("draf") }} className='p-1 cursor-pointer items-center justify-center bg-blue-400 text-white flex'>
             <FaEdit size={15} className='mx-1' />
             <h1 className='text-sm font-semibold'>Draft</h1>
           </div>
-          <div onClick={()=>{handleClick("quotation")}} className='p-1 cursor-pointer items-center justify-center bg-orange-400 text-white flex'>
+          <div onClick={() => { handleClick("quotation") }} className='p-1 cursor-pointer items-center justify-center bg-orange-400 text-white flex'>
             <FaEdit size={15} className='mx-1' />
             <h1 className='text-sm font-semibold'>Quotation</h1>
           </div>
-          <div onClick={()=>{handleClick("suspended")}} className='p-1 cursor-pointer items-center justify-center bg-red-400 text-white flex'>
+          <div onClick={() => { handleClick("suspended"); setIsCliked(true); setDynwidth("50%"); setIsSuspend(true) }} className='p-1 cursor-pointer items-center justify-center bg-red-400 text-white flex'>
             <FaPause size={15} className='mx-1' />
             <h1 className='text-sm font-semibold'>Suspended</h1>
           </div>
-          <div onClick={()=>{handleClick("creditSale")}} className='p-[2px] cursor-pointer items-center justify-start w-[100px] bg-purple-400 text-white flex'>
+          <div onClick={() => { handleClick("creditSale") }} className='p-[2px] cursor-pointer items-center justify-start w-[100px] bg-purple-400 text-white flex'>
             <FaCheck size={15} className='mx-1' />
             <h1 className='text-sm font-semibold'>Credit Sale</h1>
           </div>
-          <div onClick={()=>{handleClick("card");  setIsCliked(true)}} className='p-2 cursor-pointer items-center justify-center bg-red-400 text-white flex'>
+          <div onClick={() => { handleClick("card"); setIsCliked(true); setIsCard(true); setDynwidth("50%") }} className='p-2 cursor-pointer items-center justify-center bg-red-400 text-white flex'>
             <FaCreditCard size={15} className='mx-1' />
             <h1 className='text-sm font-semibold'>Card</h1>
           </div>
-          <div onClick={()=>{handleClick("multiplePay"); setIsMultiplePay(true);setIsCliked(true)}} className='p-[2px] cursor-pointer items-center justify-start w-[100px] bg-purple-900 text-white flex'>
+          <div onClick={() => { handleClick("multiplePay"); setIsMultiplePay(true); setIsCliked(true) }} className='p-[2px] cursor-pointer items-center justify-start w-[100px] bg-purple-900 text-white flex'>
             <FaMoneyCheckAlt size={15} className='mx-1' />
             <h1 className='text-xs font-semibold '>Multiple Pay</h1>
           </div>
-          <div onClick={()=>{handleClick("cash")}} className='p-1 cursor-pointer items-center justify-center bg-green-400 text-white flex'>
+          <div onClick={() => { handleClick("cash") }} className='p-1 cursor-pointer items-center justify-center bg-green-400 text-white flex'>
             <FaMoneyBillAlt size={15} className='mx-1' />
             <h1 className='text-sm font-semibold'>Cash</h1>
           </div>
-          <div onClick={()=>{handleClick()}} className='p-1 cursor-pointer items-center justify-center bg-red-400 text-white flex'>
+          <div onClick={() => { handleClick() }} className='p-1 cursor-pointer items-center justify-center bg-red-400 text-white flex'>
             <FaWindowClose size={15} className='mx-1' />
             <h1 className='text-sm font-semibold'>Cancle</h1>
           </div>
@@ -664,7 +804,7 @@ const AddPos = () => {
           </div>
         </div>
         <div className='flex items-end justify-end w-1/4'>
-        <div className='py-1 px-2 bg-blue-400 text-white flex'>
+          <div onClick={() => { setIsCliked(true); setRecentTrx(true); setDynwidth("50%") }} className='py-1 px-2 mx-4 bg-blue-400 text-white flex'>
             <FaClock size={15} className='mx-1' />
             <h1 className='text-xs'>Recent Transaction</h1>
           </div>
@@ -672,10 +812,27 @@ const AddPos = () => {
 
       </div>
 
-      {isCliked &&
+      {
+        isCliked &&
         <div className='absolute top-0 flex flex-col items-center  justify-start right-0 bg-black/70 w-full min-h-screen'>
-          <div className="w-full md:w-[70%]">
-            <div onClick={() => { setIsCliked(false); setIsAddSupplier(false); setNewProduct(false); setIsMultiplePay(false) }} className=' flex items-end justify-end  w-full mt-10 bg-white px-5 pt-2'>
+          <div className={`w-full md:w-[${dynwidth > "0%" ? dynwidth : '70%'}]`}>
+            <div onClick={() => {
+              setIsCliked(false);
+              setRecentTrx(false);
+              setUpdateOrderTax(false);
+              setUpdateShipping(false);
+              setCloseRegister(false);
+              setUpdateDiscount(false);
+              setSuspendedSale(false);
+              setRegisterDetail(false);
+              setIsCard(false);
+              setIsSuspend(false);
+              setIsAddSupplier(false);
+              setNewProduct(false);
+              setIsMultiplePay(false);
+              setDynwidth('');
+              setEditProduct(false)
+            }} className=' flex items-end justify-end  w-full mt-10 bg-white px-5 pt-2'>
               <MdCancel size={20} />
 
             </div>
@@ -684,8 +841,8 @@ const AddPos = () => {
         </div>
 
       }
-  
-    </div>
+
+    </div >
   )
 }
 

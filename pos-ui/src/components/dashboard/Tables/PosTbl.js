@@ -300,7 +300,7 @@ const PosTbl = () => {
                                                     </div>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <Link to={`/home/sells/edit/${value.id}`} onClick={() => {  setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link to={`/pos/edit/${value.id}`} onClick={() => {  setIsedit(!isedit); setIsCliked(!isCliked) }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEdit size={15} />
                                                         <h1 className='text-sm'>Edit</h1>
                                                     </Link >
@@ -354,7 +354,7 @@ const PosTbl = () => {
                                 {col2 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col3 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col4 && <td className="px-1 py-1">{value.Role}</td>}
-                                {col5 && <td className=" py-1 px-1">{value.Email}</td>}
+                                {col5 && <td className=" py-1 px-1">{value.Name}</td>}
                                 {col6 && <td className=" py-1 px-1">{value.Role}</td>}
                                 {col7 && <td className="px-1 py-1 text-sm">
                                     <button onClick={() => { setIsCliked(true); setIsShowPayment(true); setPaymentId(value.id) }} className='bg-green-400 text-white px-2 text-xs rounded-xl'>status</button>
@@ -362,12 +362,12 @@ const PosTbl = () => {
                                 </td>}
                                 {col8 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col9 && <td className="px-1 py-1">{value.Role}</td>}
-                                {col10 && <td className=" py-1 px-1">{value.Email}</td>}
-                                {col11 && <td className=" py-1 px-1">{value.Email}</td>}
+                                {col10 && <td className=" py-1 px-1">{value.Name}</td>}
+                                {col11 && <td className=" py-1 px-1">{value.Name}</td>}
                                 {col12 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col13 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col14 && <td className="px-1 py-1">{value.Role}</td>}
-                                {col15 && <td className=" py-1 px-1">{value.Email}</td>}
+                                {col15 && <td className=" py-1 px-1">{value.Name}</td>}
                                 {col16 && <td className=" py-1 px-1">{value.Role}</td>}
                                 {col17 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col18 && <td className="px-1 py-1"> {value.Name}</td>}
@@ -377,7 +377,36 @@ const PosTbl = () => {
 
                     </tbody>
                     <tfoot>
-                        <tr></tr>
+                        <tr className='h-[100px] bg-gray-400 '>
+                            <td colSpan={5}>Total</td>
+                            <td>
+                                <div className='flex flex-col'>
+                                <h1 className='text-xs'> Paid - 19</h1>
+                                <h1 className='text-xs'> Due - 1</h1>
+                                </div>
+                            </td>
+                            <td> 
+                            <h1 className='text-xs'> Cash - 11</h1>
+                            </td>
+                            <td> 
+                            <h1 className='text-xs'> Rs. 0.00</h1>
+                            </td>
+                            <td> 
+                            <h1 className='text-xs'> Rs. 0.00</h1>
+                            </td>
+                            <td> 
+                            <h1 className='text-xs'> Rs. 0.00</h1>
+                            </td>
+                            <td> 
+                            <h1 className='text-xs'> Rs. 0.00</h1>
+                            </td>
+                            <td> 
+                            
+                            </td>
+                            <td colSpan={6}> 
+                            
+                            </td>
+                        </tr>
                     </tfoot>
                 </table>
             </div>

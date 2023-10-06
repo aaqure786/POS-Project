@@ -137,11 +137,11 @@ const Payment = () => {
                                         </div>
                                         <div className='flex flex-col '>
                                             <h1 className='flex text-sm text-start font-bold' >Card holder name:</h1>
-                                            <input value={formData.holderName} onChange={(e) => { setFormData({ ...formData, holderName: e.target.value }) }} type='number' placeholder='Card holder name' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                                            <input value={formData.holderName} onChange={(e) => { setFormData({ ...formData, holderName: e.target.value }) }} type='text' placeholder='Card holder name' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
                                         </div>
                                         <div className='flex flex-col '>
                                             <h1 className='flex text-sm text-start font-bold' >Card Transaction Number:</h1>
-                                            <input value={formData.transactionNumber} onChange={(e) => { setFormData({ ...formData, transactionNumber: e.target.value }) }} type='number' placeholder='Select Date Time' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                                            <input value={formData.transactionNumber} onChange={(e) => { setFormData({ ...formData, transactionNumber: e.target.value }) }} type='text' placeholder='Select Date Time' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
                                         </div>
 
 

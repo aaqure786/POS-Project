@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { addDays } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
-import DraftTbl from '../Tables/DraftTbl';
+import PosTbl from '../Tables/PosTbl';
 
 const Pos = () => {
     const dummyData = [
@@ -289,7 +289,7 @@ const Pos = () => {
 
                 </div>
 
-                <DraftTbl />
+                <PosTbl />
             </div>
         </div>
     )
