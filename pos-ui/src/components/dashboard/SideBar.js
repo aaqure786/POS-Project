@@ -216,18 +216,18 @@ const SideBar = () => {
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Add Quotation</h1>
         </NavLink>
-        <Link to={"/home/sells/quotations"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/sells/quotations"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>List quotation</h1>
-        </Link>
+        </NavLink>
         <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>List Sell Return</h1>
         </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/shipments"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Shipments</h1>
-        </Link>
+        </NavLink>
         <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Discounts</h1>

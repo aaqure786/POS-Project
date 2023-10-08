@@ -204,21 +204,37 @@ const AddorEditProduct = () => {
     ) {
       setIsserror(true)
       console.log(isserror)
-    } else if (id) {
-      console.log("Handle Update", formData)
-    } else {
-      console.log("Handle save ", formData)
-    }
-    if (isAdSlngPrcGrp) {
+    } else if (isAdSlngPrcGrp === true) {
+      console.log("Add Selling Price Group")
+      if(id){
+        console.log("Handle Update", formData)
+        }else{
+          console.log("Handle save ", formData)
+        }
       navigate("/home/products/add-selling-prices/1")
-      setIsAdSlngPrcGrp(false)
-    } else if (isOpeningStock) {
+    } else if (isOpeningStock === true) {
+      console.log("Opening Stock")
+      if(id){
+      console.log("Handle Update", formData)
+      }else{
+        console.log("Handle save ", formData)
+      }
       navigate("/home/opening-stock/add/1")
-    }else if (isAddOther){
+    }else if (isAddOther === true){
+      console.log("Add Other")
+      if(id){
+        console.log("Handle Update", formData)
+        }else{
+          console.log("Handle save ", formData)
+        }
       setTimeout(() => {
         navigate("/home/products/create")
       }, 1000);
 
+    }else{
+      console.log("Save")
+      console.log(isAdSlngPrcGrp, isOpeningStock, isAddOther)
+      console.log("Handle save ", formData)
     }
   }
   return (
@@ -827,11 +843,10 @@ const AddorEditProduct = () => {
 
       </div>
       <div className='flex items-end justify-end mt-5'>
-        <button onClick={() => { handleClick(); setIsAdSlngPrcGrp(true) }} className='bg-orange-500 text-lg px-2 py-2 items-center justify-center flex'>Save & Add Selling-Price-Group Prices</button>
-        <button onClick={() => { handleClick(); setIsOpeningStock(true) }} className='bg-blue-500 text-lg px-2 py-2 text-white items-center justify-center flex'>Save & Add Opening Stock</button>
-        <button onClick={() => { handleClick(); setIsAddOther(true) }} className='bg-red-500 text-lg px-2 py-2 text-white items-center justify-center flex'>Save & Add Another</button>
-
-        <button onClick={handleClick} className='bg-green-500 text-lg px-2 py-2 items-center justify-center flex'>Save</button>
+        <button onClick={() => {  setIsAdSlngPrcGrp(true);setIsOpeningStock(false);setIsAddOther(false); handleClick(); }} className='bg-orange-500 text-lg px-2 py-2 items-center justify-center flex'>Save & Add Selling-Price-Group Prices</button>
+        <button onClick={() => {  setIsAdSlngPrcGrp(false);setIsOpeningStock(true);setIsAddOther(false); handleClick(); }} className='bg-blue-500 text-lg px-2 py-2 text-white items-center justify-center flex'>Save & Add Opening Stock</button>
+        <button onClick={() => {  setIsAdSlngPrcGrp(false);setIsOpeningStock(false);setIsAddOther(true); handleClick(); }} className='bg-red-500 text-lg px-2 py-2 text-white items-center justify-center flex'>Save & Add Another</button>
+        <button onClick={() => {  setIsAdSlngPrcGrp(false);setIsOpeningStock(false);setIsAddOther(false); handleClick(); }} className='bg-green-500 text-lg px-2 py-2 items-center justify-center flex'>Save</button>
       </div>
     </div>
   )

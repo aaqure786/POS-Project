@@ -544,7 +544,7 @@ const AddorEditSell = () => {
                                         <div className='flex flex-col'>
                                             <div className='flex'>
                                                 <FaMinus onClick={()=>{handleIncDec(index, "Dec")}} size={15} className='border-[1px] h-8 text-red-400 w-1/6 p-1 border-black' />
-                                                <input type='number' name="quantity" value={value.quantity} className='border-[1px] w-4/6 px-1 py-1 border-black focus:outline-none' />
+                                                <input type='number' name="quantity" value={value.quantity} onChange={(e) => { handleChange(e, index) }} className='border-[1px] w-4/6 px-1 py-1 border-black focus:outline-none' />
                                                 <FaPlus onClick={()=>{handleIncDec(index,"Inc")}} size={15} className='border-[1px] h-8 w-1/6 p-1 text-green-400 border-black' />
 
                                             </div>

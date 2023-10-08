@@ -14,7 +14,7 @@ const ViewPayment = () => {
         copyStyles: true,
     });
     return (
-        <div className='w-full md:w-[80%]  flex    flex-col pb-4  bg-white'>
+        <div className='w-full   flex    flex-col pb-4  bg-white'>
             <div className='w-full px-2 my-2' ref={printRef}>
                 <div className='flex items-start '>
                     <h1 className='text-xl'>View Payments (</h1>
