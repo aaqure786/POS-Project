@@ -47,9 +47,8 @@ const SideBar = () => {
 
   return (
     <div
-      className={`whitespace-nowrap min-h-[100%] py-[20px] w-full ${
-        clicked ? "flex" : "hidden"
-      }   md:flex bg-gray-100  flex-col`}
+      className={`whitespace-nowrap min-h-[100%] py-[20px] w-full ${clicked ? "flex" : "hidden"
+        }   md:flex bg-gray-100  flex-col`}
     >
       {/* Home button */}
       <div className="flex justify-between items-center">
@@ -395,7 +394,7 @@ const SideBar = () => {
       </div>
       }
 
-      
+
       {/* Stock Transfer */}
       <div className="flex justify-between items-center">
         <div
@@ -412,7 +411,7 @@ const SideBar = () => {
       {li5 && (
         <div className="flex flex-col mx-4">
           <NavLink
-            to={"/home/stock-transfers"}
+            to={"/home/stock-transfer"}
             className="flex hover:text-black  aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />

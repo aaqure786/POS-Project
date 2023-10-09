@@ -172,17 +172,17 @@ function App() {
 
             <Route path='/home/shipments' element={<Shipment />} />
             <Route path='/home/discounts' element={<Discount />} />
-
+            <Route path="/home/stock-transfer" element={<ListStockTransfer />} />
+            <Route path="/home/stock-transfers/create" element={<AddStockTransfer />} />
 
           </Route>
           <Route path='/pos/create' element={<AddPos />} />
           <Route path='/pos/edit/:id' element={<AddPos />} />
 
 
-                        <Route path="/home/stock-transfers" element={<ListStockTransfer />} />
-            <Route path="/home/stock-transfers/create" element={<AddStockTransfer />} />
-            
-          
+
+
+
 
         </Routes>
       </BrowserRouter>
