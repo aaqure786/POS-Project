@@ -228,18 +228,18 @@ const SideBar = () => {
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Shipments</h1>
         </NavLink>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        <NavLink to={"/home/discounts"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Discounts</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </NavLink>
+        {/* <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Subscriptions</h1>
-        </Link>
-        <Link to={"/"} className='flex hover:text-black  py-1 items-center   justify-start'>
+        </Link> */}
+        <NavLink to={"/home/import-sales"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Import Sales</h1>
-        </Link>
+        </NavLink>
       </div>
       }
       {/* Stock Transfer */}

@@ -52,6 +52,8 @@ import Quotations from './components/dashboard/quotations/Quotations';
 import Pos from './components/dashboard/Pos/Pos';
 import AddPos from './components/dashboard/Pos/AddPos';
 import Shipment from './components/dashboard/Shipments/Shipment';
+import Discount from './components/dashboard/discount/Discount';
+import ImportSale from './components/dashboard/sell/ImportSale';
 
 
 function App() {
@@ -129,8 +131,10 @@ function App() {
 
             <Route path='/home/sells/:type/edit/:id' element={<AddorEditSell />} />
 
+            <Route path='/home/import-sales' element={<ImportSale />} />
 
             <Route path='/home/shipments' element={<Shipment />} />
+            <Route path='/home/discounts' element={<Discount />} />
 
 
           </Route>

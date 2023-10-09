@@ -17,7 +17,7 @@ const ImporContact = () => {
             required: "Optional"
         },
         {
-            columnName: "First Name",
+            columnName: "First Name", 
             required: "Required"
         },
         {
