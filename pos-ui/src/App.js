@@ -1,3 +1,4 @@
+
 import './App.css';
 import Home from './components/Home';
 import Pricing from './components/Pricing';
@@ -55,41 +56,77 @@ import Shipment from './components/dashboard/Shipments/Shipment';
 import Discount from './components/dashboard/discount/Discount';
 import ImportSale from './components/dashboard/sell/ImportSale';
 
+import ListStockTransfer from "./components/dashboard/Stock Transfer/ListStockTransfer";
+import AddStockTransfer from "./components/dashboard/Stock Transfer/AddStockTransfer";
+
 
 function App() {
   return (
     <div className="App">
-
       <BrowserRouter>
         <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route path='/Login' element={<Login />} />
-          <Route path='/pricing' element={<Pricing />} />
-          <Route path='/business/Register' element={<Registration />} />
-          <Route path='/repair-status' element={<RepaiStatus />} />
-          <Route path='/home' element={<Home1 />} >
-            <Route path='' element={<Dashboard />} />
-            <Route path='/home/users' element={<User />} />
-            <Route path='/home/users/addusers' element={<AddorEditUsers />} />
-            <Route path='/home/users/edituser/:id' element={<AddorEditUsers />} />
-            <Route path='/home/users/viewuser/:id' element={<ViewUser />} />
-            <Route path='/home/roles' element={<AllRoles />} />
-            <Route path='/home/roles/addroles' element={<AddorEditRoles />} />
-            <Route path='/home/roles/editroles/:id' element={<AddorEditRoles />} />
-            <Route path='/home/sales-commission-agents' element={<SalesCommission />} />
-            <Route path='/home/contact/:type' element={<Contact />} />
-            <Route path='/home/contact/view/:id' element={<ViewContact />} >
-              <Route path='/home/contact/view/:id' element={<LedgerTab />} />
-              <Route path='/home/contact/view/:id/ledger_tab' element={<LedgerTab />} />
-              <Route path='/home/contact/view/:id/purchase_tab' element={<PurchasesTab />} />
-              <Route path='/home/contact/view/:id/stock_report_tab' element={<StockReportTab />} />
-              <Route path='/home/contact/view/:id/document_tab' element={<DocTable />} />
-              <Route path='/home/contact/view/:id/payment_tab' element={<PaymentsTab />} />
-              <Route path='/home/contact/view/:id/activities_tab' element={<ActivitiesTable />} />
-              <Route path='/home/contact/view/:id/sales_tab' element={<SalesTab />} />
-              <Route path='/home/contact/view/:id/rewards_tab' element={<RewardsTab />} />
+          <Route exact path="/" element={<Home />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/business/Register" element={<Registration />} />
+          <Route path="/repair-status" element={<RepaiStatus />} />
+          <Route path="/home" element={<Home1 />}>
+            <Route path="" element={<Dashboard />} />
+            <Route path="/home/users" element={<User />} />
+            <Route path="/home/users/addusers" element={<AddorEditUsers />} />
 
+            <Route
+              path="/home/users/edituser/:id"
+              element={<AddorEditUsers />}
+            />
+            <Route path="/home/users/viewuser/:id" element={<ViewUser />} />
+            <Route path="/home/roles" element={<AllRoles />} />
+            <Route path="/home/roles/addroles" element={<AddorEditRoles />} />
+            <Route
+              path="/home/roles/editroles/:id"
+              element={<AddorEditRoles />}
+            />
+            <Route
+              path="/home/sales-commission-agents"
+              element={<SalesCommission />}
+            />
+            <Route path="/home/contact/:type" element={<Contact />} />
+            <Route path="/home/contact/view/:id" element={<ViewContact />}>
+              <Route path="/home/contact/view/:id" element={<LedgerTab />} />
+              <Route
+                path="/home/contact/view/:id/ledger_tab"
+                element={<LedgerTab />}
+              />
+              <Route
+                path="/home/contact/view/:id/purchase_tab"
+                element={<PurchasesTab />}
+              />
+              <Route
+                path="/home/contact/view/:id/stock_report_tab"
+                element={<StockReportTab />}
+              />
+              <Route
+                path="/home/contact/view/:id/document_tab"
+                element={<DocTable />}
+              />
+              <Route
+                path="/home/contact/view/:id/payment_tab"
+                element={<PaymentsTab />}
+              />
+              <Route
+                path="/home/contact/view/:id/activities_tab"
+                element={<ActivitiesTable />}
+              />
+              <Route
+                path="/home/contact/view/:id/sales_tab"
+                element={<SalesTab />}
+              />
+              <Route
+                path="/home/contact/view/:id/rewards_tab"
+                element={<RewardsTab />}
+              />
             </Route>
+
             <Route path='/home/contact/import' element={<ImporContact />} />
             <Route path='/home/contact/customer-group' element={<CustomerGroup />} />
 
@@ -140,6 +177,12 @@ function App() {
           </Route>
           <Route path='/pos/create' element={<AddPos />} />
           <Route path='/pos/edit/:id' element={<AddPos />} />
+
+
+                        <Route path="/home/stock-transfers" element={<ListStockTransfer />} />
+            <Route path="/home/stock-transfers/create" element={<AddStockTransfer />} />
+            
+          
 
         </Routes>
       </BrowserRouter>

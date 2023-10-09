@@ -26,63 +26,95 @@ import ViewSell from "../sell/ViewSell";
 import EditShipping from "../sell/EditShipping";
 import ViewPayment from "../payments/ViewPayment";
 
-const SalesTbl = () => {
+const StockTransferTbl = () => {
+  //FOR DUMMY DATA
+
   const dummyData = [
     {
       id: 1,
-      Username: "username",
-      Name: "User",
-      Role: "Admin",
+      date: "11/12/23",
+      fromLocation: "islamabad",
+      toLocation: "rawalpindi",
+      status: "pending",
       Email: "username@gmail.com",
+      charges: "50$",
+      totalAmount: "100$",
+      action: "transfer",
     },
     {
       id: 2,
-      Username: "username1",
-      Name: "User1",
-      Role: "Admin",
+      date: "11/12/23",
+      fromLocation: "islamabad",
+      toLocation: "rawalpindi",
+      status: "pending",
       Email: "username@gmail.com",
+      charges: "50$",
+      totalAmount: "100$",
+      action: "transfer",
     },
     {
       id: 3,
-      Username: "username2",
-      Name: "User2",
-      Role: "Admin",
+      date: "11/12/23",
+      fromLocation: "islamabad",
+      toLocation: "rawalpindi",
+      status: "pending",
       Email: "username2@gmail.com",
+      charges: "50$",
+      totalAmount: "100$",
+      action: "transfer",
     },
     {
       id: 4,
-      Username: "username3",
-      Name: "User3",
-      Role: "Admin",
+      date: "11/12/23",
+      fromLocation: "islamabad",
+      toLocation: "rawalpindi",
+      status: "pending",
       Email: "username3@gmail.com",
+      charges: "50$",
+      totalAmount: "100$",
+      action: "transfer",
     },
     {
       id: 5,
-      Username: "username4",
-      Name: "User4",
-      Role: "Admin",
+      date: "11/12/23",
+      fromLocation: "islamabad",
+      toLocation: "rawalpindi",
+      status: "pending",
       Email: "username4@gmail.com",
+      charges: "50$",
+      totalAmount: "100$",
+      action: "transfer",
     },
     {
       id: 6,
-      Username: "username5",
-      Name: "User5",
-      Role: "Admin",
+      date: "11/12/23",
+      fromLocation: "islamabad",
+      toLocation: "rawalpindi",
+      status: "pending",
       Email: "username5@gmail.com",
+      charges: "50$",
+      totalAmount: "100$",
+      action: "transfer",
     },
     {
       id: 7,
-      Username: "username6",
-      Name: "User6",
-      Role: "Admin",
+      date: "11/12/23",
+      fromLocation: "islamabad",
+      toLocation: "rawalpindi",
+      status: "pending",
       Email: "username6@gmail.com",
+      charges: "50$",
+      totalAmount: "100$",
+      action: "transfer",
     },
   ];
   const printRef = useRef();
+
   let xlDatas = [];
+
   //Export to Excel
-  const handleExportExcl = (userDatas) => {
-    userDatas.map((xlData) => {
+  const handleExportExcl = (dummyData) => {
+    dummyData.map((xlData) => {
       return xlDatas.push(xlData);
     });
 
@@ -124,15 +156,7 @@ const SalesTbl = () => {
   const [col7, setCol7] = useState(true);
   const [col8, setCol8] = useState(true);
   const [col9, setCol9] = useState(true);
-  const [col10, setCol10] = useState(true);
-  const [col11, setCol11] = useState(true);
-  const [col12, setCol12] = useState(true);
-  const [col13, setCol13] = useState(true);
-  const [col14, setCol14] = useState(true);
-  const [col15, setCol15] = useState(true);
-  const [col16, setCol16] = useState(true);
-  const [col17, setCol17] = useState(true);
-  const [col18, setCol18] = useState(true);
+
   const [isedit, setIsedit] = useState(false);
   const [isShowPayment, setIsShowPayment] = useState(false);
   const [paymentId, setPaymentId] = useState(0);
@@ -150,13 +174,40 @@ const SalesTbl = () => {
   };
 
   const csvData = [
-    ["Username", "Name", "Role", "Email"],
-    ...dummyData.map(({ Username, Name, Role, Email }) => [
-      Username,
-      Name,
-      Role,
-      Email,
-    ]),
+    [
+      "Id",
+      "Date",
+      "From Location",
+      "To Location",
+      "Status",
+      "Email",
+      "Charges",
+      "Total Amount",
+      "action",
+    ],
+    ...dummyData.map(
+      ({
+        id,
+        date,
+        fromLocation,
+        toLocation,
+        status,
+        Email,
+        charges,
+        totalAmount,
+        action,
+      }) => [
+        id,
+        date,
+        fromLocation,
+        toLocation,
+        status,
+        Email,
+        charges,
+        totalAmount,
+        action,
+      ]
+    ),
   ];
 
   //Function to print
@@ -248,7 +299,7 @@ const SalesTbl = () => {
                       setCol1(!col1);
                     }}
                   >
-                    Action
+                    Date
                   </li>
                   <li
                     className={` w-full py-1 ${
@@ -258,7 +309,7 @@ const SalesTbl = () => {
                       setCol2(!col2);
                     }}
                   >
-                    Date
+                    Reference Number
                   </li>
                   <li
                     className={` w-full py-1 ${
@@ -268,7 +319,7 @@ const SalesTbl = () => {
                       setCol3(!col3);
                     }}
                   >
-                    Invoice No
+                    Location(From)
                   </li>
                   <li
                     className={` w-full py-1 ${
@@ -278,7 +329,7 @@ const SalesTbl = () => {
                       setCol4(!col4);
                     }}
                   >
-                    Customer Name
+                    Location(to)
                   </li>
                   <li
                     className={` w-full py-1 ${
@@ -288,7 +339,7 @@ const SalesTbl = () => {
                       setCol5(!col5);
                     }}
                   >
-                    Contact Number
+                    Status
                   </li>
                   <li
                     className={` w-full py-1 ${
@@ -298,7 +349,7 @@ const SalesTbl = () => {
                       setCol6(!col6);
                     }}
                   >
-                    Location
+                    Shipping Charges
                   </li>
                   <li
                     className={` w-full py-1 ${
@@ -308,7 +359,7 @@ const SalesTbl = () => {
                       setCol7(!col7);
                     }}
                   >
-                    Payment Status
+                    Total Amount
                   </li>
                   <li
                     className={` w-full py-1 ${
@@ -318,7 +369,7 @@ const SalesTbl = () => {
                       setCol8(!col8);
                     }}
                   >
-                    Payment Method
+                    Additional Notes
                   </li>
                   <li
                     className={` w-full py-1 ${
@@ -328,98 +379,7 @@ const SalesTbl = () => {
                       setCol9(!col9);
                     }}
                   >
-                    Total Amount
-                  </li>
-                  <li
-                    className={` w-full py-1 ${
-                      col10 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
-                    onClick={() => {
-                      setCol10(!col10);
-                    }}
-                  >
-                    Total Paid
-                  </li>
-                  <li
-                    className={` w-full py-1 ${
-                      col11 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
-                    onClick={() => {
-                      setCol11(!col11);
-                    }}
-                  >
-                    Sell Due
-                  </li>
-                  <li
-                    className={` w-full py-1 ${
-                      col12 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
-                    onClick={() => {
-                      setCol12(!col12);
-                    }}
-                  >
-                    Sell Return Due
-                  </li>
-                  <li
-                    className={` w-full py-1 ${
-                      col13 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
-                    onClick={() => {
-                      setCol13(!col13);
-                    }}
-                  >
-                    {" "}
-                    Shipping Status
-                  </li>
-                  <li
-                    className={` w-full py-1 ${
-                      col14 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
-                    onClick={() => {
-                      setCol14(!col14);
-                    }}
-                  >
-                    Total Items
-                  </li>
-                  <li
-                    className={` w-full py-1 ${
-                      col15 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
-                    onClick={() => {
-                      setCol15(!col15);
-                    }}
-                  >
-                    Added By
-                  </li>
-                  <li
-                    className={` w-full py-1 ${
-                      col16 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
-                    onClick={() => {
-                      setCol16(!col16);
-                    }}
-                  >
-                    Sell note
-                  </li>
-                  <li
-                    className={` w-full py-1 ${
-                      col17 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
-                    onClick={() => {
-                      setCol17(!col17);
-                    }}
-                  >
-                    Staff note
-                  </li>
-                  <li
-                    className={` w-full py-1 ${
-                      col18 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
-                    onClick={() => {
-                      setCol18(!col18);
-                    }}
-                  >
-                    Shipping Detils
+                    Action
                   </li>
                 </ul>
               </div>
@@ -453,92 +413,47 @@ const SalesTbl = () => {
             <tr className="h-[60px]">
               {col1 && (
                 <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Action
+                  Date
                 </th>
               )}
               {col2 && (
                 <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Date
+                  Reference Number
                 </th>
               )}
               {col3 && (
                 <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Invoice No.
+                  Location(From)
                 </th>
               )}
               {col4 && (
                 <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Customer Name
+                  Location(to)
                 </th>
               )}
               {col5 && (
                 <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Contact Number
+                  Status
                 </th>
               )}
               {col6 && (
                 <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Location
+                  Shipping Charges
                 </th>
               )}
               {col7 && (
                 <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Payment Status
+                  Total Amount
                 </th>
               )}
               {col8 && (
                 <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Payment Method
+                  Additional Notes
                 </th>
               )}
               {col9 && (
                 <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Total amount
-                </th>
-              )}
-              {col10 && (
-                <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Total paid
-                </th>
-              )}
-              {col11 && (
-                <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Sell Due
-                </th>
-              )}
-              {col12 && (
-                <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Sell Return Due
-                </th>
-              )}
-              {col13 && (
-                <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Shipping Status
-                </th>
-              )}
-              {col14 && (
-                <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Total Items
-                </th>
-              )}
-              {col15 && (
-                <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Added By
-                </th>
-              )}
-              {col16 && (
-                <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Sell note
-                </th>
-              )}
-              {col17 && (
-                <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Staff note
-                </th>
-              )}
-              {col18 && (
-                <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-                  Shipping Detils
+                  Action
                 </th>
               )}
             </tr>
@@ -547,7 +462,29 @@ const SalesTbl = () => {
             {record.map((value, index) => {
               return (
                 <tr key={index} className="">
-                  {col1 && (
+                  {col1 && <td className="px-1 py-1 text-sm">{value.date}</td>}
+                  {col2 && <td className="px-1 py-1"> {value.id}</td>}
+                  {col3 && <td className="px-1 py-1">{value.fromLocation}</td>}
+                  {col4 && <td className=" py-1 px-1">{value.toLocation}</td>}
+                  {col5 && (
+                    <td className="px-1 py-1 text-sm">
+                      <button
+                        onClick={() => {
+                          setIsCliked(true);
+                          setIsShowPayment(true);
+                          setPaymentId(value.id);
+                        }}
+                        className="bg-green-400 text-white px-2 text-xs rounded-xl"
+                      >
+                        status
+                      </button>
+                    </td>
+                  )}
+                  {col6 && <td className=" py-1 px-1">{value.charges}</td>}
+
+                  {col7 && <td className="px-1 py-1"> {value.totalAmount}</td>}
+                  {col8 && <td className="px-1 py-1"> {value.Email}</td>}
+                  {col9 && (
                     <td className="py-1 flex ">
                       <div
                         onClick={() => {
@@ -659,42 +596,6 @@ const SalesTbl = () => {
                       </div>
                     </td>
                   )}
-                  {col2 && (
-                    <td className="px-1 py-1 text-sm">{value.Username}</td>
-                  )}
-                  {col3 && <td className="px-1 py-1"> {value.Name}</td>}
-                  {col4 && <td className="px-1 py-1">{value.Role}</td>}
-                  {col5 && <td className=" py-1 px-1">{value.Email}</td>}
-                  {col6 && <td className=" py-1 px-1">{value.Role}</td>}
-                  {col7 && (
-                    <td className="px-1 py-1 text-sm">
-                      <button
-                        onClick={() => {
-                          setIsCliked(true);
-                          setIsShowPayment(true);
-                          setPaymentId(value.id);
-                        }}
-                        className="bg-green-400 text-white px-2 text-xs rounded-xl"
-                      >
-                        status
-                      </button>
-                    </td>
-                  )}
-                  {col8 && <td className="px-1 py-1"> {value.Name}</td>}
-                  {col9 && <td className="px-1 py-1">{value.Role}</td>}
-                  {col10 && <td className=" py-1 px-1">{value.Email}</td>}
-                  {col11 && <td className=" py-1 px-1">{value.Email}</td>}
-                  {col12 && (
-                    <td className="px-1 py-1 text-sm">{value.Username}</td>
-                  )}
-                  {col13 && <td className="px-1 py-1"> {value.Name}</td>}
-                  {col14 && <td className="px-1 py-1">{value.Role}</td>}
-                  {col15 && <td className=" py-1 px-1">{value.Email}</td>}
-                  {col16 && <td className=" py-1 px-1">{value.Role}</td>}
-                  {col17 && (
-                    <td className="px-1 py-1 text-sm">{value.Username}</td>
-                  )}
-                  {col18 && <td className="px-1 py-1"> {value.Name}</td>}
                 </tr>
               );
             })}
@@ -739,6 +640,7 @@ const SalesTbl = () => {
               className="p-3 bg-green-400 text-white mx-1 "
               onClick={nextPage}
             >
+              {" "}
               Next
             </button>
           </li>
@@ -768,4 +670,4 @@ const SalesTbl = () => {
   );
 };
 
-export default SalesTbl;
+export default StockTransferTbl;
