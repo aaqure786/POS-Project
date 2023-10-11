@@ -583,23 +583,23 @@ const SideBar = () => {
               Profit/Loss Report
             </h1>
           </NavLink>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          <NavLink
+            to={"/home/reports/purchase-sell"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Purchase & Sale
             </h1>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          </NavLink>
+          <NavLink
+            to={"/home/reports/tax-report"}
+            className="flex hover:text-black  aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Tax Report</h1>
-          </Link>
-          <Link
+          </NavLink>
+          {/* <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
           >
@@ -616,7 +616,7 @@ const SideBar = () => {
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Customer Groups Report
             </h1>
-          </Link>
+          </Link> */}
           <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
@@ -624,13 +624,13 @@ const SideBar = () => {
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Stock Report</h1>
           </Link>
-          <Link
+          {/* <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Lot Report</h1>
-          </Link>
+          </Link> */}
           <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
@@ -640,7 +640,7 @@ const SideBar = () => {
               Stock Adjustment Report
             </h1>
           </Link>
-          <Link
+          {/* <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
           >
@@ -648,7 +648,7 @@ const SideBar = () => {
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Trending Products
             </h1>
-          </Link>
+          </Link> */}
           <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
@@ -719,14 +719,14 @@ const SideBar = () => {
               Sales Representative Report
             </h1>
           </Link>
-          <Link
+          {/* <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Table Report</h1>
-          </Link>
-          <Link
+          </Link> */}
+          {/* <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
           >
@@ -734,7 +734,7 @@ const SideBar = () => {
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Service Staff Report
             </h1>
-          </Link>
+          </Link> */}
           <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
