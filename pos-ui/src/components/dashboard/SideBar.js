@@ -574,15 +574,15 @@ const SideBar = () => {
       </div>
       {li9 && (
         <div className="flex flex-col mx-4">
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          <NavLink
+            to={"/home/reports/profit-loss"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Profit/Loss Report
             </h1>
-          </Link>
+          </NavLink>
           <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"

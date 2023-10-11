@@ -101,6 +101,7 @@ const AddorEditSell = () => {
         shippingCharges: 0,
         shippingStatus: "",
         deliveredTo: "",
+        deliveryPerson:"",
         additionalExpenseName: "",
         additionalExpenseAmount: 0,
         additionalExpenseName1: "",
@@ -733,6 +734,15 @@ const AddorEditSell = () => {
                         <h1 className='flex text-sm text-start font-bold'>Delivered to:</h1>
                         <input value={formData.deliveredTo} onChange={(e) => { setFormData({ ...formData, deliveredTo: e.target.value }) }} placeholder='Delivered to' type='text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
 
+                    </div>
+                    <div className='flex flex-col '>
+                        <h1 className='flex text-sm text-start font-bold'>Delivery Person:</h1>
+
+                        <select value={formData.deliveryPerson} onChange={(e) => { setFormData({ ...formData, deliveryPerson: e.target.value }) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
+                            <option value={""}>Please Selecet</option>
+                            <option value={"Demo Admin"}>Demo Admin</option>f
+                            <option value={"Ismail Shah"}>Ismail Shah</option>f
+                        </select>
                     </div>
                     <div className=' flex flex-col '>
                         <h2 className='text-start font-bold '> Shipping Documents:</h2>

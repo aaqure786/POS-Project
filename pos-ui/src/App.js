@@ -58,6 +58,15 @@ import ImportSale from './components/dashboard/sell/ImportSale';
 
 import ListStockTransfer from "./components/dashboard/Stock Transfer/ListStockTransfer";
 import AddStockTransfer from "./components/dashboard/Stock Transfer/AddStockTransfer";
+import ProfitLossRpt from './components/dashboard/reports/ProfitLossRpt';
+import ProfitByProductTbl from './components/dashboard/reportTables/ProfitByProductTbl';
+import ProfitByCategoryTbl from './components/dashboard/reportTables/ProfitByCategoryTbl';
+import ProfitByBrandTbl from './components/dashboard/reportTables/ProfitByBrandTbl';
+import ProfitByLocatinTbl from './components/dashboard/reportTables/ProfitByLocatinTbl';
+import ProfitByInvoiceTbl from './components/dashboard/reportTables/ProfitByInvoiceTbl';
+import ProfitByDateTbl from './components/dashboard/reportTables/ProfitByDateTbl';
+import ProfitByCustomer from './components/dashboard/reportTables/ProfitByCustomer';
+import ProfitByDaysTbl from './components/dashboard/reportTables/ProfitByDaysTbl';
 
 
 function App() {
@@ -174,6 +183,19 @@ function App() {
             <Route path='/home/discounts' element={<Discount />} />
             <Route path="/home/stock-transfer" element={<ListStockTransfer />} />
             <Route path="/home/stock-transfers/create" element={<AddStockTransfer />} />
+            <Route path='/home/reports/profit-loss' element={<ProfitLossRpt />} >
+              <Route path='/home/reports/profit-loss' element={<ProfitByProductTbl />} />
+
+              <Route path='/home/reports/profit-loss/profit_by_products' element={<ProfitByProductTbl />} />
+              <Route path='/home/reports/profit-loss/profit_by_categories' element={<ProfitByCategoryTbl />} />
+              <Route path='/home/reports/profit-loss/profit_by_brands' element={<ProfitByBrandTbl />} />
+              <Route path='/home/reports/profit-loss/profit_by_locations' element={<ProfitByLocatinTbl />} />
+              <Route path='/home/reports/profit-loss/profit_by_invoice' element={<ProfitByInvoiceTbl />} />
+              <Route path='/home/reports/profit-loss/profit_by_date' element={<ProfitByDateTbl />} />
+              <Route path='/home/reports/profit-loss/profit_by_customer' element={<ProfitByCustomer />} />
+              <Route path='/home/reports/profit-loss/profit_by_days' element={<ProfitByDaysTbl />} />
+
+            </Route>
 
           </Route>
           <Route path='/pos/create' element={<AddPos />} />
