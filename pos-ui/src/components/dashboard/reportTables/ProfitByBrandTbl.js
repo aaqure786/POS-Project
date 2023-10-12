@@ -144,41 +144,37 @@ const ProfitByBrandTbl = () => {
                     <h1 className='text-sm mx-1'>enteries</h1>
 
                 </div>
-                <div className='flex flex-col items-center justify-center  my-2 md:my-0'>
-                    <div className='flex items-center justify-center'>
-                        <button className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
-                            <FaFileCsv size={15} className=' mt-1 pr-[2px]' />
-                            <CSVLink filename="users.csv" data={csvData}>
-                                <h1 className='text-sm'>Export to CSV</h1>
+                <div className='flex  items-center justify-between  my-2 md:my-0'>
+                    <button className='flex items-center border-[1px] px-1 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
+                        <FaFileCsv size={15} className=' mt-1 pr-[2px]' />
+                        <CSVLink filename="users.csv" data={csvData}>
+                            <h1 className='text-xs'>Export to CSV</h1>
 
-                            </CSVLink>
-                        </button>
-                        <button onClick={() => { handleExportExcl(dummyData) }} className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
-                            <FaFileExcel size={15} className=' mt-1 pr-[2px]' />
-                            <h1 className='text-sm'>Export to Excle</h1>
-                        </button>
-                        <button onClick={handlePrint} className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
-                            <FaPrint size={15} className=' mt-1 pr-[2px]' />
-                            <h1 className='text-sm'>Print</h1>
-                        </button>
-                    </div>
-                    <div className='flex items-center justify-center'>
-                        <button onClick={() => { setColvis(!colvis) }} className='flex border-[1px] relative px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
-                            <FaColumns size={15} className=' mt-1 pr-[2px]' />
-                            <h1 className='text-sm'>Column Visibility</h1>
-                            {colvis && <div className='absolute top-7 shadow-md shadow-gray-400 bg-white w-[150px]'>
-                                <ul className='flex flex-col items-center justify-center'>
-                                    <li className={` w-full py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Brand</li>
-                                    <li className={` w-full py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>Gross Profit</li>
+                        </CSVLink>
+                    </button>
+                    <button onClick={() => { handleExportExcl(dummyData) }} className='flex items-center border-[1px] px-1 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
+                        <FaFileExcel size={15} className=' mt-1 pr-[2px]' />
+                        <h1 className='text-xs'>Export to Excle</h1>
+                    </button>
+                    <button onClick={handlePrint} className='flex items-center border-[1px] px-1 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
+                        <FaPrint size={15} className=' mt-1 pr-[2px]' />
+                        <h1 className='text-xs'>Print</h1>
+                    </button>
+                    <button onClick={() => { setColvis(!colvis) }} className='flex items-center border-[1px] relative px-1 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
+                        <FaColumns size={15} className=' mt-1 pr-[2px]' />
+                        <h1 className='text-xs'>Column Visibility</h1>
+                        {colvis && <div className='absolute top-7 shadow-md shadow-gray-400 bg-white w-[150px]'>
+                            <ul className='flex flex-col items-center justify-center'>
+                                <li className={` w-full py-1 ${col1 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol1(!col1) }}>Brand</li>
+                                <li className={` w-full py-1 ${col2 ? "" : "bg-blue-600"} hover:bg-blue-400 `} onClick={() => { setCol2(!col2) }}>Gross Profit</li>
 
-                                </ul>
-                            </div>}
-                        </button>
-                        <button onClick={generatePDF} className='flex border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
-                            <FaFilePdf size={15} className=' mt-1 pr-[2px]' />
-                            <h1 className='text-sm'>Export to PDF</h1>
-                        </button>
-                    </div>
+                            </ul>
+                        </div>}
+                    </button>
+                    <button onClick={generatePDF} className='flex items-center border-[1px] px-2 py-1 hover:bg-gray-400 border-gray-600 bg-gray-200 '>
+                        <FaFilePdf size={15} className=' mt-1 pr-[2px]' />
+                        <h1 className='text-xs'>Export to PDF</h1>
+                    </button>
 
 
                 </div>
@@ -221,7 +217,7 @@ const ProfitByBrandTbl = () => {
                 </table>
                 <div className='flex w-full'>
                     <div className='flex justify-start items-start flex-col w-3/4'>
-                        <p>Showing {frstIndex +1} to {lasIndex} of {dummyData.length + 1} enteries</p>
+                        <p>Showing {frstIndex + 1} to {lasIndex} of {dummyData.length + 1} enteries</p>
 
                         <h1 className='text-sm text-start   mt-4'><span className='font-bold'>Note:</span> Profit by products/categories/brands only considers inline discount. Invoice discount is not considered.</h1>
 

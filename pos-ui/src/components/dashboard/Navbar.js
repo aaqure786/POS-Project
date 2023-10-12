@@ -36,7 +36,7 @@ const Navbra = () => {
     const date = fuldate + "/" + fullmonth + "/" + fullyear;
     return (
         <div>
-            <div className='flex w-full h-[60px]   bg-gray-700  border-b-2 border-gray-400    justify-between '>
+            <div className='flex w-full h-[10vh]   bg-gray-700  border-b-2 border-gray-400    justify-between '>
                 <div className={`${clicked ? "md:w-[4%]":"w-0 md:w-[17%]"}  bg-black justify-center hidden md:flex items-center`}>
                    {!clicked && <h1 className='text-xl text-center  text-white  '> EZI POINT OF SALE</h1>}
                 </div>

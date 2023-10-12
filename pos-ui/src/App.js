@@ -72,6 +72,7 @@ import TaxRpt from './components/dashboard/reports/TaxRpt';
 import InputTaxTbl from './components/dashboard/reportTables/InputTaxTbl';
 import OutpuTaxTbl from './components/dashboard/reportTables/OutpuTaxTbl';
 import ExpenseTaxTbl from './components/dashboard/reportTables/ExpenseTaxTbl';
+import StockRpt from './components/dashboard/reports/StockRpt';
 
 
 function App() {
@@ -201,16 +202,21 @@ function App() {
               <Route path='/home/reports/profit-loss/profit_by_days' element={<ProfitByDaysTbl />} />
 
             </Route>
-          <Route path='/home/reports/purchase-sell' element={<PurchaseSaleRpt />} />
-          <Route path='/home/reports/tax-report' element={<TaxRpt />} >
+            <Route path='/home/reports/purchase-sell' element={<PurchaseSaleRpt />} />
+            <Route path='/home/reports/tax-report' element={<TaxRpt />} >
               <Route path='/home/reports/tax-report' element={<InputTaxTbl />} />
 
               <Route path='/home/reports/tax-report' element={<InputTaxTbl />} />
               <Route path='/home/reports/tax-report/input_tax_tab' element={<InputTaxTbl />} />
               <Route path='/home/reports/tax-report/output_tax_tab' element={<OutpuTaxTbl />} />
               <Route path='/home/reports/tax-report/expense_tax_tab' element={<ExpenseTaxTbl />} />
-              
+
             </Route>
+          <Route path='/home/reports/stock-report' element={<StockRpt />} />
+
+
+
+
 
           </Route>
           <Route path='/pos/create' element={<AddPos />} />

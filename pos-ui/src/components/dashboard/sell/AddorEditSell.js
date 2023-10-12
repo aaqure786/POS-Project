@@ -149,7 +149,16 @@ const AddorEditSell = () => {
         newArray.splice(index, 1)
         setFormData({ ...formData, inputData: newArray })
     }
-
+    const subtotal =(q,p,d,dt)=>{
+        let total = 0
+        if(dt ==="Percentage"){
+            total = (q*p) - (d/100)*(q*p)
+            return total
+        }else if(dt ==="Fixed"){
+            total = (q*p) - d
+            return total
+        }
+    }
     const findTotal = () => {
         let total = 0
         formData.inputData.map(val => {
@@ -574,7 +583,7 @@ const AddorEditSell = () => {
                                     </td>
 
                                     <td className=" py-1 px-1 text-start">
-                                        <input name="subtotal" type='number' value={value.subtotal = (value.quantity * value.unitPrice)} onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                        <input name="subtotal" type='number' value={value.subtotal = subtotal(value.quantity, value.unitPrice , value.discount, value.discountType)} onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
                                     </td>
                                     <td className="px-1 py-1 ">
                                         <FaTimes size={15} onClick={() => { deleteByIndex(index) }} className='cursor-pointer text-red-400' />

@@ -15,7 +15,7 @@ const Home1 = () => {
         <div
           className={`${
             clicked ? "w-[50%] md:w-[4%]" : "md:w-[17%]"
-          }  overflow-y-auto`}
+          }  overflow-y-auto `}
         >
           <SideBar />
         </div>

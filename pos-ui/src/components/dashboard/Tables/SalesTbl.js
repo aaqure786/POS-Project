@@ -241,9 +241,8 @@ const SalesTbl = () => {
               <div className="absolute top-7 shadow-md shadow-gray-400 bg-white w-[150px]">
                 <ul className="flex flex-col items-center justify-center">
                   <li
-                    className={` w-full py-1 ${
-                      col1 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col1 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol1(!col1);
                     }}
@@ -251,9 +250,8 @@ const SalesTbl = () => {
                     Action
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col2 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col2 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol2(!col2);
                     }}
@@ -261,9 +259,8 @@ const SalesTbl = () => {
                     Date
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col3 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col3 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol3(!col3);
                     }}
@@ -271,9 +268,8 @@ const SalesTbl = () => {
                     Invoice No
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col4 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col4 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol4(!col4);
                     }}
@@ -281,9 +277,8 @@ const SalesTbl = () => {
                     Customer Name
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col5 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col5 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol5(!col5);
                     }}
@@ -291,9 +286,8 @@ const SalesTbl = () => {
                     Contact Number
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col6 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col6 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol6(!col6);
                     }}
@@ -301,9 +295,8 @@ const SalesTbl = () => {
                     Location
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col7 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col7 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol7(!col7);
                     }}
@@ -311,9 +304,8 @@ const SalesTbl = () => {
                     Payment Status
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col8 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col8 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol8(!col8);
                     }}
@@ -321,9 +313,8 @@ const SalesTbl = () => {
                     Payment Method
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col9 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col9 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol9(!col9);
                     }}
@@ -331,9 +322,8 @@ const SalesTbl = () => {
                     Total Amount
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col10 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col10 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol10(!col10);
                     }}
@@ -341,9 +331,8 @@ const SalesTbl = () => {
                     Total Paid
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col11 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col11 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol11(!col11);
                     }}
@@ -351,9 +340,8 @@ const SalesTbl = () => {
                     Sell Due
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col12 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col12 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol12(!col12);
                     }}
@@ -361,9 +349,8 @@ const SalesTbl = () => {
                     Sell Return Due
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col13 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col13 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol13(!col13);
                     }}
@@ -372,9 +359,8 @@ const SalesTbl = () => {
                     Shipping Status
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col14 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col14 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol14(!col14);
                     }}
@@ -382,9 +368,8 @@ const SalesTbl = () => {
                     Total Items
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col15 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col15 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol15(!col15);
                     }}
@@ -392,9 +377,8 @@ const SalesTbl = () => {
                     Added By
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col16 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col16 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol16(!col16);
                     }}
@@ -402,9 +386,8 @@ const SalesTbl = () => {
                     Sell note
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col17 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col17 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol17(!col17);
                     }}
@@ -412,9 +395,8 @@ const SalesTbl = () => {
                     Staff note
                   </li>
                   <li
-                    className={` w-full py-1 ${
-                      col18 ? "" : "bg-blue-600"
-                    } hover:bg-blue-400 `}
+                    className={` w-full py-1 ${col18 ? "" : "bg-blue-600"
+                      } hover:bg-blue-400 `}
                     onClick={() => {
                       setCol18(!col18);
                     }}
@@ -720,9 +702,8 @@ const SalesTbl = () => {
             return (
               <li
                 key={i}
-                className={`${
-                  crpage === n ? "bg-blue-500" : ""
-                } py-3 px-4 mx-1 border-[1px] border-gray-400`}
+                className={`${crpage === n ? "bg-blue-500" : ""
+                  } py-3 px-4 mx-1 border-[1px] border-gray-400`}
               >
                 <button
                   onClick={() => {
