@@ -73,6 +73,8 @@ import InputTaxTbl from './components/dashboard/reportTables/InputTaxTbl';
 import OutpuTaxTbl from './components/dashboard/reportTables/OutpuTaxTbl';
 import ExpenseTaxTbl from './components/dashboard/reportTables/ExpenseTaxTbl';
 import StockRpt from './components/dashboard/reports/StockRpt';
+import ListStockAdjustment from './components/dashboard/Stock Adjustment/ListStockAdjustment';
+import AddStockAdjustment from './components/dashboard/Stock Adjustment/AddStockAdjustment';
 
 
 function App() {
@@ -213,8 +215,10 @@ function App() {
 
             </Route>
           <Route path='/home/reports/stock-report' element={<StockRpt />} />
+          <Route path='/home/stock-adjustments' element={<ListStockAdjustment />} />
+          <Route path='/home/stock-adjustments/create' element={<AddStockAdjustment />} />
 
-
+          
 
 
 

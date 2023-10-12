@@ -436,7 +436,7 @@ const SideBar = () => {
           onClick={() => {
             setLi6(!li6);
           }}
-          className="flex mx-2 px-2 cursor-pointer py-1 items-center  active:bg-gray-200 justify-start"
+          className="flex mx-2 px-2 cursor-pointer py-1 items-center   active:bg-gray-200 justify-start"
         >
           <FaDatabase size={20} />
           <h1 className=" mt-1 ml-5 text-sm ">Stock Adjustment</h1>
@@ -445,18 +445,18 @@ const SideBar = () => {
       </div>
       {li6 && (
         <div className="flex flex-col mx-4">
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          <NavLink
+            to={"/home/stock-adjustments"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               List Stock Adjustment
             </h1>
-          </Link>
+          </NavLink>
           <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+            to={"/home/stock-adjustments/create"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
