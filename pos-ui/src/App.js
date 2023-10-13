@@ -77,6 +77,13 @@ import ListStockAdjustment from './components/dashboard/Stock Adjustment/ListSto
 import AddStockAdjustment from './components/dashboard/Stock Adjustment/AddStockAdjustment';
 import StockAdjusmentRpt from './components/dashboard/reports/StockAdjusmentRpt';
 import ItemRpt from './components/dashboard/reports/ItemRpt';
+import ProductPurchaseRpt from './components/dashboard/reports/ProductPurchaseRpt';
+import ProductSellRpt from './components/dashboard/reports/ProductSellRpt';
+import PsrDetailedTbl from './components/dashboard/reportTables/PsrDetailedTbl';
+import PsrDetialedWithPurchaseTbl from './components/dashboard/reportTables/PsrDetialedWithPurchaseTbl';
+import PsrGroupedTbl from './components/dashboard/reportTables/PsrGroupedTbl';
+import PsrCategoryTbl from './components/dashboard/reportTables/PsrCategoryTbl';
+import PsrBrandTbl from './components/dashboard/reportTables/PsrBrandTbl';
 
 
 function App() {
@@ -209,7 +216,6 @@ function App() {
             <Route path='/home/reports/purchase-sell' element={<PurchaseSaleRpt />} />
             <Route path='/home/reports/tax-report' element={<TaxRpt />} >
               <Route path='/home/reports/tax-report' element={<InputTaxTbl />} />
-
               <Route path='/home/reports/tax-report' element={<InputTaxTbl />} />
               <Route path='/home/reports/tax-report/input_tax_tab' element={<InputTaxTbl />} />
               <Route path='/home/reports/tax-report/output_tax_tab' element={<OutpuTaxTbl />} />
@@ -217,8 +223,19 @@ function App() {
 
             </Route>
 
+            <Route path='/home/reports/product-sell-report' element={<ProductSellRpt />} >
+              <Route path='/home/reports/product-sell-report' element={<PsrDetailedTbl />} />
+              <Route path='/home/reports/product-sell-report/psr_detailed_tab' element={<PsrDetailedTbl />} />
+              <Route path='/home/reports/product-sell-report/psr_detailed_with_purchase_tab' element={<PsrDetialedWithPurchaseTbl />} />
+              <Route path='/home/reports/product-sell-report/psr_grouped_tab' element={<PsrGroupedTbl />} />
+              <Route path='/home/reports/product-sell-report/psr_by_cat_tab' element={<PsrCategoryTbl />} />
+              <Route path='/home/reports/product-sell-report/psr_by_brand_tab' element={<PsrBrandTbl />} />
+
+            </Route>
+
             <Route path='/home/reports/stock-adjustments-report' element={<StockAdjusmentRpt />} />
             <Route path='/home/reports/item-report' element={<ItemRpt />} />
+            <Route path='/home/reports/product-purchase-report' element={<ProductPurchaseRpt />} />
 
           <Route path='/home/reports/stock-report' element={<StockRpt />} />
           <Route path='/home/stock-adjustments' element={<ListStockAdjustment />} />
