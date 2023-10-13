@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react'
-import { FaCalendar, FaFilter } from 'react-icons/fa'
+import {  FaFilter } from 'react-icons/fa'
 import { BiChevronDown } from 'react-icons/bi';
-import StockReportTbl from '../Tables/StockReportTbl';
 import { format } from 'date-fns';
 import { addDays } from 'date-fns';
 import { DefinedRange } from 'react-date-range';
+import ItemReportTbl from '../reportTables/ItemReportTbl';
 
 
 const ItemRpt = () => {
@@ -74,20 +74,27 @@ const ItemRpt = () => {
     //     documentTitle: "SellReport",
     //     copyStyles: true,
     // });
+    const [sellDate, setSellDate] = useState([
+        {
+            startDate: new Date(),
+            endDate: addDays(new Date(), 7),
+            key: "selection"
+        }
+    ])
+
+    const [purchaseDate, setPurchaseDate] = useState([
+        {
+            startDate: new Date(),
+            endDate: addDays(new Date(), 7),
+            key: "selection1"
+        }
+    ])
+        
     const [formData, setFormData] = useState({
         businesLocation: "",
         supplier: "",
         customer: "",
-        purchaseDate: [{
-            startDate: new Date(),
-            endDate: addDays(new Date(), 7),
-            key: "selection"
-        }],
-        sellDate: [{
-            startDate: new Date(),
-            endDate: addDays(new Date(), 7),
-            key: "selection"
-        }],
+        
         manufacturedProducts: false
     })
     const [isFilter, setIsFilter] = useState(false)
@@ -105,7 +112,7 @@ const ItemRpt = () => {
                         <h1 className='text-xl text-blue-600 font-semibold'>Filters</h1>
                     </div>
                     {isFilter &&
-                        <div className=' grid grid-cols-1 bg-white rounded-md gap-5 md:grid-cols-3 mt-5 w-full'>
+                        <div className=' grid grid-cols-1 bg-white rounded-md gap-5 md:grid-cols-4 mt-5 w-full'>
                             <div className='flex flex-col'>
                                 <div className='flex text-sm text-start font-bold'>
                                     <h1>Supplier:</h1>
@@ -169,18 +176,17 @@ const ItemRpt = () => {
                                     <h1>Purchase Date:</h1>
                                 </div>
 
-                                <div className=' bg-blue-600 text-white flex items-center relative py-1'>
-                                    <FaCalendar size={15} className='mx-2' />
+                                <div className=' bg-gray-300 mt-2 px-2 flex items-center relative py-1'>
                                     <input
-                                        value={`${format(formData.purchaseDate.startDate, "MM/dd/yyyy")} - ${format(formData.purchaseDate.endDate, "MM/dd/yyyy")}`}
+                                        value={`${format(purchaseDate[0].startDate, "MM/dd/yyyy")} - ${format(purchaseDate[0].endDate, "MM/dd/yyyy")}`}
                                         readOnly
-                                        className='focus:outline-none bg-blue-600 '
+                                        className='focus:outline-none bg-gray-300 '
                                         onClick={() => { setOpen3(!open3) }} />
-                                    {open1 &&
+                                    {open3 &&
                                         <div onClick={() => { setOpen3(!open3) }} className='absolute top-10 left-4 text-black z-10'>
                                             <DefinedRange
-                                                onChange={item => formData({ ...formData, purchaseDate: [item.selection] })}
-                                                ranges={formData.purchaseDate}
+                                                onChange={item => setPurchaseDate([item.selection] )}
+                                                ranges={purchaseDate}
 
                                             />
                                         </div>
@@ -250,21 +256,20 @@ const ItemRpt = () => {
                             </div>
                             <div className='flex flex-col'>
                                 <div className='flex text-sm text-start font-bold'>
-                                    <h1>Purchase Date:</h1>
+                                    <h1>Sell Date:</h1>
                                 </div>
 
-                                <div className=' bg-blue-600 text-white flex items-center relative py-1'>
-                                    <FaCalendar size={15} className='mx-2' />
+                                <div className=' bg-gray-300 mt-2  px-2 flex items-center relative py-1'>
                                     <input
-                                        value={`${format(formData.sellDate.startDate, "MM/dd/yyyy")} - ${format(formData.sellDate.endDate, "MM/dd/yyyy")}`}
+                                        value={`${format(sellDate[0].startDate, "MM/dd/yyyy")} - ${format(sellDate[0].endDate, "MM/dd/yyyy")}`}
                                         readOnly
-                                        className='focus:outline-none bg-blue-600 '
+                                        className='focus:outline-none bg-gray-300 '
                                         onClick={() => { setOpen4(!open4) }} />
-                                    {open1 &&
+                                    {open4 &&
                                         <div onClick={() => { setOpen4(!open4) }} className='absolute top-10 left-4 text-black z-10'>
                                             <DefinedRange
-                                                onChange={item => formData({ ...formData, sellDate: [item.selection] })}
-                                                ranges={formData.sellDate}
+                                                onChange={item => setSellDate([item.selection] )}
+                                                ranges={sellDate}
 
                                             />
                                         </div>
@@ -280,8 +285,8 @@ const ItemRpt = () => {
                                     <option value={"Eziline Software House (Pvt.) Ltd (BL0001)"}>Eziline Software House (Pvt.) Ltd (BL0001)</option>
                                 </select>
                             </div>
-                            <div className='flex items-center'>
-                                <input type='checkbox' checked={formData.manufacturedProducts} onChange={(e) => { setFormData({ ...formData, manufacturedProducts: e.target.checked }) }} />
+                            <div className='flex items-center mt-5'>
+                                <input type='checkbox' checked={formData.manufacturedProducts} onChange={(e) => { setFormData({ ...formData, manufacturedProducts: e.target.checked }) }} className='w-5 h-5'/>
                                 <h1 className='text-start mx-2 font-bold'> Only manufactured products</h1>
 
                             </div>
@@ -294,24 +299,7 @@ const ItemRpt = () => {
                     {/* <h1 className='text-xl font-bold mt-3 flex items-center justify-center '>EZI POS DEMO - Tax Report</h1> */}
 
 
-                    <div className='grid grid-cols-2 md:grid-cols-4 gap-2 bg-white py-10 items-center'>
-                        <div className='flex flex-col p-1  bg-white'>
-                            <h1 className='text-sm  text-start'>Closing Stock (By Purchase Price)</h1>
-                            <h1 className='text-3xl text-gray-600 mt-10 text-start'>₨ 0.00</h1>
-                        </div>
-                        <div className='flex flex-col p-1  bg-white'>
-                            <h1 className='text-sm ttext-start'>Closing stock (By sale price)</h1>
-                            <h1 className='text-3xl text-gray-600 mt-10 text-start'>₨ 0.00</h1>
-                        </div>
-                        <div className='flex flex-col p-1 bg-white'>
-                            <h1 className='text-sm  text-start'>Potential profit</h1>
-                            <h1 className='text-3xl text-gray-600 mt-10 text-start'>₨ 0.00</h1>
-                        </div>
-                        <div className='flex flex-col p-1  bg-white'>
-                            <h1 className='text-sm  text-start'>Profit Margin %</h1>
-                            <h1 className='text-3xl text-gray-600 mt-10 text-start'>₨ 0.00</h1>
-                        </div>
-                    </div>
+                    
 
 
 
@@ -324,7 +312,7 @@ const ItemRpt = () => {
                     </div>
                 </div> */}
                 <div className='flex w-full'>
-                    <StockReportTbl />
+                    <ItemReportTbl />
                 </div>
 
 
