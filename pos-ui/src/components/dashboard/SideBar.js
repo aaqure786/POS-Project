@@ -631,15 +631,15 @@ const SideBar = () => {
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Lot Report</h1>
           </Link> */}
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          <NavLink
+            to={"/home/reports/stock-adjustments-report"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Stock Adjustment Report
             </h1>
-          </Link>
+          </NavLink>
           {/* <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
@@ -649,13 +649,13 @@ const SideBar = () => {
               Trending Products
             </h1>
           </Link> */}
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          <NavLink
+            to={"/home/reports/item-report"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Items Report</h1>
-          </Link>
+          </NavLink>
           <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"

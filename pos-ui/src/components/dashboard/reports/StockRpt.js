@@ -90,7 +90,7 @@ const StockRpt = () => {
                         <h1 className='text-xl text-blue-600 font-semibold'>Filters</h1>
                     </div>
                     {isFilter &&
-                        <div className=' grid grid-cols-1 bg-white rounded-md gap-5 md:grid-cols-3 mt-5 w-full'>
+                        <div className=' grid grid-cols-1 bg-white rounded-md gap-5 md:grid-cols-4 mt-5 w-full'>
                             <div className='flex flex-col'>
                                 <h1 className='text-start font-bold '>Business Location:</h1>
                                 <select value={formData.businesLocation} onChange={(e) => { setFormData({ ...formData, businesLocation: e.target.value }) }} type="text" className='px-2 py-1 w-full border-[1px] border-gray-600 focus:outline-none'>

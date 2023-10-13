@@ -75,6 +75,8 @@ import ExpenseTaxTbl from './components/dashboard/reportTables/ExpenseTaxTbl';
 import StockRpt from './components/dashboard/reports/StockRpt';
 import ListStockAdjustment from './components/dashboard/Stock Adjustment/ListStockAdjustment';
 import AddStockAdjustment from './components/dashboard/Stock Adjustment/AddStockAdjustment';
+import StockAdjusmentRpt from './components/dashboard/reports/StockAdjusmentRpt';
+import ItemRpt from './components/dashboard/reports/ItemRpt';
 
 
 function App() {
@@ -214,6 +216,10 @@ function App() {
               <Route path='/home/reports/tax-report/expense_tax_tab' element={<ExpenseTaxTbl />} />
 
             </Route>
+
+            <Route path='/home/reports/stock-adjustments-report' element={<StockAdjusmentRpt />} />
+            <Route path='/home/reports/item-report' element={<ItemRpt />} />
+
           <Route path='/home/reports/stock-report' element={<StockRpt />} />
           <Route path='/home/stock-adjustments' element={<ListStockAdjustment />} />
           <Route path='/home/stock-adjustments/create' element={<AddStockAdjustment />} />

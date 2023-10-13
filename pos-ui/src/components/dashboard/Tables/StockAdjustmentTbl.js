@@ -398,7 +398,7 @@ const StockAdjustmentTbl = () => {
         className="flex flex-col  overflow-x-scroll  mt-5 mx-5"
         ref={printRef}
       >
-        <table id="usertbl" className="table-fixed  mb-10   px-5 ">
+        <table id="usertbl" className="table-fixed w-full  mb-10   px-5 ">
           <thead>
             <tr className="h-[60px]">
               {col1 && (
@@ -577,7 +577,7 @@ const StockAdjustmentTbl = () => {
                     </td>
                   )}
                   {col8 && <td className="px-1 py-1"> {value.Reason}</td>}
-                  {col9 && <td className="px-1 py-1">{value.Email}</td>}
+                  {col9 && <td className="px-1 py-1">{value.Reason}</td>}
                 </tr>
               );
             })}
