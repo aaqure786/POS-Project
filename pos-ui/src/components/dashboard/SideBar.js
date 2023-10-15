@@ -636,7 +636,7 @@ const SideBar = () => {
             className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
-            <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
+            <h1 className=" mt-1 ml-5 text-gray-500 text-xs ">
               Stock Adjustment Report
             </h1>
           </NavLink>
@@ -661,7 +661,7 @@ const SideBar = () => {
             className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
-            <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
+            <h1 className=" mt-1 ml-5 text-gray-500 text-xs ">
               Product Purchase Report
             </h1>
           </NavLink>
@@ -674,51 +674,51 @@ const SideBar = () => {
               Product Sell Report
             </h1>
           </NavLink>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          <NavLink
+            to={"/home/reports/purchase-payment-report"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
-            <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
+            <h1 className=" mt-1 ml-5 text-gray-500 text-xs ">
               Purchase Payment Report
             </h1>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          </NavLink>
+          <NavLink
+            to={"/home/reports/sell-payment-report"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Sell Payment Report
             </h1>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          </NavLink>
+          <NavLink
+            to={"/home/reports/expense-report"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Expense Report
             </h1>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          </NavLink>
+          <NavLink
+            to={"/home/reports/register-report"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Register Report
             </h1>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          </NavLink>
+          <NavLink
+            to={"/home/reports/sales-representative-report"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
-            <h1 className=" mt-1 mx-1 text-gray-500 text-xs ">
+            <h1 className=" mt-1 ml-5 text-gray-500 text-xs ">
               Sales Representative Report
             </h1>
-          </Link>
+          </NavLink>
           {/* <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
@@ -735,13 +735,13 @@ const SideBar = () => {
               Service Staff Report
             </h1>
           </Link> */}
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          <NavLink
+            to={"/home/reports/activity-log"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Activity Log</h1>
-          </Link>
+          </NavLink>
         </div>
       )}
       {/* Booking */}

@@ -84,6 +84,16 @@ import PsrDetialedWithPurchaseTbl from './components/dashboard/reportTables/PsrD
 import PsrGroupedTbl from './components/dashboard/reportTables/PsrGroupedTbl';
 import PsrCategoryTbl from './components/dashboard/reportTables/PsrCategoryTbl';
 import PsrBrandTbl from './components/dashboard/reportTables/PsrBrandTbl';
+import PurchasePaymentRpt from './components/dashboard/reports/PurchasePaymentRpt';
+import SellPaymentRpt from './components/dashboard/reports/SellPaymentRpt';
+import ExpenseRpt from './components/dashboard/reports/ExpenseRpt';
+import RegisterRpt from './components/dashboard/reports/RegisterRpt'
+import SaleRepresentativeRpt from './components/dashboard/reports/SaleRepresentativeRpt';
+import SalesAddedTbl from './components/dashboard/reportTables/SalesAddedTbl';
+import SalesWtihCmmsnTbl from './components/dashboard/reportTables/SalesWtihCmmsnTbl';
+import ExpensesTbl from './components/dashboard/reportTables/ExpensesTbl';
+import PaymentsWithcmmsnTbl from './components/dashboard/reportTables/PaymentsWithcmmsnTbl';
+import ActivityLogRpt from './components/dashboard/reports/ActivityLogRpt';
 
 
 function App() {
@@ -240,8 +250,22 @@ function App() {
           <Route path='/home/reports/stock-report' element={<StockRpt />} />
           <Route path='/home/stock-adjustments' element={<ListStockAdjustment />} />
           <Route path='/home/stock-adjustments/create' element={<AddStockAdjustment />} />
+          <Route path='/home/reports/purchase-payment-report' element={<PurchasePaymentRpt />} />
+          <Route path='/home/reports/sell-payment-report' element={<SellPaymentRpt />} />
+          <Route path='/home/reports/expense-report' element={<ExpenseRpt />} />
+          <Route path='/home/reports/register-report' element={<RegisterRpt />} />
 
+
+          <Route path='/home/reports/sales-representative-report' element={<SaleRepresentativeRpt />} >
+              <Route path='/home/reports/sales-representative-report' element={<SalesAddedTbl />} />
+              <Route path='/home/reports/sales-representative-report/sr_sales_tab' element={<SalesAddedTbl />} />
+              <Route path='/home/reports/sales-representative-report/sr_commision_tab' element={<SalesWtihCmmsnTbl />} />
+              <Route path='/home/reports/sales-representative-report/sr_expense_tab' element={<ExpensesTbl />} />
+              <Route path='/home/reports/sales-representative-report/sr_payments_with_cmmsn_tab' element={<PaymentsWithcmmsnTbl />} />
+
+            </Route>
           
+            <Route path='/home/reports/activity-log' element={<ActivityLogRpt />} />
 
 
 

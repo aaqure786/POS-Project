@@ -4,7 +4,9 @@ import { useReactToPrint } from 'react-to-print';
 import { FaPrint } from 'react-icons/fa';
 
 
-const RegisterDetails = () => {
+const RegisterDetails = (props) => {
+    const id = props.id
+    console.log(id)
     const dummyData1 = [
         {
             paymentMethod: "Cash in hand",
