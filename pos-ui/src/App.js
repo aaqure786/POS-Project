@@ -56,8 +56,8 @@ import Shipment from './components/dashboard/Shipments/Shipment';
 import Discount from './components/dashboard/discount/Discount';
 import ImportSale from './components/dashboard/sell/ImportSale';
 
-import ListStockTransfer from "./components/dashboard/Stock Transfer/ListStockTransfer";
-import AddStockTransfer from "./components/dashboard/Stock Transfer/AddStockTransfer";
+import ListStockTransfer from "./components/dashboard/StockTransfer/ListStockTransfer";
+import AddStockTransfer from "./components/dashboard/StockTransfer/AddStockTransfer";
 import ProfitLossRpt from './components/dashboard/reports/ProfitLossRpt';
 import ProfitByProductTbl from './components/dashboard/reportTables/ProfitByProductTbl';
 import ProfitByCategoryTbl from './components/dashboard/reportTables/ProfitByCategoryTbl';
@@ -73,8 +73,8 @@ import InputTaxTbl from './components/dashboard/reportTables/InputTaxTbl';
 import OutpuTaxTbl from './components/dashboard/reportTables/OutpuTaxTbl';
 import ExpenseTaxTbl from './components/dashboard/reportTables/ExpenseTaxTbl';
 import StockRpt from './components/dashboard/reports/StockRpt';
-import ListStockAdjustment from './components/dashboard/Stock Adjustment/ListStockAdjustment';
-import AddStockAdjustment from './components/dashboard/Stock Adjustment/AddStockAdjustment';
+import ListStockAdjustment from './components/dashboard/StockAdjustment/ListStockAdjustment';
+import AddStockAdjustment from './components/dashboard/StockAdjustment/AddStockAdjustment';
 import StockAdjusmentRpt from './components/dashboard/reports/StockAdjusmentRpt';
 import ItemRpt from './components/dashboard/reports/ItemRpt';
 import ProductPurchaseRpt from './components/dashboard/reports/ProductPurchaseRpt';
@@ -94,6 +94,17 @@ import SalesWtihCmmsnTbl from './components/dashboard/reportTables/SalesWtihCmms
 import ExpensesTbl from './components/dashboard/reportTables/ExpensesTbl';
 import PaymentsWithcmmsnTbl from './components/dashboard/reportTables/PaymentsWithcmmsnTbl';
 import ActivityLogRpt from './components/dashboard/reports/ActivityLogRpt';
+import ListAccounts from './components/dashboard/PaymentsAccounts/ListAccounts';
+import OtherAccounts from './components/dashboard/PaymentsAccounts/OtherAccounts';
+import AccountBook from './components/dashboard/PaymentsAccounts/AccountBook';
+import AccountTypes from './components/dashboard/PaymentsAccounts/AccountTypes';
+import PaymentAccountRpt from './components/dashboard/PaymentsAccounts/PaymentAccountRpt';
+import Expenses from './components/dashboard/Expenses/Expenses';
+import AddorEditExpenses from './components/dashboard/Expenses/AddorEditExpenses';
+
+import BalanceSheet from './components/dashboard/PaymentsAccounts/BalanceSheet';
+import TrialBalance from './components/dashboard/PaymentsAccounts/TrialBalance';
+import CashFlow from './components/dashboard/PaymentsAccounts/CashFlow';
 
 
 function App() {
@@ -210,6 +221,25 @@ function App() {
             <Route path='/home/discounts' element={<Discount />} />
             <Route path="/home/stock-transfer" element={<ListStockTransfer />} />
             <Route path="/home/stock-transfers/create" element={<AddStockTransfer />} />
+
+
+            <Route path="/home/expenses" element={<Expenses />} />
+            <Route path="/home/expenses/create" element={<AddorEditExpenses />} />
+            <Route path="/home/expenses/edit/:id" element={<AddorEditExpenses />} />
+
+            <Route path='/home/accounts/accounts' element={<ListAccounts />} >
+              <Route path='/home/accounts/accounts/othe_accounts' element={<OtherAccounts />} />
+              <Route path='/home/accounts/accounts/accounts_types' element={<AccountTypes />} />
+              
+            </Route>
+            <Route path='/home/accounts/balance-sheet' element={<BalanceSheet />} />
+            <Route path='/home/accounts/trial-balance' element={<TrialBalance />} />
+            <Route path='/home/accounts/cash-flow' element={<CashFlow />} />
+
+            <Route path='/home/accounts/payment-account-report' element={<PaymentAccountRpt />} />
+            <Route path='/home/accounts/accounts/:id' element={<AccountBook />} />
+
+
             <Route path='/home/reports/profit-loss' element={<ProfitLossRpt />} >
               <Route path='/home/reports/profit-loss' element={<ProfitByProductTbl />} />
 
@@ -247,16 +277,16 @@ function App() {
             <Route path='/home/reports/item-report' element={<ItemRpt />} />
             <Route path='/home/reports/product-purchase-report' element={<ProductPurchaseRpt />} />
 
-          <Route path='/home/reports/stock-report' element={<StockRpt />} />
-          <Route path='/home/stock-adjustments' element={<ListStockAdjustment />} />
-          <Route path='/home/stock-adjustments/create' element={<AddStockAdjustment />} />
-          <Route path='/home/reports/purchase-payment-report' element={<PurchasePaymentRpt />} />
-          <Route path='/home/reports/sell-payment-report' element={<SellPaymentRpt />} />
-          <Route path='/home/reports/expense-report' element={<ExpenseRpt />} />
-          <Route path='/home/reports/register-report' element={<RegisterRpt />} />
+            <Route path='/home/reports/stock-report' element={<StockRpt />} />
+            <Route path='/home/stock-adjustments' element={<ListStockAdjustment />} />
+            <Route path='/home/stock-adjustments/create' element={<AddStockAdjustment />} />
+            <Route path='/home/reports/purchase-payment-report' element={<PurchasePaymentRpt />} />
+            <Route path='/home/reports/sell-payment-report' element={<SellPaymentRpt />} />
+            <Route path='/home/reports/expense-report' element={<ExpenseRpt />} />
+            <Route path='/home/reports/register-report' element={<RegisterRpt />} />
 
 
-          <Route path='/home/reports/sales-representative-report' element={<SaleRepresentativeRpt />} >
+            <Route path='/home/reports/sales-representative-report' element={<SaleRepresentativeRpt />} >
               <Route path='/home/reports/sales-representative-report' element={<SalesAddedTbl />} />
               <Route path='/home/reports/sales-representative-report/sr_sales_tab' element={<SalesAddedTbl />} />
               <Route path='/home/reports/sales-representative-report/sr_commision_tab' element={<SalesWtihCmmsnTbl />} />
@@ -264,7 +294,7 @@ function App() {
               <Route path='/home/reports/sales-representative-report/sr_payments_with_cmmsn_tab' element={<PaymentsWithcmmsnTbl />} />
 
             </Route>
-          
+
             <Route path='/home/reports/activity-log' element={<ActivityLogRpt />} />
 
 

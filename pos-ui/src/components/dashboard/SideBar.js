@@ -480,20 +480,20 @@ const SideBar = () => {
       </div>
       {li7 && (
         <div className="flex flex-col mx-4">
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          <NavLink
+            to={"/home/expenses"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">List Expenses</h1>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          </NavLink>
+          <NavLink
+            to={"/home/expenses/create"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Add Expenses</h1>
-          </Link>
+          </NavLink>
           <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
@@ -520,43 +520,43 @@ const SideBar = () => {
       </div>
       {li8 && (
         <div className="flex flex-col mx-4">
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          <NavLink
+            to={"/home/accounts/accounts"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">List Accounts</h1>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          </NavLink>
+          <NavLink
+            to={"/home/accounts/balance-sheet"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Balance Sheet</h1>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          </NavLink>
+          <NavLink
+            to={"/home/accounts/trial-balance"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Trial Balance</h1>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          </NavLink>
+          <NavLink
+            to={"/home/accounts/cash-flow"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Cash Flow</h1>
-          </Link>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          </NavLink>
+          <NavLink
+            to={"/home/accounts/payment-account-report"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Payment Account Report
             </h1>
-          </Link>
+          </NavLink>
         </div>
       )}
       {/* Reports */}

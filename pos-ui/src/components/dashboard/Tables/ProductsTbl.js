@@ -8,9 +8,9 @@ import { jsPDF } from 'jspdf';
 import * as htmlToImage from 'html-to-image';
 import { MdCancel } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import ViewPurchaseOrder from '../Purchases/ViewPurchaseOrder';
 import EditShipping from '../sell/EditShipping';
 import EditStatus from '../Purchases/EditStatus';
+import ViewProduct from '../Product/ViewProduct';
 
 
 const ProductsTbl = () => {
@@ -186,7 +186,7 @@ const ProductsTbl = () => {
     }
     const displayData = () => {
         if (showId !== 0 && isshow === true) {
-            return <ViewPurchaseOrder id={showId} />
+            return <ViewProduct name={showId} />
         } else if (updateStatus === true) {
             return <EditStatus id={upid} />
         } else if (shippingStatus === true) {
@@ -303,10 +303,10 @@ const ProductsTbl = () => {
                                             <ul className='absolute top-5 left-10 z-20 flex flex-col items-start w-[200px] bg-white text-gray-600 shadow-xl shadow-gray-400 '>
 
                                                 <li className='w-full'>
-                                                    <Link onClick={() => { setIsCliked(!isCliked); setShowId(value.id); setIsshow(true); }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <div onClick={() => { setIsCliked(!isCliked); setShowId(value.Name); setIsshow(true); }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEye size={15} />
                                                         <h1 className='text-sm'>View</h1>
-                                                    </Link >
+                                                    </div >
                                                 </li>
                                                 <li className='w-full'>
                                                     <div onClick={() => { }} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
@@ -375,7 +375,7 @@ const ProductsTbl = () => {
                 <button className='bg-yellow-500 px-1 text-xs mx-2 rounded-md py-1'>Delete Selected</button>
             
             </div>
-            {isCliked &&
+            {/* {isCliked &&
                 <div className='absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen'>
                     <div className='flex items-end justify-end w-full md:w-[80%]  mt-10 bg-white px-5 pt-2'>
                         <MdCancel onClick={() => { setIsCliked(!isCliked); setShowId(0); setIsshow(false) }} size={20} />
@@ -384,7 +384,7 @@ const ProductsTbl = () => {
                     {displayData()}
                 </div>
 
-            }
+            } */}
             <nav className='  my-2 w-full'>
                 <ul className='flex justify-end'>
                     <li>
