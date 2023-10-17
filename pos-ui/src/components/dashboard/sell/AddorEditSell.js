@@ -278,7 +278,7 @@ const AddorEditSell = () => {
                                     onClick={() => {
                                         if (data?.Name?.toLowerCase() !== selected.toLowerCase()) {
                                             setSelected(data?.Name);
-                                            setOpen(false);
+                                            setOpen1(false);
                                             setInputValue("");
                                         }
                                     }}

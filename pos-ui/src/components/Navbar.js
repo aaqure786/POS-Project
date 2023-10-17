@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
 // AiOutlineSetting, BiLogOut
-import { AiOutlineMenu  } from "react-icons/ai"
+import { AiOutlineMenu } from "react-icons/ai"
 // import { RiAccountBoxFill } from "react-icons/ri"
-import { MdOutlineCancel } from "react-icons/md"
-import {  motion } from "framer-motion"
+import { motion } from "framer-motion"
 import { Link } from 'react-router-dom'
+import { MdOutlineCancel } from 'react-icons/md'
 
 const Navbar = () => {
     const [menu, setMenu] = useState(false)
+    
     return (
         <div>
 
             <div className='flex   mt-5   bg-transparent z-10  absolute w-full     justify-between '>
                 <div className='w-[50%] md:w-[25%] flex items-center justify-center'>
-                    <div  className='flex '>
+                    <div className='flex '>
                         <Link to={"/"} className='text-xl text-gray-400 hover:text-gray-500  font-semibold'>Ezi Point of Sale</Link>
                     </div>
 
@@ -21,9 +22,9 @@ const Navbar = () => {
                 <div className='w-[50%]  items-center justify-start hidden md:flex lg:flex'>
                     <nav>
                         <ul className='flex items-center '>
-                            <Link to={'/pricing'}><li  className='text-xl hover:text-gray-300 text-white mx-3'>Pricing</li></Link>
-                            <Link to={'/repair-status'}><li  className='text-xl hover:text-gray-300 text-white mx-3'>Repair Status</li></Link>
-                            </ul>
+                            <Link to={'/pricing'}><li className='text-xl hover:text-gray-300 text-white mx-3'>Pricing</li></Link>
+                            <Link to={'/repair-status'}><li className='text-xl hover:text-gray-300 text-white mx-3'>Repair Status</li></Link>
+                        </ul>
                     </nav>
                 </div>
                 <div className=' w-[10%] lg:w-[5%] md:w-[5%] flex items-center mr-[100px] md:mx-3 lg:mx-3'>
@@ -33,15 +34,15 @@ const Navbar = () => {
 
 
                 </div>
-                
-                 <div className='w-[20%]  justify-center relative items-center rounded-r-2xl hidden md:flex lg:flex'>
+
+                <div className='w-[20%]  justify-center relative items-center rounded-r-2xl hidden md:flex lg:flex'>
                     <div className='flex items-center justify-between py-5 px-2 h-[50px]  '>
-                        
+
                         <Link to={'/login'} className='text-xl  mx-3 hover:text-gray-300 text-white '>Login</Link>
                         <Link to={'/business/Register'} className='text-xl hover:text-gray-300  text-white '> Register  </Link>
 
                     </div>
-                    
+
                 </div>
 
             </div>
@@ -63,6 +64,8 @@ const Navbar = () => {
                     </nav>
                 </div>
             </div>}
+
+            
         </div>
     )
 }

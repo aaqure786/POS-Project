@@ -105,6 +105,7 @@ import AddorEditExpenses from './components/dashboard/Expenses/AddorEditExpenses
 import BalanceSheet from './components/dashboard/PaymentsAccounts/BalanceSheet';
 import TrialBalance from './components/dashboard/PaymentsAccounts/TrialBalance';
 import CashFlow from './components/dashboard/PaymentsAccounts/CashFlow';
+import UserProfile from './components/dashboard/Users/UserProfile';
 
 
 function App() {
@@ -121,6 +122,7 @@ function App() {
             <Route path="" element={<Dashboard />} />
             <Route path="/home/users" element={<User />} />
             <Route path="/home/users/addusers" element={<AddorEditUsers />} />
+            <Route path="/home/users/profile" element={<UserProfile />} />
 
             <Route
               path="/home/users/edituser/:id"
