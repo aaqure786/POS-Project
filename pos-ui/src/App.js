@@ -106,6 +106,7 @@ import BalanceSheet from './components/dashboard/PaymentsAccounts/BalanceSheet';
 import TrialBalance from './components/dashboard/PaymentsAccounts/TrialBalance';
 import CashFlow from './components/dashboard/PaymentsAccounts/CashFlow';
 import UserProfile from './components/dashboard/Users/UserProfile';
+import ExpenseCategory from './components/dashboard/Expenses/ExpenseCategory';
 
 
 function App() {
@@ -228,6 +229,7 @@ function App() {
             <Route path="/home/expenses" element={<Expenses />} />
             <Route path="/home/expenses/create" element={<AddorEditExpenses />} />
             <Route path="/home/expenses/edit/:id" element={<AddorEditExpenses />} />
+            <Route path="/home/expenses-categories" element={<ExpenseCategory />} />
 
             <Route path='/home/accounts/accounts' element={<ListAccounts />} >
               <Route path='/home/accounts/accounts/othe_accounts' element={<OtherAccounts />} />

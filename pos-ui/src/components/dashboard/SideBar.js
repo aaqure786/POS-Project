@@ -494,15 +494,15 @@ const SideBar = () => {
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Add Expenses</h1>
           </NavLink>
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          <NavLink
+            to={"/home/expenses-categories"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Expense Categories
             </h1>
-          </Link>
+          </NavLink>
         </div>
       )}
       {/* Payment Accounts */}
