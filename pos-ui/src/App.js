@@ -107,6 +107,7 @@ import TrialBalance from './components/dashboard/PaymentsAccounts/TrialBalance';
 import CashFlow from './components/dashboard/PaymentsAccounts/CashFlow';
 import UserProfile from './components/dashboard/Users/UserProfile';
 import ExpenseCategory from './components/dashboard/Expenses/ExpenseCategory';
+import InvoiceStng from './components/dashboard/settings/invoiceStng/InvoiceStng';
 
 
 function App() {
@@ -300,6 +301,7 @@ function App() {
             </Route>
 
             <Route path='/home/reports/activity-log' element={<ActivityLogRpt />} />
+            <Route path='/home/invoice-scheme' element={<InvoiceStng />} />
 
 
 
