@@ -115,7 +115,7 @@ const InvoiceSchemaTbl = () => {
         <div className='bg-white w-full '>
             <div className='flex justify-between mt-2 text-sm mx-5'>
                 <div className='flex flex-col'>
-                    <h1 className='text-xl font-semibold text-start'>All your expense categories</h1>
+                    <h1 className='text-xl font-semibold text-start'>All your Invoice Scheme</h1>
                 </div>
                 <button onClick={() => { setIsAdd(true); setIsClicked(true) }} className='flex items-center justify-center mx-5 font-semibold w-20 h-10 rounded-md mt-3 text-white bg-blue-500'>
                     <AiOutlinePlus size={15} /> Add

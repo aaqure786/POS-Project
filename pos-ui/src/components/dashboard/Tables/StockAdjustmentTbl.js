@@ -22,9 +22,9 @@ import { jsPDF } from "jspdf";
 import * as htmlToImage from "html-to-image";
 import { MdCancel } from "react-icons/md";
 import { Link } from "react-router-dom";
-import ViewSell from "../sell/ViewSell";
 import EditShipping from "../sell/EditShipping";
 import ViewPayment from "../payments/ViewPayment";
+import ViewStock from "../StockAdjustment/ViewStock";
 
 const StockAdjustmentTbl = () => {
   const dummyData = [
@@ -233,7 +233,7 @@ const StockAdjustmentTbl = () => {
   const [showId, setShowId] = useState(0);
   const displayData = () => {
     if (showId !== 0 && isshow === true) {
-      return <ViewSell id={showId} />;
+      return <ViewStock id={showId} />;
     } else if (iseditship === true && editShipId !== 0) {
       return <EditShipping id={editShipId} />;
     } else if (isShowPayment === true) {

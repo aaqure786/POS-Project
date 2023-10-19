@@ -108,6 +108,7 @@ import CashFlow from './components/dashboard/PaymentsAccounts/CashFlow';
 import UserProfile from './components/dashboard/Users/UserProfile';
 import ExpenseCategory from './components/dashboard/Expenses/ExpenseCategory';
 import InvoiceStng from './components/dashboard/settings/invoiceStng/InvoiceStng';
+import AddorEditInvoiceLayout from './components/dashboard/settings/invoiceStng/AddorEditInvoiceLayout';
 
 
 function App() {
@@ -302,6 +303,8 @@ function App() {
 
             <Route path='/home/reports/activity-log' element={<ActivityLogRpt />} />
             <Route path='/home/invoice-scheme' element={<InvoiceStng />} />
+            <Route path='/home/invoice-layout/create' element={<AddorEditInvoiceLayout />} />
+            <Route path='/home/invoice-layout/:id/edit' element={<AddorEditInvoiceLayout />} />
 
 
 

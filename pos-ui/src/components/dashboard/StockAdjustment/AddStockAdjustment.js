@@ -245,9 +245,9 @@ const AddStockAdjustment = () => {
                     : ""}
                 </h2>
               </div>
-              <div className="flex mx-2">
+              <div className="flex mx-2 relative">
                 {info1 && (
-                  <div className="flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-15 p-2 z-10 bg-white shadow-md shadow-gray-300">
+                  <div className="flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-5 right-2 p-2 z-10 bg-white shadow-md shadow-gray-300">
                     <p className="text-start mt-2 text-gray-800">
                       Normal:Adjustment for normal reasons like Damage, Leakage
                       etc.

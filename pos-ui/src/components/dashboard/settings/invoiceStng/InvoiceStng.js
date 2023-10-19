@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import InvoiceSchemaTbl from '../../Tables/InvoiceSchemaTbl'
+import InvoiceLayout from './InvoiceLayout'
 
 const InvoiceStng = () => {
     const [invoiceSchema, setInvoiceSchema] = useState(true)
-    const [invoiceLayout, setInvoiceLayout] = useState(false)
+    const [invcLout, setInvcLout] = useState(false)
     return (
         <div className='flex flex-col bg-gray-100 p-3 '>
             <div className='flex'>
@@ -14,14 +15,14 @@ const InvoiceStng = () => {
 
             <div className=' flex flex-col bg-white mt-10'>
                 <div className='flex'>
-                    <div onClick={() => { setInvoiceSchema(true); setInvoiceLayout(false) }} className={`flex mx-2  py-1 ${invoiceSchema ? "border-t-[3px]  border-blue-500" : "border-b-[1px] border-gray-500"} h-[50px] `}>
+                    <div onClick={() => { setInvoiceSchema(true); setInvcLout(false) }} className={`flex mx-2  py-1 ${invoiceSchema ? "border-t-[3px]  border-blue-500" : "border-b-[1px] border-gray-500"} h-[50px] `}>
 
                         <div className='flex  cursor-pointer items-center justify-center'>
                             <h1 className='text-xl font-bold'>Invoice Schema</h1>
                         </div>
 
                     </div>
-                    <div onClick={() => { setInvoiceSchema(false); setInvoiceLayout(true) }} className={`flex mx-2 py-1  ${invoiceLayout ? "border-t-[3px]  border-blue-500" : "border-b-[1px] border-gray-500"} h-[50px] `}>
+                    <div onClick={() => { setInvoiceSchema(false); setInvcLout(true) }} className={`flex mx-2 py-1  ${invcLout ? "border-t-[3px]  border-blue-500" : "border-b-[1px] border-gray-500"} h-[50px] `}>
 
                         <div className='flex cursor-pointer  items-center justify-center'>
                             <h1 className='text-lg font-bold'>Invoice Layout</h1>
@@ -33,7 +34,7 @@ const InvoiceStng = () => {
                 </div>
                 <div className='flex w-full'>
                     {invoiceSchema && <InvoiceSchemaTbl /> }
-                    {invoiceLayout }
+                    {invcLout && <InvoiceLayout /> }
                     
 
                 </div>
