@@ -145,9 +145,19 @@ const SalesTbl = () => {
 
   const toggleDropdown = (index) => {
     const dropDownAction = [...actionList];
-    dropDownAction[index] = !dropDownAction[index];
+    dropDownAction.map((val, i) => {
+        if (i === index) {
+            dropDownAction[i] = !dropDownAction[i];
+
+        } else {
+            dropDownAction[i] = false
+        }
+        return dropDownAction
+    })
+    
+    console.log(dropDownAction)
     setActionList(dropDownAction);
-  };
+};
 
   const csvData = [
     ["Username", "Name", "Role", "Email"],

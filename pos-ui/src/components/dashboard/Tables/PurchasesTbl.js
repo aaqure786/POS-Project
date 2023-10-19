@@ -117,8 +117,18 @@ const PurchasesTbl = () => {
     const [actionList, setActionList] = useState(Array(record.length).fill(false))
 
     const toggleDropdown = (index) => {
-        const dropDownAction =[...actionList];
-        dropDownAction[index] = !dropDownAction[index];
+        const dropDownAction = [...actionList];
+        dropDownAction.map((val, i) => {
+            if (i === index) {
+                dropDownAction[i] = !dropDownAction[i];
+
+            } else {
+                dropDownAction[i] = false
+            }
+            return dropDownAction
+        })
+        
+        console.log(dropDownAction)
         setActionList(dropDownAction);
     };
    
