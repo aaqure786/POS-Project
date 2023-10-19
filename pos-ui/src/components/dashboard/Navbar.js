@@ -29,6 +29,10 @@ const Navbra = () => {
             dispatch(setTrue())
         }
     }
+    const openNewTab=  (URl)=>{
+        const url = URl;
+        window.open(url,'_blank')
+    }
     const [isCliked, setIsCliked] = useState(false)
     const [isshow, setIsshow] = useState(false);
     const displayData = () => {
@@ -67,7 +71,7 @@ const Navbra = () => {
                                 {cal && <div className="absolute top-8 text-sm rounded-sm flex z-10 text-white bg-black p-1">Calculator</div>}
                             </button>
                             {shcal && <div className='absolute top-14 right-80 z-20'> <Calculator /></div>}
-                            <Link to={"/pos/create"} className='py-1 md:px-1 relative mx-1 bg-green-300 text-white flex items-center justify-center' onMouseOver={() => { setPos(true) }} onMouseLeave={() => { setPos(false) }}><FaThLarge size={15} /> <span className='mx-2 font-semibold text-sm'>POS</span>
+                            <Link  onClick={()=>{openNewTab("/pos/create")}} className='py-1 md:px-1 relative mx-1 bg-green-300 text-white flex items-center justify-center' onMouseOver={() => { setPos(true) }} onMouseLeave={() => { setPos(false) }}><FaThLarge size={15} /> <span className='mx-2 font-semibold text-sm'>POS</span>
                                 {pos && <div className="absolute text-sm rounded-sm flex top-8 z-10 text-white bg-black md:p-1">POS</div>}
                             </Link >
                             <button onClick={()=>{setIsCliked(true); setIsshow(true);}} className='py-1.5 px-1 relative mx-1 bg-green-300 text-white' onMouseOver={() => { setMoney(true) }} onMouseLeave={() => { setMoney(false) }}><FaMoneyBillAlt size={15} />

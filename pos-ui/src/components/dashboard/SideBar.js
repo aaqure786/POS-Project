@@ -30,7 +30,10 @@ import { Link, NavLink } from "react-router-dom";
 
 const SideBar = () => {
   // const clicked = useSelector((state)=>state.sidebar.value)
-
+  const openNewTab=  (URl)=>{
+    const url = URl;
+    window.open(url,'_blank')
+}
   const [usmng, setUsmng] = useState(false);
   const [li1, setLi1] = useState(false);
   const [li2, setLi2] = useState(false);
@@ -351,7 +354,7 @@ const SideBar = () => {
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>List POS</h1>
         </NavLink>
-        <NavLink to={"/pos/create"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start'>
+        <NavLink  onClick={()=>{openNewTab("/pos/create")}} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>POS</h1>
         </NavLink>
