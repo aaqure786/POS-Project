@@ -10,20 +10,34 @@ const AddorEditSellingPriceGrps = () => {
     const [formData, setFormData] = useState({
         productName: "Fetch From Data Base",
         productId: '',
-        dfltSlngPrice: "1200.00",
-        retailAmount: "",
-        retailType: "Fixed",
-        salemanAmount: "",
-        salemanType: "Fixed",
-        minimumPriceAmount: "",
-        minimumPriceType: "Fixed",
-        salePointsAmount: "",
-        salePointsType: "Fixed"
-
+        
+        grpPrices: [{
+            dfltSlngPrice: "1200.00",
+            retailAmount: "",
+            retailType: "Fixed",
+            salemanAmount: "",
+            salemanType: "Fixed",
+            minimumPriceAmount: "",
+            minimumPriceType: "Fixed",
+            salePointsAmount: "",
+            salePointsType: "Fixed"
+        }]
     })
+    const handleChange = (e, index) => {
+        const updatedData = formData.grpPrices.map((item, ind) => {
+            if (ind === index) {
+                // Create a new copy of the item with the modified subItem
+                return {
+                    ...item, [e.target.name]: e.target.value
+                };
+            }
+            return item;
+        });
+        setFormData({ ...formData, grpPrices: updatedData });
+    }
 
     const handleSaveorEdit = () => {
-        
+
         console.log("Handle Save", formData)
 
     }
@@ -116,54 +130,56 @@ const AddorEditSellingPriceGrps = () => {
                         </tr>
                     </thead>
                     <tbody>
-
-                        <tr >
+                        {formData.grpPrices.map((val,index)=>{
+                            return  <tr key={index}>
                             <td>
-                                <h1>{formData.dfltSlngPrice}</h1>
+                                <h1>{val.dfltSlngPrice}</h1>
                             </td>
                             <td >
                                 <div className='flex flex-col'>
-                                <input type='number' value={formData.retailAmount} onChange={(e) => { setFormData({ ...formData, retailAmount: e.target.value }) }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-                                <select value={formData.retailType} onChange={(e) => { setFormData({ ...formData, retailType: e.target.value }) }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
-                                    <option value={"Fixed"}>Fixed</option>
-                                    <option value={"Percentage"}>Percentage</option>
+                                    <input type='number' name='retailAmount' value={val.retailAmount} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+                                    <select name='retailType' value={formData.retailType} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
+                                        <option value={"Fixed"}>Fixed</option>
+                                        <option value={"Percentage"}>Percentage</option>
 
-                                </select>
+                                    </select>
                                 </div>
-                                
+
 
                             </td>
                             <td >
                                 <div className='flex flex-col'>
-                                <input type='number' value={formData.salemanAmount} onChange={(e) => { setFormData({ ...formData, salemanAmount: e.target.value }) }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-                                <select value={formData.salemanType} onChange={(e) => { setFormData({ ...formData, salemanType: e.target.value }) }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
-                                    <option value={"Fixed"}>Fixed</option>
-                                    <option value={"Percentage"}>Percentage</option>
+                                    <input type='number' name='salemanAmount' value={formData.salemanAmount} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+                                    <select name='salemanType' value={formData.salemanType} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
+                                        <option value={"Fixed"}>Fixed</option>
+                                        <option value={"Percentage"}>Percentage</option>
 
-                                </select>
-                                </div>
-                            </td>
-                            <td >
-                                <div className='flex flex-col'>
-                                <input type='number' value={formData.minimumPriceAmount} onChange={(e) => { setFormData({ ...formData, minimumPriceAmount: e.target.value }) }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-                                <select value={formData.minimumPriceType} onChange={(e) => { setFormData({ ...formData, minimumPriceType: e.target.value }) }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
-                                    <option value={"Fixed"}>Fixed</option>
-                                    <option value={"Percentage"}>Percentage</option>
-
-                                </select>
+                                    </select>
                                 </div>
                             </td>
                             <td >
                                 <div className='flex flex-col'>
-                                <input type='number' value={formData.salePointsAmount} onChange={(e) => { setFormData({ ...formData, salePointsAmount: e.target.value }) }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-                                <select value={formData.salePointsType} onChange={(e) => { setFormData({ ...formData, salePointsType: e.target.value }) }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
-                                    <option value={"Fixed"}>Fixed</option>
-                                    <option value={"Percentage"}>Percentage</option>
+                                    <input type='number' name='minimumPriceAmount' value={formData.minimumPriceAmount}  className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+                                    <select name='minimumPriceType' value={formData.minimumPriceType} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
+                                        <option value={"Fixed"}>Fixed</option>
+                                        <option value={"Percentage"}>Percentage</option>
 
-                                </select>
+                                    </select>
+                                </div>
+                            </td>
+                            <td >
+                                <div className='flex flex-col'>
+                                    <input name='salePointsAmount' type='number' value={formData.salePointsAmount} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+                                    <select name='salePointsType' value={formData.salePointsType} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
+                                        <option value={"Fixed"}>Fixed</option>
+                                        <option value={"Percentage"}>Percentage</option>
+
+                                    </select>
                                 </div>
                             </td>
                         </tr>
+                        })}
+                       
 
 
                     </tbody>
