@@ -325,7 +325,7 @@ const ProductsTbl = () => {
                                                     </div>
                                                 </li>
                                                 <li className='w-full'>
-                                                    <Link to={`/home/purchase-order/eidt/${value.id}`} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                    <Link to={`/home/products/edit/${value.id}`} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                         <FaEdit size={15} />
                                                         <h1 className='text-sm'>Edit</h1>
                                                     </Link>

@@ -109,6 +109,7 @@ import UserProfile from './components/dashboard/Users/UserProfile';
 import ExpenseCategory from './components/dashboard/Expenses/ExpenseCategory';
 import InvoiceStng from './components/dashboard/settings/invoiceStng/InvoiceStng';
 import AddorEditInvoiceLayout from './components/dashboard/settings/invoiceStng/AddorEditInvoiceLayout';
+import BusinessLocation from './components/dashboard/settings/businesLocation/BusinessLocation';
 
 
 function App() {
@@ -189,6 +190,8 @@ function App() {
             <Route path='/home/sells/create' element={<AddorEditSell />} />
             <Route path='/home/sells/edit/:id' element={<AddorEditSell />} />
             <Route path='/home/products/create' element={<AddorEditProduct />} />
+            <Route path='/home/products/edit/:id' element={<AddorEditProduct />} />
+                        
             <Route path='/home/purchase-order' element={<PurchaseOrder />} />
             <Route path='/home/purchase-order/create' element={<AddorEditPurchaseOrder />} />
             <Route path='/home/purchase-order/eidt/:id' element={<AddorEditPurchaseOrder />} />
@@ -305,6 +308,7 @@ function App() {
             <Route path='/home/invoice-scheme' element={<InvoiceStng />} />
             <Route path='/home/invoice-layout/create' element={<AddorEditInvoiceLayout />} />
             <Route path='/home/invoice-layout/:id/edit' element={<AddorEditInvoiceLayout />} />
+            <Route path='/home/business-location' element={<BusinessLocation />} />
 
 
 
