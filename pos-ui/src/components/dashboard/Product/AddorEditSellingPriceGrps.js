@@ -2,27 +2,44 @@ import React, { useState } from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
 
 const AddorEditSellingPriceGrps = () => {
-    const [info, setInfo] = useState(false)
-    const [info1, setInfo1] = useState(false)
-    const [info2, setInfo2] = useState(false)
-    const [info3, setInfo3] = useState(false)
+    const dummyData = [
+        { priceGrp: "Sell" },
+        { priceGrp: "retail" },
+        { priceGrp: "Dummy" },
+        { priceGrp: "Checking" }
+
+    ]
+    const resultData = dummyData.map(({priceGrp})=>{
+        return  {priceGrp,amount:0,type:""}
+    })
+
+    const [isAddOther, setIsAddOther] = useState(false)
+    const [isOpeningStock, setIsOpeningStock] = useState(false)
+    const [actionList, setActionList] = useState(Array(dummyData.length).fill(false))
+
+    const toggleDropdown = (data, index) => {
+        const dropDownAction = [...actionList];
+        dropDownAction.map((val, i) => {
+            if (i === index) {
+                dropDownAction[i] = data;
+
+            }
+
+            return dropDownAction
+        })
+
+        setActionList(dropDownAction);
+    };
 
     const [formData, setFormData] = useState({
         productName: "Fetch From Data Base",
         productId: '',
-        
-        grpPrices: [{
-            dfltSlngPrice: "1200.00",
-            retailAmount: "",
-            retailType: "Fixed",
-            salemanAmount: "",
-            salemanType: "Fixed",
-            minimumPriceAmount: "",
-            minimumPriceType: "Fixed",
-            salePointsAmount: "",
-            salePointsType: "Fixed"
-        }]
+        dfltSlngPrice: "",
+        grpPrices: resultData
     })
+
+    
+
     const handleChange = (e, index) => {
         const updatedData = formData.grpPrices.map((item, ind) => {
             if (ind === index) {
@@ -38,7 +55,7 @@ const AddorEditSellingPriceGrps = () => {
 
     const handleSaveorEdit = () => {
 
-        console.log("Handle Save", formData)
+        console.log("Handle Save", formData )
 
     }
 
@@ -62,124 +79,50 @@ const AddorEditSellingPriceGrps = () => {
                                     <h1 className='text-start font-bold text-white'>Default Selling Price (Inc. Tax)</h1>
                                 </div>
                             </th>
-                            <th>
-                                <div className='flex px-2 py-1 border-[1px] border-white  relative  Fixed'>
+                            {dummyData.map((val, index) => {
+                                return <th key={index}>
+                                    <div className='flex px-2 py-1 border-[1px] border-white  relative  Fixed'>
 
-                                    <h1 className='text-start font-bold text-white'>retail</h1>
-                                    <FaInfoCircle onMouseOver={() => { setInfo(true) }} onMouseLeave={() => { setInfo(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
-                                    {info &&
-                                        <div className='flex flex-col w-[180px] rounded-md  border-[2px] border-gray-400 absolute top-8 p-2 20 bg-white shadow-md shadow-gray-300'>
-                                            <p className='text-start'>
-                                                if <span className='font-bold'>Fixedd</span>
-                                                - the entered price will be used. if
-                                                <span className='font-bold'>Percentage</span> - price will be that much % of default selling price </p>
+                                        <h1 className='text-start font-bold text-white'>{val.priceGrp}</h1>
+                                        <FaInfoCircle onMouseOver={() => { toggleDropdown(true, index) }} onMouseLeave={() => { toggleDropdown(false, index) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
+                                        {actionList[index] &&
+                                            <div className='flex text-gray-500 flex-col w-[180px] rounded-md  border-[2px] border-gray-400 absolute top-8 p-2 20 bg-white shadow-md shadow-gray-300'>
+                                                <p className='text-start'>
+                                                    if <span className='font-bold'>Fixedd</span>
+                                                    - the entered price will be used. if
+                                                    <span className='font-bold'>Percentage</span> - price will be that much % of default selling price </p>
 
-                                        </div>
-                                    }
-                                </div>
-                            </th>
-                            <th>
-                                <div className='flex px-2 py-1 border-[1px] border-white  relative  '>
-
-                                    <h1 className='text-start font-bold text-white'>Saleman</h1>
-                                    <FaInfoCircle onMouseOver={() => { setInfo1(true) }} onMouseLeave={() => { setInfo1(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
-                                    {info1 &&
-                                        <div className='flex flex-col w-[180px] rounded-md  border-[2px] border-gray-400 absolute top-8 p-2 20 bg-white shadow-md shadow-gray-300'>
-                                            <p className='text-start'>
-                                                if <span className='font-bold'>Fixedd</span>
-                                                - the entered price will be used. if
-                                                <span className='font-bold'>Percentage</span> - price will be that much % of default selling price </p>
-
-                                        </div>
-                                    }
-                                </div>
-                            </th>
-                            <th>
-                                <div className='flex px-2 py-1 border-[1px] border-white  relative  '>
-
-                                    <h1 className='text-start font-bold text-white'>Minimum Price</h1>
-                                    <FaInfoCircle onMouseOver={() => { setInfo2(true) }} onMouseLeave={() => { setInfo2(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
-                                    {info2 &&
-                                        <div className='flex flex-col w-[180px] rounded-md  border-[2px] border-gray-400 absolute top-8 p-2 20 bg-white shadow-md shadow-gray-300'>
-                                            <p className='text-start'>
-                                                if <span className='font-bold'>Fixedd</span>
-                                                - the entered price will be used. if
-                                                <span className='font-bold'>Percentage</span> - price will be that much % of default selling price </p>
-
-                                        </div>
-                                    }
-                                </div>
-                            </th>
-                            <th>
-                                <div className='flex px-2 py-1 border-[1px] border-white  relative  '>
-
-                                    <h1 className='text-start font-bold text-white'>Sale Points</h1>
-                                    <FaInfoCircle onMouseOver={() => { setInfo3(true) }} onMouseLeave={() => { setInfo3(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
-                                    {info3 &&
-                                        <div className='flex flex-col w-[180px] rounded-md  border-[2px] border-gray-400 absolute top-8 p-2 20 bg-white shadow-md shadow-gray-300'>
-                                            <p className='text-start'>
-                                                if <span className='font-bold'>Fixedd</span>
-                                                - the entered price will be used. if
-                                                <span className='font-bold'>Percentage</span> - price will be that much % of default selling price </p>
-
-                                        </div>
-                                    }
-                                </div>
-
-                            </th>
+                                            </div>
+                                        }
+                                    </div>
+                                </th>
+                            })}
                         </tr>
                     </thead>
                     <tbody>
-                        {formData.grpPrices.map((val,index)=>{
-                            return  <tr key={index}>
+                        <tr >
                             <td>
-                                <h1>{val.dfltSlngPrice}</h1>
+                                <h1>{formData.dfltSlngPrice}</h1>
                             </td>
-                            <td >
-                                <div className='flex flex-col'>
-                                    <input type='number' name='retailAmount' value={val.retailAmount} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-                                    <select name='retailType' value={formData.retailType} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
-                                        <option value={"Fixed"}>Fixed</option>
-                                        <option value={"Percentage"}>Percentage</option>
+                            {formData.grpPrices.map((val, index) => {
+                                return <td key={index}>
+                                    <div className='flex flex-col'>
+                                        <input type='number' name={"amount"} value={val.amount} onChange={(e) => { handleChange(e, index) }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+                                        <select name={`type`} value={val.type} onChange={(e) => { handleChange(e, index) }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
+                                            <option value={"Fixed"}>Fixed</option>
+                                            <option value={"Percentage"}>Percentage</option>
 
-                                    </select>
-                                </div>
+                                        </select>
+                                    </div>
 
 
-                            </td>
-                            <td >
-                                <div className='flex flex-col'>
-                                    <input type='number' name='salemanAmount' value={formData.salemanAmount} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-                                    <select name='salemanType' value={formData.salemanType} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
-                                        <option value={"Fixed"}>Fixed</option>
-                                        <option value={"Percentage"}>Percentage</option>
+                                </td>
+                            })}
 
-                                    </select>
-                                </div>
-                            </td>
-                            <td >
-                                <div className='flex flex-col'>
-                                    <input type='number' name='minimumPriceAmount' value={formData.minimumPriceAmount}  className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-                                    <select name='minimumPriceType' value={formData.minimumPriceType} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
-                                        <option value={"Fixed"}>Fixed</option>
-                                        <option value={"Percentage"}>Percentage</option>
 
-                                    </select>
-                                </div>
-                            </td>
-                            <td >
-                                <div className='flex flex-col'>
-                                    <input name='salePointsAmount' type='number' value={formData.salePointsAmount} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
-                                    <select name='salePointsType' value={formData.salePointsType} onChange={(e) => { handleChange(e,index)  }} className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
-                                        <option value={"Fixed"}>Fixed</option>
-                                        <option value={"Percentage"}>Percentage</option>
-
-                                    </select>
-                                </div>
-                            </td>
                         </tr>
-                        })}
-                       
+
+
 
 
                     </tbody>
@@ -190,11 +133,11 @@ const AddorEditSellingPriceGrps = () => {
 
 
             <div className='justify-end items-end flex py-5'>
-                <button onClick={handleSaveorEdit} className='bg-green-400 text-white'>
-                    <h1 className=' font-bold text-start px-3 py-2'>Save</h1>
-
-                </button>
+                <button onClick={() => { setIsOpeningStock(true); setIsAddOther(false); handleSaveorEdit(); }} className='bg-blue-500  px-2 py-2 text-white items-center justify-center flex'>Save & Add Opening Stock</button>
+                <button onClick={() => { setIsOpeningStock(false); setIsAddOther(true); handleSaveorEdit(); }} className='bg-red-500  px-2 py-2 text-white items-center justify-center flex'>Save & Add Another</button>
+                <button onClick={handleSaveorEdit} className='bg-green-400 text-white'><h1 className='  text-start px-3 py-2'>Save</h1></button>
             </div>
+
         </div>
     )
 }

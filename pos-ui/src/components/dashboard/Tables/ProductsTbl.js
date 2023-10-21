@@ -377,7 +377,7 @@ const ProductsTbl = () => {
 
                 </table>
             </div>
-            <div className='flex w-1/2 ml-10'>
+            <div className='flex w-1/2 mt-10'>
                 <button className='bg-red-500 px-1 text-xs text-white mx-2 rounded-md py-1'>Delete Selected</button>
                 <button className='bg-green-500 px-1 text-xs text-white mx-2 rounded-md py-1'>Delete Selected</button>
                 <button className='bg-blue-500 px-1 text-xs text-white mx-2 rounded-md py-1'>Delete Selected</button>

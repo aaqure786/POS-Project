@@ -292,7 +292,7 @@ const Product = () => {
 
 
                 </div>
-                <div className='flex'>
+                <div className='flex pb-10' >
                     {products &&
                         <div className='flex flex-col'>
                             <div className='flex justify-end mt-2 text-sm mx-5'>
