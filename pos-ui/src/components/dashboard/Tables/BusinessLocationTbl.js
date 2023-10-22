@@ -89,7 +89,7 @@ const BusinessLocationTbl = () => {
             return dropDownAction
         })
         
-        console.log(dropDownAction)
+        
         setActionList(dropDownAction);
     };
 

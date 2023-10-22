@@ -3,17 +3,13 @@ import { AiFillCaretDown } from "react-icons/ai";
 import {
   FaColumns,
   FaEdit,
-  FaEnvelope,
   FaEye,
   FaFileCsv,
   FaFileExcel,
   FaFilePdf,
-  FaMoneyBillAlt,
   FaPrint,
   FaSearch,
   FaTrash,
-  FaTruck,
-  FaUndo,
 } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
 import { CSVLink } from "react-csv";
@@ -22,9 +18,8 @@ import { jsPDF } from "jspdf";
 import * as htmlToImage from "html-to-image";
 import { MdCancel } from "react-icons/md";
 import { Link } from "react-router-dom";
-import ViewSell from "../sell/ViewSell";
-import EditShipping from "../sell/EditShipping";
-import ViewPayment from "../payments/ViewPayment";
+import ViewStockTransfer from "../StockTransfer/ViewStockTransfer";
+import UpdateStatus from "../StockTransfer/UpdateStatus";
 
 const StockTransferTbl = () => {
   //FOR DUMMY DATA
@@ -158,10 +153,8 @@ const StockTransferTbl = () => {
   const [col9, setCol9] = useState(true);
 
   const [isedit, setIsedit] = useState(false);
-  const [isShowPayment, setIsShowPayment] = useState(false);
-  const [paymentId, setPaymentId] = useState(0);
-  const [editShipId, setEditShipId] = useState(0);
-  const [iseditship, setIseditship] = useState(false);
+  
+  
   const [isCliked, setIsCliked] = useState(false);
   const [actionList, setActionList] = useState(
     Array(record.length).fill(false)
@@ -179,7 +172,7 @@ const StockTransferTbl = () => {
         return dropDownAction
     })
     
-    console.log(dropDownAction)
+    
     setActionList(dropDownAction);
 };
 
@@ -241,13 +234,13 @@ const StockTransferTbl = () => {
 
   const [isshow, setIsshow] = useState(false);
   const [showId, setShowId] = useState(0);
+  const [upId, setUpId] = useState(0)
+  const [dynWidthd, setDynWidthd] = useState('')
   const displayData = () => {
     if (showId !== 0 && isshow === true) {
-      return <ViewSell id={showId} />;
-    } else if (iseditship === true && editShipId !== 0) {
-      return <EditShipping id={editShipId} />;
-    } else if (isShowPayment === true) {
-      return <ViewPayment id={paymentId} />;
+      return <ViewStockTransfer id={showId} />;
+    }else if (upId > 0){
+      return <UpdateStatus id= {upId} />
     }
   };
 
@@ -481,8 +474,8 @@ const StockTransferTbl = () => {
                       <button
                         onClick={() => {
                           setIsCliked(true);
-                          setIsShowPayment(true);
-                          setPaymentId(value.id);
+                          setUpId(value.id)
+                          setDynWidthd("50%")
                         }}
                         className="bg-green-400 text-white px-2 text-xs rounded-xl"
                       >
@@ -505,9 +498,9 @@ const StockTransferTbl = () => {
                         <h1 className="text-sm">Action</h1>
                         <AiFillCaretDown size={10} />
                         {actionList[index] && (
-                          <ul className="absolute top-5 left-10 z-20 flex flex-col items-start w-[200px] bg-white text-gray-600 shadow-xl shadow-gray-400 ">
+                          <ul className="absolute top-5 right-10 z-20 flex flex-col items-start w-[80px] bg-white text-gray-600 shadow-xl shadow-gray-400 ">
                             <li className="w-full">
-                              <Link
+                              <div
                                 onClick={() => {
                                   setIsCliked(true);
                                   setIsshow(true);
@@ -517,7 +510,7 @@ const StockTransferTbl = () => {
                               >
                                 <FaEye size={15} />
                                 <h1 className="text-sm">View</h1>
-                              </Link>
+                              </div>
                             </li>
                             <li className="w-full">
                               <div
@@ -556,51 +549,7 @@ const StockTransferTbl = () => {
                                 <h1 className="text-sm">Delete</h1>
                               </div>
                             </li>
-                            <li className="w-full">
-                              <div
-                                onClick={() => {
-                                  setEditShipId(value.id);
-                                  setIseditship(!iseditship);
-                                  setIsCliked(!isCliked);
-                                }}
-                                className="flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center "
-                              >
-                                <FaTruck size={15} />
-                                <h1 className="text-sm">Edit Shipping</h1>
-                              </div>
-                            </li>
-                            <li className="mt-5 w-full">
-                              <Link className="flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center ">
-                                <FaMoneyBillAlt size={15} />
-                                <h1 className="text-sm">Add Payment</h1>
-                              </Link>
-                            </li>
-                            <li className="w-full">
-                              <Link className="flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center ">
-                                <FaMoneyBillAlt size={15} />
-                                <h1 className="text-sm">View Payment</h1>
-                              </Link>
-                            </li>
-                            <li className="w-full">
-                              <Link className="flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center ">
-                                <FaUndo size={15} />
-                                <h1 className="text-sm">Purchase Return</h1>
-                              </Link>
-                            </li>
-                            <li className="w-full">
-                              <Link className="flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center ">
-                                <FaEdit size={15} />
-                                <h1 className="text-sm">Update Status</h1>
-                              </Link>
-                            </li>
-                            <li className="w-full">
-                              <Link className="flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center ">
-                                <FaEnvelope size={15} />
-                                <h1 className="text-sm">
-                                  Item Received Notification
-                                </h1>
-                              </Link>
-                            </li>
+                            
                           </ul>
                         )}
                       </div>
@@ -657,8 +606,8 @@ const StockTransferTbl = () => {
         </ul>
       </nav>
       {isCliked && (
-        <div className="absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen">
-          <div className="flex flex-col   w-full md:w-[75%]  mt-10 bg-white px-5 pt-2">
+        <div className="absolute top-0 flex flex-col items-center  justify-start right-0 bg-black/70 w-full min-h-screen">
+          <div className={`flex flex-col   w-full md:w-[${dynWidthd  ? dynWidthd : "75%"}]  mt-10 bg-white px-5 pt-2`}>
             <div className="flex items-end justify-end ">
               <MdCancel
                 onClick={() => {
@@ -666,6 +615,7 @@ const StockTransferTbl = () => {
                   setIsedit(false);
                   setIsshow(false);
                   setShowId(0);
+                  setDynWidthd("")
                 }}
                 size={20}
               />

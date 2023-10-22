@@ -128,7 +128,7 @@ const PurchasesTbl = () => {
             return dropDownAction
         })
         
-        console.log(dropDownAction)
+        
         setActionList(dropDownAction);
     };
    

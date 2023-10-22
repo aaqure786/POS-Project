@@ -140,7 +140,7 @@ const PosTbl = () => {
             return dropDownAction
         })
         
-        console.log(dropDownAction)
+        
         setActionList(dropDownAction);
     };
 

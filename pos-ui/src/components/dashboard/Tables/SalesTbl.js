@@ -155,7 +155,7 @@ const SalesTbl = () => {
         return dropDownAction
     })
     
-    console.log(dropDownAction)
+    
     setActionList(dropDownAction);
 };
 

@@ -128,7 +128,7 @@ const DraftTbl = () => {
             return dropDownAction
         })
         
-        console.log(dropDownAction)
+        
         setActionList(dropDownAction);
     };
 

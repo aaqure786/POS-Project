@@ -30,7 +30,7 @@ const AddFundTransfer = (props) => {
     return (
         <div className='flex flex-col w-full px-3 bg-white '>
             <div className='flex'>
-                <h1 className='text-2xl font-semibold text-start '>{props.id ? "Edit Account" : "Add Account"}</h1>
+                <h1 className='text-2xl font-semibold text-start '>Fund Transfer</h1>
             </div>
             <div className='flex flex-col mt-3'>
                 <h1 className='flex text-start font-bold'>
@@ -94,7 +94,7 @@ const AddFundTransfer = (props) => {
 
             <div className='justify-end items-end flex py-5'>
                 <button onClick={handleSaveorEdit} className='bg-green-400 text-white'>
-                    <h1 className=' font-bold text-start px-3 py-2'>{props.id ? "Update" : "Save"}</h1>
+                    <h1 className=' font-bold text-start px-3 py-2'>Transfer</h1>
 
                 </button>
             </div>

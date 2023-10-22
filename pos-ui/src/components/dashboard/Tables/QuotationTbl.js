@@ -128,7 +128,7 @@ const QuotationTbl = () => {
             return dropDownAction
         })
         
-        console.log(dropDownAction)
+        
         setActionList(dropDownAction);
     };
 

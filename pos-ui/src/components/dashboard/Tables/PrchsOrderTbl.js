@@ -133,7 +133,7 @@ const PrchsOrderTbl = () => {
             return dropDownAction
         })
         
-        console.log(dropDownAction)
+        
         setActionList(dropDownAction);
     };
 

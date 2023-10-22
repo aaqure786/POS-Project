@@ -172,7 +172,7 @@ const StockAdjustmentTbl = () => {
         return dropDownAction
     })
     
-    console.log(dropDownAction)
+    
     setActionList(dropDownAction);
 };
 

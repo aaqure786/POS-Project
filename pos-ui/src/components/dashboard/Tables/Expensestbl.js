@@ -247,7 +247,7 @@ const Expensestbl = () => {
         return dropDownAction
     })
     
-    console.log(dropDownAction)
+    
     setActionList(dropDownAction);
 };
 

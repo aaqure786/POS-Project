@@ -133,7 +133,7 @@ const PurchaseReturnTbl = () => {
             return dropDownAction
         })
         
-        console.log(dropDownAction)
+        
         setActionList(dropDownAction);
     };
 
