@@ -194,7 +194,7 @@ const BusinessLocationTbl = () => {
                                                         </div >
                                                     </li>
                                                     <li className='w-full'>
-                                                        <Link to={`/home/accounts/accounts/${value.id}`} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
+                                                        <Link to={`/home/business-location/settings/${value.id}`} className='flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center '>
                                                             <FaWrench size={15}  className='mx-1'/>
                                                             <h1 className='text-sm'>Account Book</h1>
                                                         </Link>

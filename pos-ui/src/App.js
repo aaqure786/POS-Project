@@ -110,6 +110,7 @@ import ExpenseCategory from './components/dashboard/Expenses/ExpenseCategory';
 import InvoiceStng from './components/dashboard/settings/invoiceStng/InvoiceStng';
 import AddorEditInvoiceLayout from './components/dashboard/settings/invoiceStng/AddorEditInvoiceLayout';
 import BusinessLocation from './components/dashboard/settings/businesLocation/BusinessLocation';
+import Settings from './components/dashboard/settings/businesLocation/Settings';
 
 
 function App() {
@@ -309,6 +310,7 @@ function App() {
             <Route path='/home/invoice-layout/create' element={<AddorEditInvoiceLayout />} />
             <Route path='/home/invoice-layout/:id/edit' element={<AddorEditInvoiceLayout />} />
             <Route path='/home/business-location' element={<BusinessLocation />} />
+            <Route path='/home/business-location/settings/:id' element={<Settings />} />
 
 
 
