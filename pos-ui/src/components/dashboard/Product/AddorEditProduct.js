@@ -84,7 +84,6 @@ const AddorEditProduct = () => {
   const [isAdSlngPrcGrp, setIsAdSlngPrcGrp] = useState(false)
   const [isOpeningStock, setIsOpeningStock] = useState(false)
   const [isAddOther, setIsAddOther] = useState(false)
-  const [location, setLocation] = useState('')
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     productName: "",
@@ -109,13 +108,9 @@ const AddorEditProduct = () => {
     dfltSellingPrice: 0,
     margin: 0
   })
-  const hadleLocation = (data) => {
-    console.log(data)
-    let darray = formData.businessLocation
-    darray = [...darray, data]
-    setFormData({ ...formData, businessLocation: darray })
-    setLocation('')
-  }
+  const [seletedValue, setSeletedValue] = useState('')
+  const [open1, setOpen1] = useState(false)
+  
   const handleDelete = (index) => {
     let newArray = [...formData.businessLocation]
     newArray.splice(index, 1)
@@ -410,14 +405,61 @@ const AddorEditProduct = () => {
                 </div>
               }
             </div>
-            <select value={location} onChange={(e) => {  hadleLocation(e.target.value) }} type='text' placeholder='Business Location' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
-            <option value={""}>Selecet Location</option>
-              
-              <option value={"Location 1"}>Location 1</option>
-              <option value={"Location 2"}>Location 2</option>
-              <option value={"Location 2"}>Location 3</option>
+            {/* <input value={location} onChange={(e) => {  hadleLocation(e.target.value) }} type='text' placeholder='Business Location' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' /> */}
+            
+            <div className='flex flex-col relative'>
+                    <div className='flex'>
+                        <input
+                            onClick={() => setOpen1(!open1)}
+                            className='bg-white w-full  flex items-center  focus:outline-none justify-between px-2  py-1 mt-1 border-[1px] border-gray-600'
+                            value={seletedValue}
+                            onChange={(e) => { setSeletedValue(e.target.value) }}
 
-            </select>
+                            placeholder='Select Value'
+                        />
+
+
+                    </div>
+                    {open1 &&
+                        <ul
+
+                            className={`bg-white z-10  w-full -right-7 mx-[30px] border-[1px] absolute top-9 border-gray-600  overflow-y-auto ${open1 ? "max-h-60" : "max-h-0"} `}
+                        >
+                            <div className="flex items-center px-1 sticky top-0 bg-white">
+                                <input
+                                    type="text"
+                                    value={inputValue1}
+                                    onChange={(e) => setInputValue1(e.target.value.toLowerCase())}
+                                    className="placeholder:text-gray-700 w-full p-1 outline-none border-[1px] border-gray-500"
+                                />
+                            </div>
+                            {dummyData?.map((data) => (
+                                <li
+                                    key={data?.Name}
+                                    className={`p-2 text-sm text-start hover:bg-sky-600 hover:text-white
+                                                        ${data?.Name?.toLowerCase() === seletedValue?.toLowerCase() &&
+                                        "bg-sky-600 text-white"
+                                        }
+                                                         ${data?.Name?.toLowerCase().startsWith(inputValue1)
+                                            ? "block"
+                                            : "hidden"
+                                        }`}
+                                    onClick={() => {
+                                        if (data?.Name?.toLowerCase() !== seletedValue.toLowerCase()) {
+                                            let darray = formData.businessLocation
+                                            darray = [...darray, data?.Name]
+                                            setFormData({ ...formData, businessLocation: darray })
+                                            setOpen1(false);
+                                            setInputValue1("");
+                                        }
+                                    }}
+                                >
+                                    {data?.Name}
+                                </li>
+                            ))}
+                        </ul>
+                    }
+                </div>
             {formData.businessLocation.length > 0 &&
 
               <div className='w-full border-[1px] border-gray-400 py-1 px-1'>
