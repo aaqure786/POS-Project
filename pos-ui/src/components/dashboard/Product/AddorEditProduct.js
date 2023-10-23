@@ -84,13 +84,14 @@ const AddorEditProduct = () => {
   const [isAdSlngPrcGrp, setIsAdSlngPrcGrp] = useState(false)
   const [isOpeningStock, setIsOpeningStock] = useState(false)
   const [isAddOther, setIsAddOther] = useState(false)
+  const [location, setLocation] = useState('')
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     productName: "",
     sku: "",
     barcodeType: "",
     unit: "",
-    businessLocation: "",
+    businessLocation: [],
     manageStock: false,
     alertQuantity: 0,
     productDescription: "",
@@ -108,6 +109,18 @@ const AddorEditProduct = () => {
     dfltSellingPrice: 0,
     margin: 0
   })
+  const hadleLocation = (data) => {
+    console.log(data)
+    let darray = formData.businessLocation
+    darray = [...darray, data]
+    setFormData({ ...formData, businessLocation: darray })
+    setLocation('')
+  }
+  const handleDelete = (index) => {
+    let newArray = [...formData.businessLocation]
+    newArray.splice(index, 1)
+    setFormData({ ...formData, businessLocation: newArray })
+  }
   // if (index === -1)
   const handleSubChange = (e, index, i) => {
 
@@ -206,32 +219,32 @@ const AddorEditProduct = () => {
       console.log(isserror)
     } else if (isAdSlngPrcGrp === true) {
       console.log("Add Selling Price Group")
-      if(id){
+      if (id) {
         console.log("Handle Update", formData)
-        }else{
-          console.log("Handle save ", formData)
-        }
+      } else {
+        console.log("Handle save ", formData)
+      }
       navigate("/home/products/add-selling-prices/1")
     } else if (isOpeningStock === true) {
       console.log("Opening Stock")
-      if(id){
-      console.log("Handle Update", formData)
-      }else{
+      if (id) {
+        console.log("Handle Update", formData)
+      } else {
         console.log("Handle save ", formData)
       }
       navigate("/home/opening-stock/add/1")
-    }else if (isAddOther === true){
+    } else if (isAddOther === true) {
       console.log("Add Other")
-      if(id){
+      if (id) {
         console.log("Handle Update", formData)
-        }else{
-          console.log("Handle save ", formData)
-        }
+      } else {
+        console.log("Handle save ", formData)
+      }
       setTimeout(() => {
         navigate("/home/products/create")
       }, 1000);
 
-    }else{
+    } else {
       console.log("Save")
       console.log(isAdSlngPrcGrp, isOpeningStock, isAddOther)
       console.log("Handle save ", formData)
@@ -239,7 +252,7 @@ const AddorEditProduct = () => {
   }
   return (
     <div className='w-full flex flex-col bg-gray-100 p-5 min-h-screen'>
-      <h1 className='text-xl  text-start mb-4'>{id? "Edit":"Add new"}  Product</h1>
+      <h1 className='text-xl  text-start mb-4'>{id ? "Edit" : "Add new"}  Product</h1>
       <div className='w-full p-5 border-t-[3px] bg-white  border-blue-600 pb-[100px] rounded-xl'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
           <div className='flex flex-col'>
@@ -397,7 +410,28 @@ const AddorEditProduct = () => {
                 </div>
               }
             </div>
-            <input value={formData.businessLocation} onChange={(e) => { setFormData({ ...formData, businessLocation: e.target.value }) }} type='text' placeholder='Business Location' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
+            <select value={location} onChange={(e) => {  hadleLocation(e.target.value) }} type='text' placeholder='Business Location' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' >
+            <option value={""}>Selecet Location</option>
+              
+              <option value={"Location 1"}>Location 1</option>
+              <option value={"Location 2"}>Location 2</option>
+              <option value={"Location 2"}>Location 3</option>
+
+            </select>
+            {formData.businessLocation.length > 0 &&
+
+              <div className='w-full border-[1px] border-gray-400 py-1 px-1'>
+                <ul className='grid grid-cols-3 gap-1'>
+                  {formData.businessLocation.map((val, index) => {
+                    return  <li key={index} className='flex items-center py-1 rounded-md px-2 bg-blue-500 text-white text-xs mx-2'>
+                        <p onClick={() => { handleDelete(index) }} className='mx-1 mb-1 cursor-pointer'>x</p>
+                        <h1>{val}</h1>
+                      </li>
+                    
+                  })}
+                </ul>
+              </div>
+            }
           </div>
 
         </div>
@@ -428,7 +462,7 @@ const AddorEditProduct = () => {
 
           <div className='flex flex-col relative'>
             <h1 className='flex text-start font-bold'>Alert Quantity:
-            <FaInfoCircle onMouseOver={() => { setInfor1(true) }} onMouseLeave={() => { setInfor1(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
+              <FaInfoCircle onMouseOver={() => { setInfor1(true) }} onMouseLeave={() => { setInfor1(false) }} size={15} style={{ color: "skyblue" }} className='mx-1 mt-1 cursor-help' />
               {infor1 &&
                 <div className='flex flex-col w-[280px] rounded-md border-[2px] border-gray-400 absolute top-8 p-2 z-10 bg-white shadow-md shadow-gray-300'>
                   <p className='text-start'>Get Alert when product stock reaches or goes below the specified quantity</p>
@@ -439,8 +473,8 @@ const AddorEditProduct = () => {
             </h1>
             <input value={formData.alertQuantity} onChange={(e) => { setFormData({ ...formData, alertQuantity: e.target.value }) }} type='text' placeholder='Alert Quantity' className='border-[1px] px-2 py-1 border-gray-400 focus:outline-none' />
           </div>
-          
-          
+
+
         </div>
         <div className='flex w-full mt-3'>
 
@@ -843,10 +877,10 @@ const AddorEditProduct = () => {
 
       </div>
       <div className='flex items-end justify-end mt-5'>
-        <button onClick={() => {  setIsAdSlngPrcGrp(true);setIsOpeningStock(false);setIsAddOther(false); handleClick(); }} className='bg-orange-500 text-lg px-2 py-2 items-center justify-center flex'>{id? "Update":"Save"} & Add Selling-Price-Group Prices</button>
-        <button onClick={() => {  setIsAdSlngPrcGrp(false);setIsOpeningStock(true);setIsAddOther(false); handleClick(); }} className='bg-blue-500 text-lg px-2 py-2 text-white items-center justify-center flex'>{id? "Update":"Save"} & Add Opening Stock</button>
-        <button onClick={() => {  setIsAdSlngPrcGrp(false);setIsOpeningStock(false);setIsAddOther(true); handleClick(); }} className='bg-red-500 text-lg px-2 py-2 text-white items-center justify-center flex'>{id? "Update":"Save"} & Add Another</button>
-        <button onClick={() => {  setIsAdSlngPrcGrp(false);setIsOpeningStock(false);setIsAddOther(false); handleClick(); }} className='bg-green-500 text-lg px-2 py-2 items-center justify-center flex'>{id? "Update":"Save"}</button>
+        <button onClick={() => { setIsAdSlngPrcGrp(true); setIsOpeningStock(false); setIsAddOther(false); handleClick(); }} className='bg-orange-500 text-lg px-2 py-2 items-center justify-center flex'>{id ? "Update" : "Save"} & Add Selling-Price-Group Prices</button>
+        <button onClick={() => { setIsAdSlngPrcGrp(false); setIsOpeningStock(true); setIsAddOther(false); handleClick(); }} className='bg-blue-500 text-lg px-2 py-2 text-white items-center justify-center flex'>{id ? "Update" : "Save"} & Add Opening Stock</button>
+        <button onClick={() => { setIsAdSlngPrcGrp(false); setIsOpeningStock(false); setIsAddOther(true); handleClick(); }} className='bg-red-500 text-lg px-2 py-2 text-white items-center justify-center flex'>{id ? "Update" : "Save"} & Add Another</button>
+        <button onClick={() => { setIsAdSlngPrcGrp(false); setIsOpeningStock(false); setIsAddOther(false); handleClick(); }} className='bg-green-500 text-lg px-2 py-2 items-center justify-center flex'>{id ? "Update" : "Save"}</button>
       </div>
     </div>
   )
