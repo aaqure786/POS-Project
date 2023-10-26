@@ -100,6 +100,7 @@ const AddProduct = () => {
     woocommerceSync: false,
     productType: ""
   })
+
   const handleClick = (e) => {
     e.preventDefault();
     if (formData.productName.length === 0 ||
@@ -221,7 +222,7 @@ const AddProduct = () => {
                 />
                 <BiChevronDown size={20} className={`${open && "rotate-180"} absolute top-1 right-7`} />
 
-                <FaPlusCircle size={20} style={{ color: "skyblue" }} className='w-8 h-8 p-1  border-[1px] border-gray-600' />
+                <FaPlusCircle  size={20} style={{ color: "skyblue" }} className='w-8 h-8 p-1  border-[1px] border-gray-600' />
 
               </div>
               {open &&

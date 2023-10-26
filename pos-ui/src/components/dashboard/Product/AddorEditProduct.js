@@ -4,7 +4,8 @@ import { FaInfoCircle, FaMinus, FaPlus, FaPlusCircle, FaSearch, FaTimes, FaTrash
 import JoditEditor from 'jodit-react';
 import { AiTwotoneFolderOpen } from 'react-icons/ai';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import { MdCancel } from 'react-icons/md';
+import AddorEditUnits from './units/AddorEditUnits';
 
 const AddorEditProduct = () => {
   const editor = useRef(null)
@@ -83,6 +84,7 @@ const AddorEditProduct = () => {
   const [isClicked, setIsClicked] = useState(false)
   const [isAdSlngPrcGrp, setIsAdSlngPrcGrp] = useState(false)
   const [isOpeningStock, setIsOpeningStock] = useState(false)
+  const [isAddUnit, setIsAddUnit] = useState(false)
   const [isAddOther, setIsAddOther] = useState(false)
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
@@ -245,6 +247,12 @@ const AddorEditProduct = () => {
       console.log("Handle save ", formData)
     }
   }
+  const [isCliked, setisCliked] = useState(false)
+  const displayData = () => {
+    if (isAddUnit) {
+        return <AddorEditUnits  />
+    }
+}
   return (
     <div className='w-full flex flex-col bg-gray-100 p-5 min-h-screen'>
       <h1 className='text-xl  text-start mb-4'>{id ? "Edit" : "Add new"}  Product</h1>
@@ -351,7 +359,7 @@ const AddorEditProduct = () => {
                 />
                 <BiChevronDown size={20} className={`${open && "rotate-180"} absolute top-1 right-7`} />
 
-                <FaPlusCircle size={20} style={{ color: "skyblue" }} className='w-8 h-8 p-1  border-[1px] border-gray-600' />
+                <FaPlusCircle onClick={()=>{setisCliked(true); setIsAddUnit(true);}} size={20} style={{ color: "skyblue" }} className='w-8 h-8 p-1 cursor-pointer  border-[1px] border-gray-600' />
 
               </div>
               {open &&
@@ -924,6 +932,20 @@ const AddorEditProduct = () => {
         <button onClick={() => { setIsAdSlngPrcGrp(false); setIsOpeningStock(false); setIsAddOther(true); handleClick(); }} className='bg-red-500 text-lg px-2 py-2 text-white items-center justify-center flex'>{id ? "Update" : "Save"} & Add Another</button>
         <button onClick={() => { setIsAdSlngPrcGrp(false); setIsOpeningStock(false); setIsAddOther(false); handleClick(); }} className='bg-green-500 text-lg px-2 py-2 items-center justify-center flex'>{id ? "Update" : "Save"}</button>
       </div>
+      {isCliked &&
+                <div className='absolute top-0 flex flex-col items-center z-10 justify-center right-0 bg-black/70 w-full min-h-screen'>
+                    <div className='flex flex-col   w-full md:w-[50%]  mt-10 bg-white px-5 pt-2'>
+                        <div className='flex items-end justify-end '>
+                            <MdCancel onClick={() => { setisCliked(!isCliked); setIsAddUnit(false) }} size={20} />
+
+                        </div>
+                        <div className='flex items-start justify-center'>
+                            {displayData()}
+                        </div>
+                    </div>
+                </div>
+
+            }
     </div>
   )
 }
