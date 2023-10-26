@@ -26,6 +26,7 @@ import {
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import {motion} from "framer-motion"
 // import { useSelector } from 'react-redux'
 
 const SideBar = () => {
@@ -34,17 +35,22 @@ const SideBar = () => {
     const url = URl;
     window.open(url,'_blank')
 }
-  const [usmng, setUsmng] = useState(false);
-  const [li1, setLi1] = useState(false);
-  const [li2, setLi2] = useState(false);
-  const [li3, setLi3] = useState(false);
-  const [li4, setLi4] = useState(false);
-  const [li5, setLi5] = useState(false);
-  const [li6, setLi6] = useState(false);
-  const [li7, setLi7] = useState(false);
-  const [li8, setLi8] = useState(false);
-  const [li9, setLi9] = useState(false);
-  const [li10, setLi10] = useState(false);
+  
+  const [actionList, setActionList] = useState(Array(20).fill(false))
+
+    const toggleDropdown = (index) => {
+        const dropDownAction = [...actionList];
+        dropDownAction.map((val, i) => {
+            if (i === index) {
+                dropDownAction[i] = !dropDownAction[i];
+
+            } else {
+                dropDownAction[i] = false
+            }
+            return dropDownAction
+        })
+        setActionList(dropDownAction);
+      }
 
   const clicked = useSelector((state) => state.sidebar.value);
 
@@ -67,7 +73,7 @@ const SideBar = () => {
       <div className="flex justify-between items-center">
         <div
           onClick={() => {
-            setUsmng(!usmng);
+            toggleDropdown(0)
           }}
           className="flex mx-2 px-2 cursor-pointer py-1 items-center  active:bg-gray-200 justify-start"
         >
@@ -76,8 +82,8 @@ const SideBar = () => {
         </div>
         <BiSolidChevronLeft size={20} className="mx-1" />
       </div>
-      {usmng && (
-        <div className="flex flex-col mx-4">
+      {actionList[0] && (
+        <motion.div initial = {{ height: 0, opacity:0}} animate={{height: actionList[0] ? "auto" : 0, opacity:1}} transition={{duration:0.4}}  className="flex flex-col mx-4">
           <NavLink
             to={"/home/users"}
             className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
@@ -101,13 +107,13 @@ const SideBar = () => {
               Sales Commision Agents
             </h1>
           </NavLink>
-        </div>
+        </motion.div>
       )}
       {/* Contacts */}
-      <div className="flex justify-between items-center">
+      <div  className="flex justify-between items-center">
         <div
           onClick={() => {
-            setLi1(!li1);
+            toggleDropdown(1)
           }}
           className="flex mx-2 px-2 cursor-pointer py-1 items-center  active:bg-gray-200 justify-start"
         >
@@ -116,8 +122,8 @@ const SideBar = () => {
         </div>
         <BiSolidChevronLeft size={20} className="mx-1" />
       </div>
-      {li1 && (
-        <div className="flex flex-col mx-4">
+      {actionList[1] && (
+        <motion.div initial = {{ height:0, opacity:0}} animate={{height: actionList[1] ? "auto" : 0, opacity:1}} transition={{duration:0.4}} className="flex flex-col mx-4">
           <NavLink
             to={"/home/contact/supplier"}
             className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
@@ -151,13 +157,13 @@ const SideBar = () => {
               Import Contacts{" "}
             </h1>
           </NavLink>
-        </div>
+        </motion.div>
       )}
       {/* Products */}
       <div className="flex justify-between items-center">
         <div
           onClick={() => {
-            setLi2(!li2);
+            toggleDropdown(2);
           }}
           className="flex mx-2 px-2 cursor-pointer py-1 items-center  active:bg-gray-200 justify-start"
         >
@@ -166,8 +172,8 @@ const SideBar = () => {
         </div>
         <BiSolidChevronLeft size={20} className="mx-1" />
       </div>
-      {li2 && (
-        <div className="flex flex-col mx-4">
+      {actionList[2] && (
+        <motion.div initial = {{ height:0, opacity:0}} animate={{height: actionList[2] ? "auto" : 0, opacity:1}} transition={{duration:0.4}} className="flex flex-col mx-4">
           <NavLink
             to={"/home/products"}
             className="flex hover:text-black aria-[current=page]:font-bold  aria-[current=page]:text-black  py-1 items-center   justify-start"
@@ -264,7 +270,7 @@ const SideBar = () => {
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Warranties</h1>
           </NavLink>
-        </div>
+        </motion.div>
       )}
       {/* Manufacturing */}
       <div className="flex justify-between items-center">
@@ -280,7 +286,7 @@ const SideBar = () => {
       <div className="flex justify-between items-center">
         <div
           onClick={() => {
-            setLi3(!li3);
+            toggleDropdown(3)
           }}
           className="flex mx-2 px-2 cursor-pointer py-1 items-center  active:bg-gray-200 justify-start"
         >
@@ -289,8 +295,8 @@ const SideBar = () => {
         </div>
         <BiSolidChevronLeft size={20} className="mx-1" />
       </div>
-      {li3 && (
-        <div className="flex flex-col mx-4">
+      {actionList[3] && (
+        <motion.div initial = {{ height:0, opacity:0}} animate={{height: actionList[3] ? "auto" : 0, opacity:1}} transition={{duration:0.4}} className="flex flex-col mx-4">
           <NavLink
             to={"/home/purchase-order"}
             className="flex hover:text-black  py-1 items-center  aria-[current=page]:font-bold aria-[current=page]:text-black justify-start"
@@ -325,13 +331,13 @@ const SideBar = () => {
               List Purchase Return
             </h1>
           </NavLink>
-        </div>
+        </motion.div>
       )}
       {/* Sell */}
       <div className="flex justify-between items-center">
         <div
           onClick={() => {
-            setLi4(!li4);
+            toggleDropdown(4)
           }}
           className="flex mx-2 px-2  cursor-pointer py-1 items-center  active:bg-gray-200 justify-start"
         >
@@ -341,7 +347,8 @@ const SideBar = () => {
         <BiSolidChevronLeft size={20} className="mx-1" />
       </div>
 
-      {li4 && <div className='flex flex-col mx-4'>
+      {actionList[4] && 
+      <motion.div initial = {{ height:0, opacity:0}} animate={{height: actionList[4] ? "auto" : 0, opacity:1}} transition={{duration:0.4}}  className='flex flex-col mx-4'>
         <NavLink to={"/home/sells"} className='flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start'>
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>All Sales</h1>
@@ -394,7 +401,7 @@ const SideBar = () => {
           <BsArrowRight size={15} />
           <h1 className=' mt-1 ml-5 text-gray-500 text-sm '>Import Sales</h1>
         </NavLink>
-      </div>
+      </motion.div>
       }
 
 
@@ -402,7 +409,7 @@ const SideBar = () => {
       <div className="flex justify-between items-center">
         <div
           onClick={() => {
-            setLi5(!li5);
+            toggleDropdown(5);
           }}
           className="flex mx-2 px-2 cursor-pointer py-1 items-center  active:bg-gray-200 justify-start"
         >
@@ -411,8 +418,8 @@ const SideBar = () => {
         </div>
         <BiSolidChevronLeft size={20} className="mx-1" />
       </div>
-      {li5 && (
-        <div className="flex flex-col mx-4">
+      {actionList[5] && (
+        <motion.div initial = {{ height:0, opacity:0}} animate={{height: actionList[5] ? "auto" : 0, opacity:1}} transition={{duration:0.4}} className="flex flex-col mx-4">
           <NavLink
             to={"/home/stock-transfer"}
             className="flex hover:text-black  aria-[current=page]:font-bold aria-[current=page]:text-black py-1 items-center   justify-start"
@@ -431,13 +438,13 @@ const SideBar = () => {
               Add Stock Transfer
             </h1>
           </NavLink>
-        </div>
+        </motion.div>
       )}
       {/* Stock Adjustment */}
       <div className="flex justify-between items-center">
         <div
           onClick={() => {
-            setLi6(!li6);
+            toggleDropdown(6);
           }}
           className="flex mx-2 px-2 cursor-pointer py-1 items-center   active:bg-gray-200 justify-start"
         >
@@ -446,8 +453,8 @@ const SideBar = () => {
         </div>
         <BiSolidChevronLeft size={20} className="mx-1" />
       </div>
-      {li6 && (
-        <div className="flex flex-col mx-4">
+      {actionList[6] && (
+        <motion.div initial = {{ height:0, opacity:0}} animate={{height: actionList[6] ? "auto" : 0, opacity:1}} transition={{duration:0.4}} className="flex flex-col mx-4">
           <NavLink
             to={"/home/stock-adjustments"}
             className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
@@ -466,13 +473,13 @@ const SideBar = () => {
               Add Stock Adjustment
             </h1>
           </Link>
-        </div>
+        </motion.div>
       )}
       {/* Expenses */}
       <div className="flex justify-between items-center">
         <div
           onClick={() => {
-            setLi7(!li7);
+            toggleDropdown(7);
           }}
           className="flex mx-2 px-2 cursor-pointer py-1 items-center  active:bg-gray-200 justify-start"
         >
@@ -481,8 +488,8 @@ const SideBar = () => {
         </div>
         <BiSolidChevronLeft size={20} className="mx-1" />
       </div>
-      {li7 && (
-        <div className="flex flex-col mx-4">
+      {actionList[7] && (
+        <motion.div initial = {{ height:0, opacity:0}} animate={{height: actionList[7] ? "auto" : 0, opacity:1}} transition={{duration:0.4}} className="flex flex-col mx-4">
           <NavLink
             to={"/home/expenses"}
             className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
@@ -506,13 +513,13 @@ const SideBar = () => {
               Expense Categories
             </h1>
           </NavLink>
-        </div>
+        </motion.div>
       )}
       {/* Payment Accounts */}
       <div className="flex justify-between items-center">
         <div
           onClick={() => {
-            setLi8(!li8);
+            toggleDropdown(8);
           }}
           className="flex mx-2 px-2 cursor-pointer py-1 items-center  active:bg-gray-200 justify-start"
         >
@@ -521,8 +528,8 @@ const SideBar = () => {
         </div>
         <BiSolidChevronLeft size={20} className="mx-1" />
       </div>
-      {li8 && (
-        <div className="flex flex-col mx-4">
+      {actionList[8] && (
+        <motion.div initial = {{ height:0, opacity:0}} animate={{height: actionList[8] ? "auto" : 0, opacity:1}} transition={{duration:0.4}} className="flex flex-col mx-4">
           <NavLink
             to={"/home/accounts/accounts"}
             className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
@@ -560,13 +567,13 @@ const SideBar = () => {
               Payment Account Report
             </h1>
           </NavLink>
-        </div>
+        </motion.div>
       )}
       {/* Reports */}
       <div className="flex justify-between items-center">
         <div
           onClick={() => {
-            setLi9(!li9);
+           toggleDropdown(9);
           }}
           className="flex mx-2 px-2 cursor-pointer py-1 items-center  active:bg-gray-200 justify-start"
         >
@@ -575,8 +582,8 @@ const SideBar = () => {
         </div>
         <BiSolidChevronLeft size={20} className="mx-1" />
       </div>
-      {li9 && (
-        <div className="flex flex-col mx-4">
+      {actionList[9] && (
+        <motion.div initial = {{ height:0, opacity:0}} animate={{height: actionList[9] ? "auto" : 0, opacity:1}} transition={{duration:0.4}} className="flex flex-col mx-4">
           <NavLink
             to={"/home/reports/profit-loss"}
             className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
@@ -745,7 +752,7 @@ const SideBar = () => {
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">Activity Log</h1>
           </NavLink>
-        </div>
+        </motion.div>
       )}
       {/* Booking */}
       <div className="flex justify-between items-center">
@@ -791,7 +798,7 @@ const SideBar = () => {
       <div className="flex justify-between items-center">
         <div
           onClick={() => {
-            setLi10(!li10);
+            toggleDropdown(10);
           }}
           className="flex mx-2 px-2 cursor-pointer py-1 items-center  active:bg-gray-200 justify-start"
         >
@@ -800,8 +807,8 @@ const SideBar = () => {
         </div>
         <BiSolidChevronLeft size={20} className="mx-1" />
       </div>
-      {li10 && (
-        <div className="flex flex-col mx-4">
+      {actionList[10] && (
+        <motion.div initial = {{ height:0, opacity:0}} animate={{height: actionList[10] ? "auto" : 0, opacity:1}} transition={{duration:0.4}} className="flex flex-col mx-4">
           <Link
             to={"/"}
             className="flex hover:text-black  py-1 items-center   justify-start"
@@ -879,7 +886,7 @@ const SideBar = () => {
               Package Subscriptions
             </h1>
           </Link>
-        </div>
+        </motion.div>
       )}
       {/* Project */}
       <div className="flex justify-between items-center">

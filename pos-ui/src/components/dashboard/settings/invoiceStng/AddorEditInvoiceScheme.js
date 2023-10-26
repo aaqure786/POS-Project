@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { FaCheckCircle, FaInfo, FaInfoCircle } from 'react-icons/fa';
 
 const AddorEditInvoiceScheme = (props) => {
+    const [formatValue, setFormatValue] = useState('')
+
     const [formData, setFormData] = useState({
         Name:'',
-        numberingTypes: '',
+        numberingTypes: '0',
         isDefault:false,
+        selectedFormat:formatValue,
         prefix:"",
 
     })
@@ -30,13 +33,13 @@ const AddorEditInvoiceScheme = (props) => {
             <h1 className="text-xl text-start font-bold ">{props.id ? "Edit" : "Add"} Invoice Scheme</h1>
 
             <div className='grid mt-5 grid-cols-1 md:grid-cols-3 gap-5'>
-                <div onClick={() => { setFormat1(true); setFormt2(false) }} className='flex h-[100px] bg-gray-300 items-center justify-between'>
+                <div onClick={() => { setFormat1(true); setFormt2(false); setFormatValue("XXXX") }} className='flex h-[100px] bg-gray-300 items-center justify-between'>
                     <h1 className='text-xl font-bold'>FORMAT: XXXX</h1>
                     {format1 &&
                         <FaCheckCircle style={{ color: "red" }} />
                     }
                 </div>
-                <div onClick={() => { setFormat1(false); setFormt2(true) }} className='flex h-[100px] bg-gray-300 items-center justify-between'>
+                <div onClick={() => { setFormat1(false); setFormt2(true); setFormatValue("2023-XXXX") }} className='flex h-[100px] bg-gray-300 items-center justify-between'>
                     <h1 className='text-xl font-bold'>FORMAT: 2023-XXXX</h1>
                     {formt2 &&
                         <FaCheckCircle style={{ color: "red" }} />
@@ -86,7 +89,7 @@ const AddorEditInvoiceScheme = (props) => {
 
                     </select>
                 </div>
-                {formData.numberingTypes.length > 0 &&
+                {formatValue.length > 0 &&
                     <div className='grid grid-cols-1 md:grid-cols-2'>
                         <div className='flex flex-col mt-5 mx-5'>
                             <h2 className="text-start flex ">
@@ -129,7 +132,7 @@ const AddorEditInvoiceScheme = (props) => {
                 }
 
             </div>
-            <div className='flex items-end justify-end'>
+            <div className='flex items-end mt-5 justify-end'>
                 <button
                     onClick={handleClick}
                     className="bg-green-500 w-[100px] px-2 py-2 items-center justify-center flex"
