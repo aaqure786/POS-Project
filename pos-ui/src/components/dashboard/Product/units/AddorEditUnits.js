@@ -7,7 +7,9 @@ const AddorEditUnits = (props) => {
         name: "",
         shortName: "",
         allowDecimal: "",
-        multipleOfOtherUnits: false
+        multipleOfOtherUnits: false,
+        multiple:'',
+        baseUnit:""
     })
     const [info, setInfo] = useState(false)
 
@@ -78,8 +80,8 @@ const AddorEditUnits = (props) => {
                             <h1 className='font-bold mx-5'> = </h1>
                         </div>
 
-                        <input type='text' className='border-[1px] border-gray-400 px-2 py-1 col-span-2 focus:outline-none' />
-                        <select  className='border-[1px] border-gray-400 px-2 py-1 focus:outline-none mx-2' >
+                        <input  value={formData.multiple} onChange={(e) => { setFormData({ ...formData, multiple: e.target.value }) }} type='text' className='border-[1px] border-gray-400 px-2 py-1 col-span-2 focus:outline-none' />
+                        <select value={formData.baseUnit} onChange={(e) => { setFormData({ ...formData, baseUnit: e.target.value }) }}  className='border-[1px] border-gray-400 px-2 py-1 focus:outline-none mx-2' >
                             <option value={""}>Select Base Unit</option>
                             <option value={"Pieces(Pc(s))"}>Pieces(Pc(s))</option>
                             <option value={"Test Unit(KG)"}>Test Unit(KG)</option>

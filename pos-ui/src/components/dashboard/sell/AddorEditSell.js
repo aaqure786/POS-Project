@@ -157,8 +157,23 @@ const AddorEditSell = () => {
         }else if(dt ==="Fixed"){
             total = (q*p) - d
             return total
+        }else{
+           total = (q*p)
+           return total 
         }
     }
+    const finalDiscount =(p,d,dt)=>{
+        let total = 0
+        if(dt ==="Percentage"){
+            total = (d/100)*(p)
+            return total
+        }else if(dt ==="Fixed"){
+            total =  d
+            return total
+        }
+    }
+
+    
     const findTotal = () => {
         let total = 0
         formData.inputData.map(val => {
@@ -166,8 +181,16 @@ const AddorEditSell = () => {
         })
         return total
     }
-    const total = findTotal()
-
+    let total = findTotal()
+    const totalPayable = (ttl)=>{
+        ttl =parseFloat(ttl)  - parseFloat(formData.discount);
+        ttl =parseFloat(ttl)  + parseFloat(formData.shippingCharges);
+        ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount)
+        ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount1)
+        ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount2)
+        ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount3)
+        return ttl
+    }
     const [isserror, setIsserror] = useState(false)
     const handleClick = (e) => {
 
@@ -435,7 +458,7 @@ const AddorEditSell = () => {
                     </div>
                     <div className='flex flex-col'>
                         <h1 className='flex text-sm text-start font-bold'>Invoice No:</h1>
-                        <input value={formData.invoiceNo} onChange={(e) => { setFormData({ ...formData, invoiceNo: e.target.value }) }} type='Text' placeholder='Invoice No' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                        <input value={formData.invoiceNo} onChange={(e) => { setFormData({ ...formData, invoiceNo: e.target.value }) }} type='text' placeholder='Invoice No' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
                         <h1 className='flex text-sm text-start '>Keep Blank to autogenerate</h1>
 
                     </div>
@@ -485,7 +508,7 @@ const AddorEditSell = () => {
                         <div className='flex w-full   md:mt-0 relative'>
                             <div className='flex w-full'>
                                 < FaSearch size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
-                                <input onClick={() => { setIsClicked(!isClicked) }} value={inputValue1} onChange={(e) => { setInputValue1(e.target.value) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 w-full py-[2px] border-[1px] border-gray-600 focus:outline-none' />
+                                <input onClick={() => { setIsClicked(!isClicked) }} value={inputValue1} onChange={(e) => { setInputValue1(e.target.value) }} type='text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 w-full py-[2px] border-[1px] border-gray-600 focus:outline-none' />
                             </div>
                             {isClicked &&
                                 <ul
@@ -623,7 +646,7 @@ const AddorEditSell = () => {
                         <div className='flex'>
                             < FaInfo size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
 
-                            <select value={formData.discountType} onChange={(e) => { setFormData({ ...formData, discountType: e.target.value }) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
+                            <select value={formData.discountType} onChange={(e) => { setFormData({ ...formData, discountType: e.target.value }) }} type='text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
                                 <option value={""}>None</option>
                                 <option value={"Fixed"}>Fixed</option>
                                 <option value={"Percentage"}>Percentage</option>
@@ -646,7 +669,7 @@ const AddorEditSell = () => {
 
                     </div>
                     <div className='flex flex-col items-end'>
-                        <h1 className='flex text-sm  font-bold'>Discount <p className='mx-2'>(-) {formData.discount}</p> </h1>
+                        <h1 className='flex text-sm  font-bold'>Discount <p className='mx-2'>(-) {formData.discount = finalDiscount(total,  formData.discountAmount,formData.discountType)}</p> </h1>
 
                     </div>
                 </div>
@@ -680,12 +703,12 @@ const AddorEditSell = () => {
                         <div className='flex'>
                             < FaInfo size={15} className='w-8 h-8 p-2 border-[1px] border-gray-600' />
 
-                            <select value={formData.orderTaxType} onChange={(e) => { setFormData({ ...formData, orderTaxType: e.target.value }) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
+                            <select value={formData.orderTaxType} onChange={(e) => { setFormData({ ...formData, orderTaxType: e.target.value }) }} type='text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
                                 <option value={""}>None</option>
-                                <option value={"sss"}>sss</option>f
-                                <option value={"Nikki Wolf"}>Nikki Wolf</option>
-                                <option value={"Nikki Wolf"}>Nikki Wolf</option>
-                                <option value={"Pepsi"}>Pepsi</option>
+                                <option value={5}>sss</option>f
+                                <option value={6}>Nikki Wolf</option>
+                                <option value={7}>Nikki Wolf</option>
+                                <option value={8}>Pepsi</option>
 
                             </select>
                         </div>
@@ -710,12 +733,12 @@ const AddorEditSell = () => {
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
                     <div className='flex flex-col '>
                         <h1 className='flex text-sm text-start font-bold'>Shipping Detials:</h1>
-                        <textarea rows={4} value={formData.shippingDetails} onChange={(e) => { setFormData({ ...formData, shippingDetails: e.target.value }) }} placeholder='Shipping Details' type='Text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                        <textarea rows={4} value={formData.shippingDetails} onChange={(e) => { setFormData({ ...formData, shippingDetails: e.target.value }) }} placeholder='Shipping Details' type='text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
 
                     </div>
                     <div className='flex flex-col'>
                         <h1 className='flex text-sm text-start font-bold'>Shipping Address:</h1>
-                        <textarea rows={4} value={formData.shippingAddress} onChange={(e) => { setFormData({ ...formData, shippingAddress: e.target.value }) }} placeholder='Shipping Details' type='Text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                        <textarea rows={4} value={formData.shippingAddress} onChange={(e) => { setFormData({ ...formData, shippingAddress: e.target.value }) }} placeholder='Shipping Details' type='text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
 
                     </div>
                     <div className='flex flex-col '>
@@ -728,7 +751,7 @@ const AddorEditSell = () => {
                     <div className='flex flex-col '>
                         <h1 className='flex text-sm text-start font-bold'>Shipping Status:</h1>
 
-                        <select value={formData.shippingStatus} onChange={(e) => { setFormData({ ...formData, shippingStatus: e.target.value }) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
+                        <select value={formData.shippingStatus} onChange={(e) => { setFormData({ ...formData, shippingStatus: e.target.value }) }} type='text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
                             <option value={""}>Please Selecet</option>
                             <option value={"Ordered"}>Ordered</option>f
                             <option value={"Packed"}>Packed</option>
@@ -747,7 +770,7 @@ const AddorEditSell = () => {
                     <div className='flex flex-col '>
                         <h1 className='flex text-sm text-start font-bold'>Delivery Person:</h1>
 
-                        <select value={formData.deliveryPerson} onChange={(e) => { setFormData({ ...formData, deliveryPerson: e.target.value }) }} type='Text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
+                        <select value={formData.deliveryPerson} onChange={(e) => { setFormData({ ...formData, deliveryPerson: e.target.value }) }} type='text' placeholder='Enter Product name / SKU / Scan bar code' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none'>
                             <option value={""}>Please Selecet</option>
                             <option value={"Demo Admin"}>Demo Admin</option>f
                             <option value={"Ismail Shah"}>Ismail Shah</option>f
@@ -783,13 +806,13 @@ const AddorEditSell = () => {
                                 <h1 className='text-sm mx-1 font-bold'> Additional Expense Name</h1>
                                 <h1 className='text-sm mx-1 font-bold'> Amount</h1>
                                 <input value={formData.additionalExpenseName} onChange={(e) => { setFormData({ ...formData, additionalExpenseName: e.target.value }) }} type='text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
-                                <input value={formData.additionalExpenseAmount1} onChange={(e) => { setFormData({ ...formData, additionalExpenseAmount1: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                                <input value={formData.additionalExpenseAmount} onChange={(e) => { setFormData({ ...formData, additionalExpenseAmount: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
                                 <input value={formData.additionalExpenseName1} onChange={(e) => { setFormData({ ...formData, additionalExpenseName1: e.target.value }) }} type='text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
-                                <input value={formData.additionalExpenseAmount2} onChange={(e) => { setFormData({ ...formData, additionalExpenseAmount2: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                                <input value={formData.additionalExpenseAmount1} onChange={(e) => { setFormData({ ...formData, additionalExpenseAmount1: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
                                 <input value={formData.additionalExpenseName2} onChange={(e) => { setFormData({ ...formData, additionalExpenseName2: e.target.value }) }} type='text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
-                                <input value={formData.additionalExpenseAmount3} onChange={(e) => { setFormData({ ...formData, additionalExpenseAmount3: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                                <input value={formData.additionalExpenseAmount2} onChange={(e) => { setFormData({ ...formData, additionalExpenseAmount2: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
                                 <input value={formData.additionalExpenseName3} onChange={(e) => { setFormData({ ...formData, additionalExpenseName3: e.target.value }) }} type='text' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
-                                <input value={formData.additionalExpenseAmount4} onChange={(e) => { setFormData({ ...formData, additionalExpenseAmount4: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                                <input value={formData.additionalExpenseAmount3} onChange={(e) => { setFormData({ ...formData, additionalExpenseAmount3: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
 
                             </div>
                         </div>
@@ -798,8 +821,8 @@ const AddorEditSell = () => {
                 </div>
                 <div className='flex items-end justify-end mt-5'>
                     <div className='flex '>
-                        <h1 className='font-bold mx-2'>Purchase Total:</h1>
-                        <h1 className=' mx-2'>Rs 0.00</h1>
+                        <h1 className='text-center font-bold mx-2'>Total Payable:</h1>
+                        <h1 className=' mx-2'>{totalPayable(total)}</h1>
 
                     </div>
                 </div>
