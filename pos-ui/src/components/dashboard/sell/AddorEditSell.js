@@ -185,7 +185,7 @@ const AddorEditSell = () => {
     const totalPayable = (ttl)=>{
         ttl =parseFloat(ttl)  - parseFloat(formData.discount);
         ttl =parseFloat(ttl)  + parseFloat(formData.shippingCharges);
-        ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount)
+        ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount)    
         ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount1)
         ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount2)
         ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount3)

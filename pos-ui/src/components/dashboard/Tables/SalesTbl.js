@@ -106,13 +106,18 @@ const SalesTbl = () => {
       });
   };
 
-  const [crpage, setCrpage] = useState(1);
-  const rcrdprpg = 5;
-  const lasIndex = crpage * rcrdprpg;
-  const frstIndex = lasIndex - rcrdprpg;
-  const record = dummyData.slice(frstIndex, lasIndex);
-  const npage = Math.ceil(dummyData.length / rcrdprpg);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
+  const [search, setSearch] = useState('')
+  const [recordPerpage, setRecordPerpage] = useState(25)
+  const [crpage, setCrpage] = useState(1)
+  
+  const lasIndex = crpage * recordPerpage
+  const frstIndex = lasIndex - recordPerpage
+  const record = dummyData.filter((item)=>{
+      return search.toLocaleLowerCase() === '' ? item : (item.Name.toLocaleLowerCase().includes(search) || item.Username.toLocaleLowerCase().includes(search))
+  }).slice(frstIndex, lasIndex)
+  const npage = Math.ceil(dummyData.length / recordPerpage)
+  const numbers = [...Array(npage + 1).keys()].slice(1)
+
 
   const [colvis, setColvis] = useState(false);
   const [col1, setCol1] = useState(true);
@@ -205,7 +210,7 @@ const SalesTbl = () => {
       <div className="flex  flex-col md:flex-row  items-center justify-center mt-3 md:justify-between mx-5">
         <div className="flex items-center justify-center my-2 md:my-0">
           <h1 className="text-sm mx-1">Show</h1>
-          <select className="w-[100px] border-[1px] border-black focus:outline-none text-center">
+          <select value={recordPerpage} onChange={(e)=>{setRecordPerpage(e.target.value)}} className="w-[100px] border-[1px] border-black focus:outline-none text-center">
             <option value={"25"}> 25</option>
             <option value={"50"}> 50</option>
             <option value={"100"}> 100</option>
@@ -428,6 +433,8 @@ const SalesTbl = () => {
         <div className="flex items-center justify-center  w-[250px] md:w-auto my-2 md:my-0 border-[1px] border-black">
           <FaSearch size={15} className=" mt-1 mx-1" />
           <input
+            value={search}
+            onChange={(e)=>{setSearch(e.target.value)}}
             className=" focus:outline-none px-2 py-1"
             type="search"
             id="search"
