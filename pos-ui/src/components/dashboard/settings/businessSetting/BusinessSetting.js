@@ -5,9 +5,9 @@ import { NavLink, Outlet } from 'react-router-dom'
 const BusinessSetting = () => {
     const [info3, setInfo3] = useState(false)
     return (
-        <div className='flex flex-col bg-gray-100 p-5'>
+        <div className='flex flex-col bg-gray-100 p-5 '>
             <h1 className='text-start text-2xl font-semibold'>Business Setting</h1>
-            <div className='flex m-10 bg-white shadow-xl shadow-gray-400'>
+            <div className='flex m-10 bg-white shadow-xl shadow-gray-400 min-h-screen'>
                 <div className='flex flex-col w-1/6'>
                     <NavLink to={"business"} className={`flex py-3 border-[1px] border-gray-400 aria-[current=page]:text-white aria-[current=page]:bg-blue-600  items-center justify-center`}>
                         <h1 className='font-bold'>Business</h1>
