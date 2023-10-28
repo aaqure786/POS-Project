@@ -111,6 +111,12 @@ import InvoiceStng from './components/dashboard/settings/invoiceStng/InvoiceStng
 import AddorEditInvoiceLayout from './components/dashboard/settings/invoiceStng/AddorEditInvoiceLayout';
 import BusinessLocation from './components/dashboard/settings/businesLocation/BusinessLocation';
 import Settings from './components/dashboard/settings/businesLocation/Settings';
+import BusinessSetting from './components/dashboard/settings/businessSetting/BusinessSetting';
+import Business from './components/dashboard/settings/businessSetting/Business';
+import Tax from './components/dashboard/settings/businessSetting/Tax';
+import System from './components/dashboard/settings/businessSetting/System';
+import Prefixes from './components/dashboard/settings/businessSetting/Prefixes';
+import CustomLables from './components/dashboard/settings/businessSetting/CustomLables';
 
 
 function App() {
@@ -192,7 +198,7 @@ function App() {
             <Route path='/home/sells/edit/:id' element={<AddorEditSell />} />
             <Route path='/home/products/create' element={<AddorEditProduct />} />
             <Route path='/home/products/edit/:id' element={<AddorEditProduct />} />
-                        
+
             <Route path='/home/purchase-order' element={<PurchaseOrder />} />
             <Route path='/home/purchase-order/create' element={<AddorEditPurchaseOrder />} />
             <Route path='/home/purchase-order/eidt/:id' element={<AddorEditPurchaseOrder />} />
@@ -240,7 +246,7 @@ function App() {
             <Route path='/home/accounts/accounts' element={<ListAccounts />} >
               <Route path='/home/accounts/accounts/othe_accounts' element={<OtherAccounts />} />
               <Route path='/home/accounts/accounts/accounts_types' element={<AccountTypes />} />
-              
+
             </Route>
             <Route path='/home/accounts/balance-sheet' element={<BalanceSheet />} />
             <Route path='/home/accounts/trial-balance' element={<TrialBalance />} />
@@ -311,6 +317,15 @@ function App() {
             <Route path='/home/invoice-layout/:id/edit' element={<AddorEditInvoiceLayout />} />
             <Route path='/home/business-location' element={<BusinessLocation />} />
             <Route path='/home/business-location/settings/:id' element={<Settings />} />
+
+            <Route path='/home/business-settings' element={<BusinessSetting />} >
+              <Route path='/home/business-settings/business' element={<Business />} />
+              <Route path='/home/business-settings/tax' element={<Tax />} />
+              <Route path='/home/business-settings/system' element={<System />} />
+              <Route path='/home/business-settings/prefixes' element={<Prefixes />} />
+              <Route path='/home/business-settings/custom-lables' element={<CustomLables />} />
+
+            </Route>
 
 
 

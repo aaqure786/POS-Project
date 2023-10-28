@@ -4,7 +4,8 @@ const AddorEditExpenseCategory = (props) => {
     const [formData, setFormData] = useState({
         categoryName:'',
         categoryCode:'',
-        subCategory:false
+        subCategory:false,
+        subCatg:""
     })
     const [isserror, setIsserror] = useState(false);
     const handleClick = (e) => {
@@ -47,6 +48,18 @@ const AddorEditExpenseCategory = (props) => {
                         <b>Add as Sub-Category</b>
                     </h2>
                 </div>
+                {formData.subCategory === true && 
+                    <div className='flex flex-col'>
+                        <h1 className='text-start font-bold'>Select Parent Category</h1>
+                        <select value={formData.subCatg} onChange={(e) => { setFormData({ ...formData, subCatg: e.target.value }) }}  className='border-[1px] border-gray-400 px-2 py-1 focus:outline-none mx-2' >
+                            <option value={""}>None</option>
+                            <option value={"Test Expense Category"}>Test Expense Category</option>
+                            <option value={"Fuel Expenses"}>Fuel Expenses</option>
+                            
+                        </select>
+
+                    </div>
+                }
             </div>
             <div className='flex items-end justify-end'>
                 <button

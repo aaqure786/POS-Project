@@ -809,15 +809,15 @@ const SideBar = () => {
       </div>
       {actionList[10] && (
         <motion.div initial = {{ height:0, opacity:0}} animate={{height: actionList[10] ? "auto" : 0, opacity:1}} transition={{duration:0.4}} className="flex flex-col mx-4">
-          <Link
-            to={"/"}
-            className="flex hover:text-black  py-1 items-center   justify-start"
+          <NavLink
+            to={"/home/business-settings"}
+            className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
           >
             <BsArrowRight size={15} />
             <h1 className=" mt-1 ml-5 text-gray-500 text-sm ">
               Business Settings
             </h1>
-          </Link>
+          </NavLink>
           <NavLink
             to={"/home/business-location"}
             className="flex hover:text-black aria-[current=page]:font-bold aria-[current=page]:text-black  py-1 items-center   justify-start"
