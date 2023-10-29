@@ -75,6 +75,33 @@ const AddorEditPucReturn = () => {
     const [isUpdate, setIsUpdate] = useState(false)
     const [selectedRow, setSelectedRow] = useState(-1)
     const [inputData, setInputData] = useState([])
+
+    // const subtotal =(q,p,d,dt)=>{
+    //     let total = 0
+    //     if(dt ==="Percentage"){
+    //         total = (q*p) - (d/100)*(q*p)
+    //         return total
+    //     }else if(dt ==="Fixed"){
+    //         total = (q*p) - d
+    //         return total
+    //     }else{
+    //        total = (q*p)
+    //        return total 
+    //     }
+    // }
+    // const finalDiscount =(p,d,dt)=>{
+    //     let total = 0
+    //     if(dt ==="Percentage"){
+    //         total = (d/100)*(p)
+    //         return total
+    //     }else if(dt ==="Fixed"){
+    //         total =  d
+    //         return total
+    //     }
+    // }
+
+
+
     const AddToArray = () => {
         if (isUpdate === true && selectedRow !== -1) {
             let newArray = inputData

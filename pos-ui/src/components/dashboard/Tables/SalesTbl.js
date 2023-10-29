@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import {
   FaColumns,
@@ -25,8 +25,9 @@ import { Link } from "react-router-dom";
 import ViewSell from "../sell/ViewSell";
 import EditShipping from "../sell/EditShipping";
 import ViewPayment from "../payments/ViewPayment";
+import Invoice from "../sell/Invoice";
 
-const SalesTbl = () => {
+const SalesTbl = ({customer}) => {
   const dummyData = [
     {
       id: 1,
@@ -106,14 +107,24 @@ const SalesTbl = () => {
       });
   };
 
+ 
   const [search, setSearch] = useState('')
+  useEffect(() => {
+    setSearch(customer.toLowerCase())
+    
+  }, [customer])
+  
   const [recordPerpage, setRecordPerpage] = useState(25)
   const [crpage, setCrpage] = useState(1)
   
   const lasIndex = crpage * recordPerpage
   const frstIndex = lasIndex - recordPerpage
   const record = dummyData.filter((item)=>{
-      return search.toLocaleLowerCase() === '' ? item : (item.Name.toLocaleLowerCase().includes(search) || item.Username.toLocaleLowerCase().includes(search))
+      return search.toLowerCase()  === '' ?
+       item : (item.Name.toLowerCase().includes(search) ||
+        item.Username.toLowerCase().includes(search )
+        
+        )
   }).slice(frstIndex, lasIndex)
   const npage = Math.ceil(dummyData.length / recordPerpage)
   const numbers = [...Array(npage + 1).keys()].slice(1)
@@ -195,6 +206,7 @@ const SalesTbl = () => {
 
   const [isshow, setIsshow] = useState(false);
   const [showId, setShowId] = useState(0);
+  const [print, setPrint] = useState(false)
   const displayData = () => {
     if (showId !== 0 && isshow === true) {
       return <ViewSell id={showId} />;
@@ -202,6 +214,8 @@ const SalesTbl = () => {
       return <EditShipping id={editShipId} />;
     } else if (isShowPayment === true) {
       return <ViewPayment id={paymentId} />;
+    }else if (print === true) {
+      return <Invoice number={showId} />;
     }
   };
 
@@ -574,13 +588,14 @@ const SalesTbl = () => {
                             <li className="w-full">
                               <div
                                 onClick={() => {
-                                  setIsedit(!isedit);
+                                  setPrint(!print);
+                                  setShowId(value.id)
                                   setIsCliked(!isCliked);
                                 }}
                                 className="flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center "
                               >
                                 <FaPrint size={15} />
-                                <h1 className="text-sm">Print</h1>
+                                <h1 className="text-sm">Print Invoice</h1>
                               </div>
                             </li>
                             <li className="w-full">
@@ -752,6 +767,7 @@ const SalesTbl = () => {
                   setIsedit(false);
                   setIsshow(false);
                   setShowId(0);
+                  setPrint(false)
                 }}
                 size={20}
               />

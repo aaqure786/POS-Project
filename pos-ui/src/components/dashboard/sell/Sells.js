@@ -141,7 +141,7 @@ const Sells = () => {
                                             <li
                                                 key={data?.Name}
                                                 className={`p-2 text-sm hover:bg-sky-600 hover:text-white
-                                        ${data?.Name?.toLowerCase() === formData.supplier?.toLowerCase() &&
+                                        ${data?.Name?.toLowerCase() === formData.customer?.toLowerCase() &&
                                                     "bg-sky-600 text-white"
                                                     }
                                          ${data?.Name?.toLowerCase().startsWith(inputValue)
@@ -149,8 +149,8 @@ const Sells = () => {
                                                         : "hidden"
                                                     }`}
                                                 onClick={() => {
-                                                    if (data?.Name?.toLowerCase() !== formData.supplier.toLowerCase()) {
-                                                        setFormData({ ...formData, supplier: data?.Name })
+                                                    if (data?.Name?.toLowerCase() !== formData.customer.toLowerCase()) {
+                                                        setFormData({ ...formData, customer: data?.Name })
                                                         setOpen(false);
                                                         setInputValue("");
                                                     }
@@ -287,7 +287,7 @@ const Sells = () => {
 
                 </div>
 
-                <SalesTbl />
+                <SalesTbl customer={formData.customer} businesLocation= {formData.businesLocation} paymentStatus= {formData.paymentStatus}/>
             </div>
         </div>
     )

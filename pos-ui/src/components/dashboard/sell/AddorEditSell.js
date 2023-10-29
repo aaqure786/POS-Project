@@ -276,7 +276,7 @@ const AddorEditSell = () => {
                     {open1 &&
                         <ul
 
-                            className={`bg-white  w-[278px] mx-[30px] border-[1px] z-10 absolute top-8 border-gray-600 overflow-y-auto ${open1 ? "max-h-60" : "max-h-0"} `}
+                            className={`bg-white  w-[278px] mx-[30px] border-[1px] z-10 absolute top-8 border-gray-600 overflow-y-auto ${open1 ? "max-h-30" : "max-h-0"} `}
                         >
                             <div className="flex items-center px-2 sticky top-0 bg-white">
                                 <AiOutlineSearch size={18} className="text-gray-700" />
@@ -336,7 +336,7 @@ const AddorEditSell = () => {
                             {open &&
                                 <ul
 
-                                    className={`bg-white  w-[278px] mx-[30px] border-[1px] absolute top-8 border-gray-600 overflow-y-auto ${open ? "max-h-60" : "max-h-0"} `}
+                                    className={`bg-white  w-[278px] mx-[30px] border-[1px] absolute top-8 border-gray-600 overflow-y-auto ${open ? "max-h-32" : "max-h-0"} `}
                                 >
                                     <div className="flex items-center px-2 sticky top-0 bg-white">
                                         <AiOutlineSearch size={18} className="text-gray-700" />
@@ -489,7 +489,7 @@ const AddorEditSell = () => {
                         <select value={formData.tables} onChange={(e) => { setFormData({ ...formData, tables: e.target.value }) }} type='text' className='px-2 w-full py-[3px]  border-[1px] border-gray-600 focus:outline-none'>
                             <option value={""}>Please Select</option>
                             <option value={"woo"}>woo</option>
-                            <option value={"pepsi"}>pepsi</option>
+                            <option value={"pepsi"}>pepsi</option> 
                         </select>
                     </div>
                     <div className='flex '>
@@ -513,7 +513,7 @@ const AddorEditSell = () => {
                             {isClicked &&
                                 <ul
 
-                                    className={`bg-white w-full    border-[1px]   z-10 absolute top-8 border-gray-600  ${isClicked ? "max-h-60" : "max-h-0"} `}
+                                    className={`bg-white w-full    border-[1px]   z-10 absolute top-8 border-gray-600  ${isClicked ? "max-h-30" : "max-h-0"} `}
                                 >
 
                                     {dummyData?.map((data) => (

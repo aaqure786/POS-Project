@@ -109,7 +109,35 @@ const AddorEditPurchase = () => {
     
     const [newProduct, setNewProduct] = useState(false)
     
-
+    const subtotal =(p,d)=>{
+        let total = 0
+        total = p - (d/p*100)
+        return total
+    }
+    const lineTotal =(q,p)=>{
+        console.log(q, "   ", p)
+        let total = 0
+        total = q*p
+        return total
+    }
+    const finalProfitMargin =(cp, sp)=>{
+        let total = 0
+        total = (sp-cp)/cp * 100
+        total = Math.round(total *100)/100
+        return total
+    }
+    const finalDiscount =(p,d,dt)=>{
+        let total = 0
+        if(dt ==="Percentage"){
+            total = (d/100)*(p)
+            total = total.toFixed(2)
+            return total
+        }else if(dt ==="Fixed"){
+            total =  d
+            return total
+        }
+    }
+    
     const [isProductUpload, setIsProductUpload] = useState(false)
     
     const handleChange = (e, index) => {
@@ -142,6 +170,16 @@ const AddorEditPurchase = () => {
         return total
     }
     const total = findTotal()
+    const totalPayable = (ttl)=>{
+        console.log(ttl)
+        ttl =parseFloat(ttl)  - parseFloat(formData.discount);
+        ttl =parseFloat(ttl)  + parseFloat(formData.additionalShippingCharges);
+        ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount)    
+        ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount1)
+        ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount2)
+        ttl =parseFloat(ttl)  + parseFloat(formData.additionalExpenseAmount3)
+        return ttl
+    }
 
     const handleClick = (e) => {
 
@@ -442,7 +480,7 @@ const AddorEditPurchase = () => {
                                     </td>
                                     <td className="px-1 py-1 text-sm">
                                         <div className='flex flex-col'>
-                                             <input type='number' name="quantity" value={value.quantity}  className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                             <input type='number' name="quantity" value={value.quantity} onChange={(e)=>{handleChange(e, index)}}  className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
                                             <select name="unit" value={value.unit} onChange={(e)=>{handleChange(e, index)}} className='border-[1px] mt-2 w-3/4 px-1 border-black focus:outline-none'>
                                                 <option value={"Litter"}>Litter</option>
                                             </select>
@@ -463,13 +501,13 @@ const AddorEditPurchase = () => {
                                         </div>
                                     </td>
                                     <td className=" py-1 px-1">
-                                        <input name="unitCostBeforeTax" type='number' value={value.unitCostBeforeTax} onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                        <input name="unitCostBeforeTax" type='number' value={value.unitCostBeforeTax =subtotal(value.unitCostBeforeDiscount, value.discountPercent) } onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
                                     </td>
                                     <td className=" py-1 px-1">
-                                        <input name="lineTotal" type='number' value={ value.quantity * value.unitCostBeforeTax }  onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                        <input name="lineTotal" type='number' value={value.lineTotal = lineTotal(value.quantity , value.unitCostBeforeTax) }  onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
                                     </td>
                                     <td className="px-1 py-1 text-sm">
-                                        <input name="profitMarginPercentage" type='number' value={value.profitMarginPercentage} onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                        <input name="profitMarginPercentage" type='number' value={value.profitMarginPercentage = finalProfitMargin(value.unitCostBeforeTax, value.unitSellingPrice)} onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
                                     </td>
                                     <td className="px-1 py-1">
                                         <input name="unitSellingPrice" type='number' value={value.unitSellingPrice} onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
@@ -520,7 +558,7 @@ const AddorEditPurchase = () => {
 
                     </div>
                     <div className='flex flex-col items-end'>
-                        <h1 className='flex text-sm  font-bold'>Discount <p className='mx-2'>(-) {formData.discount}</p> </h1>
+                        <h1 className='flex text-sm  font-bold'>Discount <p className='mx-2'>(-) {formData.discount=finalDiscount(total, formData.discountAmount, formData.discountType )}</p> </h1>
 
                     </div>
                 </div>
@@ -565,7 +603,7 @@ const AddorEditPurchase = () => {
                     </div>
                     <div className='flex flex-col '>
                         <h1 className='flex text-sm text-start font-bold'>(+)Additional Shipping Charges:</h1>
-                        <input value={formData.customer} onChange={(e) => { setFormData({ ...formData, customer: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
+                        <input value={formData.additionalShippingCharges} onChange={(e) => { setFormData({ ...formData, additionalShippingCharges: e.target.value }) }} type='number' className='px-2 py-[2px] w-full border-[1px] border-gray-600 focus:outline-none' />
 
                     </div>
                 </div>
@@ -597,7 +635,7 @@ const AddorEditPurchase = () => {
                 <div className='flex items-end justify-end mt-5'>
                     <div className='flex '>
                         <h1 className='font-bold mx-2'>Purchase Total:</h1>
-                        <h1 className=' mx-2'>Rs 0.00</h1>
+                        <h1 className=' mx-2'>{totalPayable(total)}</h1>
 
                     </div>
                 </div>

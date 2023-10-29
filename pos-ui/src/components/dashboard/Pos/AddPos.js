@@ -19,7 +19,7 @@ import EditDiscount from './EditDiscount'
 import EditOrderTax from './EditOrderTax'
 import EditShipping from './EditShipping'
 import RecentTransaction from './RecentTransaction'
-import moment from 'moment'
+
 
 
 
@@ -310,7 +310,6 @@ const AddPos = () => {
   }
 
 
-  const dateTime = moment().date().toLocaleString();
   const [isCliked, setIsCliked] = useState(false)
   const [newProduct, setNewProduct] = useState(false)
   const [editProduct, setEditProduct] = useState(false)
@@ -367,7 +366,11 @@ const AddPos = () => {
       elem.msRequestFullscreen();
     }
   }
-
+  const data = new Date()
+  let fullyear = data.getFullYear()
+  let fullmonth = data.getMonth() + 1
+  let fuldate = data.getDate()
+  const date = fuldate + "/" + fullmonth + "/" + fullyear;
 
   return (
     <div id='POS' className='w-full p-3 bg-gray-300'>
@@ -376,7 +379,16 @@ const AddPos = () => {
         <div className='flex justify-between '>
           <div className='flex items-center'>
             <h1 className='font-bold text-xl'>Location:</h1>
-            <h2 className='font-semibold text-gray-600 mx-2 '>Eziline Software House (Pvt.) Ltd   {dateTime} </h2>
+            <div className='flex font-semibold text-gray-600 mx-2 '>
+              <select value={formData.businesLocation} onChange={(e) => { setFormData({ ...formData, businesLocation: e.target.value }) }} type="text" className='px-2 py-1 w-full border-[1px]  border-gray-800 focus:outline-none'>
+                <option value={"0"}>Ezline Software House Pvt (Ltd)</option>
+                <option value={"1"}>Ezitech</option>
+
+
+              </select>
+
+              <h1 className='mx-2'>{date}</h1>
+            </div>
             <div className='flex relative'>
               <FaKeyboard size={20} onMouseOver={() => { setInfo(true) }} onMouseLeave={() => { setInfo(false) }} className=' mx-2' />
               {info &&
