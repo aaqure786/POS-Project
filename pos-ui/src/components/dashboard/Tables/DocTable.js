@@ -225,8 +225,8 @@ const DocTable = () => {
 
 
             </div>
-            <div className='flex flex-col justify-center items-center mt-5 mx-5' ref={printRef} >
-                <table id='usertbl' className="table-auto w-full mb-10  whitespace-no-wrap ">
+            <div className='flex flex-col w-[97%] justify-center overflow-x-scroll items-center mt-5 md:mx-[1.5%]' ref={printRef} >
+                <table id='usertbl' className="table-auto w-[100%] mb-10   whitespace-no-wrap ">
                     <thead>
                         <tr>
                             {col1 && <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Action</th>}
@@ -256,7 +256,7 @@ const DocTable = () => {
                                 {col2 && <td className="px-1 py-1 text-sm">{value.Username}</td>}
                                 {col3 && <td className="px-1 py-1"> {value.Name}</td>}
                                 {col4 && <td className="px-1 py-1">{value.Role}</td>}
-                                {col5 && <td className=" py-1 px-1">{value.Email}</td>}
+                                {col5 && <td className=" py-1 px-1">{value.Role}</td>}
 
                             </tr>
                         })}

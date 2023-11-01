@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 
 const AddorEditRoles = () => {
     const [otherPerm, setOtherPerm] = useState([
@@ -244,75 +247,7 @@ const AddorEditRoles = () => {
         { name: "axs_wocmrc_api_stng", lable: "Access Woocommerce Api Setting" }
     ])
     const [formData, setFormData] = useState({
-    firstName: "",
-    aaleman: false,
-    adEdtInvoiceNumber: false,
-    adEdtVw: false,
-    addPayComponent: false,
-    addPayroll: false,
-    addProjects: false,
-    addRecipe: false,
-    addTodos: false,
-    asgnTodosToOthers: false,
-    attendenceFromApi: false,
-    attendenceFromWeb: false,
-    axsAccounts: false,
-    axsPkgSubscriptions: false,
-    axsPrinters: false,
-    axsProduction: false,
-    axsSalesTargets: false,
-    axsTables: false,
-    axsWocmrcApiStng: false,
-    closeCashRegister: false,
-    createMsg: false,
-    crudAttendence: false,
-    crudDepartment: false,
-    crudDesignation: false,
-    crudLeave: false,
-    crudLeaveType: false,
-    deleteAccountTrx: false,
-    deleteBrand: false,
-    deleteCategory: false,
-    deleteCustomer: false,
-    deleteDraft: false,
-    deleteExpense: false,
-    deletePayroll: false,
-    deleteProjects: false,
-    deletePurcOrder: false,
-    deleteQuotation: false,
-    deleteRole: false,
-    deleteShipmet: false,
-    deleteSupplier: false,
-    deleteTaxRate: false,
-    deleteTodos: false,
-    deleteUnit: false,
-    deleteUser: false,
-    dfltSellingPrice: false,
-    editAccountTrx: false,
-    editDraft: false,
-    editPayroll: false,
-    editProjects: false,
-    editRecipe: false,
-    editTodos: false,
-    localSale: false,
-    mapTaxrate: false,
-    minimumPrice: false,
-    prntInvoice: false,
-    retail: false,
-    salePoint: false,
-    syncOrders: false,
-    syncPrdct: false,
-    syncPrdctCatg: false,
-    updateStatus: false,
-    viewAllPayroll: false,
-    viewDraft: false,
-    viewExportToButtons: false,
-    viewHomeData: false,
-    viewMsg: false,
-    viewPayComponent: false,
-    viewPrdctStkValue: false,
-    viewPurchasePrice: false,
-    viewRecipe: false,
+        firstName: "",
     })
     const [iserror, setIserror] = useState(false)
 
@@ -320,6 +255,16 @@ const AddorEditRoles = () => {
         e.preventDefault()
         if (formData.firstName.length === 0) {
             setIserror(true)
+            toast.error('Some fields are required', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
         }
         else if (id) {
             console.log("Handle Update", formData)
@@ -340,10 +285,18 @@ const AddorEditRoles = () => {
         const { name, checked } = e.target
         if (name === id) {
             let tempData = array.map((val) => {
-                setFormData({ ...formData, [val.name.replace(/_./g, (m) => m[1].toUpperCase())]: checked || false })
                 return { ...val, isChecked: checked }
+
             });
+            let newObj = { ...formData }
+            tempData.forEach(element => {
+                newObj[element.name.replace(/_./g, (m) => m[1].toUpperCase())] = element.type === "radio" ? element.lable : true
+
+            })
+            setFormData(newObj)
+            console.log(formData)
             setArray(tempData)
+
         }
 
     }
@@ -360,17 +313,29 @@ const AddorEditRoles = () => {
     const id = parms.id
     return (
         <div className='w-full min-h-screen bg-gray-200 p-2'>
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
             <h1 className='text-2xl items-start flex mx-6 justify-start  font-semibold'>{id ? "Edit Role" : "Add Role"}</h1>
             <div className='flex flex-col rounded-md border-t-[3px] p-5 border-blue-600 bg-white w-[96%] mx-[2%] min-h-screen'>
                 <div className='flex flex-col items-start w-full'>
 
-                    <h1 className='text-lg flex'>First Name: *  <span className='text-red-500 mx-2 mt-1 text-sm'>{iserror && formData.firstName.length === 0 ? "Required Field" : ""} </span></h1>
+                    <h1 className='text-lg flex'>Role Name: *  <span className='text-red-500 mx-2 mt-1 text-sm'>{iserror && formData.firstName.length === 0 ? "Required Field" : ""} </span></h1>
                     <input type='text' value={formData.firstName} onChange={(e) => { setFormData({ ...formData, firstName: e.target.value }) }} placeholder='First Name' className='focus:outline-none w-full md:w-1/3 border-[1px] border-gray-300 px-2  rounded-sm p-1' />
 
                 </div>
                 <h1 className='flex text-lg font-semibold'>Permissions:</h1>
                 {/* Others */}
-                <h1 className='flex text-sm mt-3'>Others:</h1>
+                <h1 className='flex  text-xl mt-3'>Others:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -406,7 +371,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* User */}
-                <h1 className='flex text-sm mt-3'>User:</h1>
+                <h1 className='flex text-xl mt-3'>User:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -434,7 +399,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Roles */}
-                <h1 className='flex text-sm mt-3'>Roles:</h1>
+                <h1 className='flex text-xl mt-3'>Roles:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
 
                     <div className='w-full md:w-1/4'>
@@ -467,7 +432,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Supplier */}
-                <h1 className='flex text-sm mt-3'>Supplier:</h1>
+                <h1 className='flex text-xl mt-3'>Supplier:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -496,7 +461,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Customer */}
-                <h1 className='flex text-sm mt-3'>Customer:</h1>
+                <h1 className='flex text-xl mt-3'>Customer:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -526,7 +491,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Product */}
-                <h1 className='flex text-sm mt-3'>Product:</h1>
+                <h1 className='flex text-xl mt-3'>Product:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -556,7 +521,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Purchase & Stock Adjustment */}
-                <h1 className='flex text-sm mt-3'>Purchase & Stock Adjustment:</h1>
+                <h1 className='flex text-xl mt-3'>Purchase & Stock Adjustment:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -586,7 +551,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Purchase Order */}
-                <h1 className='flex text-sm mt-3'>Purchase Order:</h1>
+                <h1 className='flex text-xl mt-3'>Purchase Order:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -616,7 +581,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* POS */}
-                <h1 className='flex text-sm mt-3'>POS:</h1>
+                <h1 className='flex text-xl mt-3'>POS:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -649,7 +614,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Sell */}
-                <h1 className='flex text-sm mt-3'>Sell:</h1>
+                <h1 className='flex text-xl mt-3'>Sell:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -679,7 +644,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Draft */}
-                <h1 className='flex text-sm mt-3'>Draft:</h1>
+                <h1 className='flex text-xl mt-3'>Draft:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -709,7 +674,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Quotation */}
-                <h1 className='flex text-sm mt-3'>Quotation:</h1>
+                <h1 className='flex text-xl mt-3'>Quotation:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -739,7 +704,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Shipments */}
-                <h1 className='flex text-sm mt-3'>Shipments:</h1>
+                <h1 className='flex text-xl mt-3'>Shipments:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -769,7 +734,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Cash Register */}
-                <h1 className='flex text-sm mt-3'>Cash Register:</h1>
+                <h1 className='flex text-xl mt-3'>Cash Register:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -799,7 +764,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Brand */}
-                <h1 className='flex text-sm mt-3'>Brand:</h1>
+                <h1 className='flex text-xl mt-3'>Brand:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -829,7 +794,7 @@ const AddorEditRoles = () => {
                 </div>
                 {/* Tax Rate */}
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
-                <h1 className='flex text-sm mt-3'>Tax Rate:</h1>
+                <h1 className='flex text-xl mt-3'>Tax Rate:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -859,7 +824,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Unit */}
-                <h1 className='flex text-sm mt-3'>Unit:</h1>
+                <h1 className='flex text-xl mt-3'>Unit:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -889,7 +854,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Category */}
-                <h1 className='flex text-sm mt-3'>Category:</h1>
+                <h1 className='flex text-xl mt-3'>Category:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -919,7 +884,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Report */}
-                <h1 className='flex text-sm mt-3'>Report:</h1>
+                <h1 className='flex text-xl mt-3'>Report:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -949,7 +914,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Settings */}
-                <h1 className='flex text-sm mt-3'>Settings:</h1>
+                <h1 className='flex text-xl mt-3'>Settings:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -979,7 +944,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Expense */}
-                <h1 className='flex text-sm mt-3'>Expense:</h1>
+                <h1 className='flex text-xl mt-3'>Expense:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -1009,7 +974,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Home */}
-                <h1 className='flex text-sm mt-3'>Home:</h1>
+                <h1 className='flex text-xl mt-3'>Home:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
 
@@ -1032,7 +997,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Account */}
-                <h1 className='flex text-sm mt-3'>Account:</h1>
+                <h1 className='flex text-xl mt-3'>Account:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
 
@@ -1055,7 +1020,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Booking */}
-                <h1 className='flex text-sm mt-3'>Booking:</h1>
+                <h1 className='flex text-xl mt-3'>Booking:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
 
@@ -1078,7 +1043,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Access Selling Price Group */}
-                <h1 className='flex text-sm mt-3'>Access Selling Price Group:</h1>
+                <h1 className='flex text-xl mt-3'>Access Selling Price Group:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
                         <div className='flex  items-center justify-start'>
@@ -1104,7 +1069,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Essentials */}
-                <h1 className='flex text-sm mt-3'>Essentials:</h1>
+                <h1 className='flex text-xl mt-3'>Essentials:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
 
@@ -1127,7 +1092,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Manufacturing */}
-                <h1 className='flex text-sm mt-3'>Manufacturing:</h1>
+                <h1 className='flex text-xl mt-3'>Manufacturing:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
 
@@ -1150,7 +1115,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Project */}
-                <h1 className='flex text-sm mt-3'>Project:</h1>
+                <h1 className='flex text-xl mt-3'>Project:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
 
@@ -1173,7 +1138,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Super Admin */}
-                <h1 className='flex text-sm mt-3'>Super Admin:</h1>
+                <h1 className='flex text-xl mt-3'>Super Admin:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
 
@@ -1196,7 +1161,7 @@ const AddorEditRoles = () => {
                 </div>
                 <div className=' w-[94%] mx-[3%] mt-5 h-[2px] bg-black'></div>
                 {/* Woocommerce */}
-                <h1 className='flex text-sm mt-3'>Woocommerce:</h1>
+                <h1 className='flex text-xl mt-3'>Woocommerce:</h1>
                 <div className='flex flex-col md:flex-row w-full mt-3'>
                     <div className='w-full md:w-1/4'>
 

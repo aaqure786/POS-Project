@@ -4,6 +4,7 @@ import i18next from 'i18next';
 import {BiSolidUser} from "react-icons/bi"
 import {BsFillLockFill} from "react-icons/bs"
 const Login = () => {
+
     const languages = [
         {
             code: "en",
@@ -91,7 +92,7 @@ const Login = () => {
     const handleChange =(e)=>{
         if(e.target.name ==="username"){
             setUsername(e.target.value)
-        }else if(e.target.name ==="password"){
+        }else if(e.target.name ==="passwrod"){
             setPassword(e.target.value)
         }else if(e.target.name ==="remember_me"){
             if(e.target.value === true){
@@ -100,6 +101,14 @@ const Login = () => {
                 setRemember(false)
             }
         }
+    }
+    const handleEnter = (e)=>{
+        if(e.code === 'Enter'){
+           handleClick(e)
+        }
+    }
+    const handleClick = (e)=>{
+          console.log('Handle Login')
     }
     const langChange = (e) =>{
         if(e.target.name ==="lang"){
@@ -143,11 +152,11 @@ const Login = () => {
                 <div className='flex flex-col w-[70%]  mt-16 '>
                     <h1 className='text-white text-xl text-start'>{t('Login')}</h1>
                     <div className='relative flex mt-5'>
-                        <input className='px-3 py-1 w-full' type='text' onChange={handleChange} value={username} id='username' name='username' placeholder={`${t('Username')}`} />
+                        <input className='px-3 py-1 w-full' type='text'  onChange={handleChange} value={username} id='username' name='username' placeholder={`${t('Username')}`} />
                         <BiSolidUser size={20} className="absolute top-2 right-1" />
                     </div>
                     <div className='relative flex mt-5'>
-                        <input className='px-3 py-1 w-full' type='password' onChange={handleChange} value={password} id='password' name='passwrod' placeholder={`${t('Password')}`} />
+                        <input className='px-3 py-1 w-full' type='password'   onChange={handleChange} value={password} id='password' name='passwrod' placeholder={`${t('Password')}`} />
                         <BsFillLockFill size={20} className="absolute top-2 right-1" />
                     </div>
                     <div className='flex mt-5'>
@@ -155,7 +164,7 @@ const Login = () => {
                     <h1 className='text-white mx-3 text-xl'>{t('remember_me')}</h1>
                     </div>
                     <div className='flex justify-between mt-10'>
-                        <button className='bg-blue-400 text-white text-xl px-2 py-1 mx-2'> {t('Login')}</button>
+                        <button onClick={(e)=>{handleClick(e)}} onKeyUp={(e)=>{handleEnter(e)}} className='bg-blue-400 text-white text-xl px-2 py-1 mx-2'> {t('Login')}</button>
                         <button className=' text-white text-xl mx-2'> {t('forgot_ur_password')}</button>
                     </div>
                 </div>

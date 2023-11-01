@@ -87,8 +87,8 @@ const ActivitiesTable = () => {
 
     return (
         <div id="activities_tab"> 
-           <div className='flex flex-col justify-center items-center mt-5 mx-5'  >
-                <table id='usertbl' className="table-fixed w-full mb-10  whitespace-no-wrap border-[1px] border-gray-400">
+           <div className='flex flex-col justify-center overflow-x-scroll items-center mt-5 md:mx-5'  >
+                <table id='usertbl' className="table-fixed w-[100%] mb-10  whitespace-no-wrap ">
                     <thead>
                         <tr>
                             <th className=" py-2 title-font  tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Date</th>
