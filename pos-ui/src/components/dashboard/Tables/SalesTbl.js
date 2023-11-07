@@ -26,6 +26,7 @@ import ViewSell from "../sell/ViewSell";
 import EditShipping from "../sell/EditShipping";
 import ViewPayment from "../payments/ViewPayment";
 import Invoice from "../sell/Invoice";
+import { FcCheckmark } from "react-icons/fc";
 
 const SalesTbl = ({customer}) => {
   const dummyData = [
@@ -106,8 +107,21 @@ const SalesTbl = ({customer}) => {
         pdf.save("download.pdf");
       });
   };
+  const [permission, setPermission] = useState(false)
 
- 
+  const Alert = () =>{
+    return(
+      <div className="flex flex-col items-center justify-center w-[200px] h-[200px] bg-white rounded-md">
+        <FcCheckmark size={40}  className="items-center justify-center"/>
+        <div className="flex items-end justify-end">
+          <button onClick={()=>{setPermission(false); setIsCliked(false); setIsdelete(false)}} className="text-md mx-2 px-2 py-1 bg-red-500 text-white">Cancel</button>
+          <button onClick={()=>{setPermission(true); setIsCliked(false); setIsdelete(false)}} className="text-md mx-2 px-2 py-1 bg-green-500 text-white">OK</button>
+
+        </div>
+      </div>
+    )
+  }
+ console.log("Delete Permission is ", permission)
   const [search, setSearch] = useState('')
   useEffect(() => {
     setSearch(customer.toLowerCase())
@@ -205,6 +219,7 @@ const SalesTbl = ({customer}) => {
   };
 
   const [isshow, setIsshow] = useState(false);
+  const [isdelete, setIsdelete] = useState(false)
   const [showId, setShowId] = useState(0);
   const [print, setPrint] = useState(false)
   const displayData = () => {
@@ -216,6 +231,8 @@ const SalesTbl = ({customer}) => {
       return <ViewPayment id={paymentId} />;
     }else if (print === true) {
       return <Invoice number={showId} />;
+    }else if (isdelete) {
+      return <Alert/>;
     }
   };
 
@@ -614,8 +631,8 @@ const SalesTbl = ({customer}) => {
                             <li className="w-full">
                               <div
                                 onClick={() => {
-                                  setIsedit(!isedit);
                                   setIsCliked(!isCliked);
+                                  setIsdelete(true)
                                 }}
                                 className="flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center "
                               >
@@ -768,6 +785,7 @@ const SalesTbl = ({customer}) => {
                   setIsshow(false);
                   setShowId(0);
                   setPrint(false)
+                  setIsdelete(false)
                 }}
                 size={20}
               />

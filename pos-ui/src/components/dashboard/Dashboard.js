@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AiFillInfoCircle, AiOutlineCalendar, } from 'react-icons/ai'
 import Chart1 from './Chart1'
 import Chart2 from './Chart2'
@@ -24,10 +24,38 @@ const Dashboard = () => {
         "Last financial year",
         "Custom Range",
     ]
+    const [selectedTheme, setSelectedTheme] = useState("purple")
+    const themeColor = () => {
+        if (selectedTheme === "black-light") {
+            return 'bg-gradient-to-r from-[#3c3c4e] to-[#245b80]'
+        }else if(selectedTheme === "blue"){
+            return 'bg-gradient-to-r from-[#2b80ec] to-[#1d1f33]'
+        }else if(selectedTheme === "black"){
+            return 'bg-gradient-to-r from-[#3c3c4e] to-[#245b80]'
+        }else if(selectedTheme === "purple"){
+            return 'bg-gradient-to-r from-[#706db1] to-[#245b80]'
+        }else if(selectedTheme === "green"){
+            return 'bg-gradient-to-r from-[#3fd595] to-[#1b9aaa]'
+        }else if(selectedTheme === "red"){
+            return 'bg-gradient-to-r from-[#f64e70] to-[#245b80]'
+        }else if(selectedTheme === "yellow"){
+            return 'bg-gradient-to-r from-[#ffb860] to-[#245b80]'
+        }else if(selectedTheme === "blue-light"){
+            return 'bg-gradient-to-r from-[#2b80ec] to-[#1d1f33]'
+        }else if(selectedTheme === "purple-light"){
+            return 'bg-gradient-to-r from-[#706db1] to-[#245b80]'
+        }else if(selectedTheme === "green-light"){
+            return 'bg-gradient-to-r from-[#3fd595] to-[#1b9aaa]'
+        }else if(selectedTheme === "red-light"){
+            return 'bg-gradient-to-r from-[#f64e70] to-[#245b80]'
+        }
+
+
+    }
     return (
         <>
             <div className='flex flex-col relative w-full min-h-[400px]'>
-                <div className='flex flex-col h-[250px]  z-0 w-full border-t-[1px] border-white bg-gradient-to-r from-[#3c3c4e] to-[#245b80]'>
+                <div className={`flex flex-col h-[250px]  z-0 w-full border-t-[1px] border-white ${themeColor()}`}>
                     <h1 className='flex text-2xl text-white p-5'>Welcome Username,</h1>
 
                     <div className='flex justify-end  items-center w-full h-10 '>

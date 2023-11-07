@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { FaArrowDown, FaCalendar, FaChevronCircleDown, FaInfoCircle, FaPlus, FaPlusCircle, FaSearch, FaTimes, FaTrash, FaUser } from 'react-icons/fa'
+import {  FaCalendar, FaChevronCircleDown, FaInfoCircle, FaPlus, FaPlusCircle, FaSearch, FaTimes, FaTrash, FaUser } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import { BiChevronDown } from 'react-icons/bi'
 import { AiOutlineSearch, AiTwotoneFolderOpen } from 'react-icons/ai'
@@ -71,86 +71,11 @@ const AddorEditPurchaseOrder = () => {
 
     const [isClicked, setIsClicked] = useState(false)
     const [inputValue1, setInputValue1] = useState('')
-    const [productName, setProductName] = useState("")
-    const [quantity, setQuantity] = useState(0)
-    const [unitCostBeforeDiscount, setUnitCostBeforeDiscount] = useState(0)
-    const [discountPercent, setDiscountPercent] = useState(0)
-    const [unitConstBeforeTax, setUnitConstBeforeTax] = useState(0)
-    const [profitMarginPercentage, setProfitMarginPercentage] = useState(0)
-    const [unitSellingPrice, setUnitSellingPrice] = useState(0)
-    const [lotNumber, setLotNumber] = useState(0)
+    
     const [newProduct, setNewProduct] = useState(false)
-    const [isUpdate, setIsUpdate] = useState(false)
-    const [selectedRow, setSelectedRow] = useState(-1)
-    const [inputData, setInputData] = useState([])
+   
 
     const [isProductUpload, setIsProductUpload] = useState(false)
-    const AddToArray = () => {
-        if (isUpdate === true && selectedRow !== -1) {
-            let newArray = inputData
-            let lineTotal = 0
-            lineTotal = quantity * unitConstBeforeTax
-            newArray[selectedRow] = { productName, quantity, unitCostBeforeDiscount, discountPercent, unitConstBeforeTax, lineTotal, profitMarginPercentage, unitSellingPrice, lotNumber }
-            setInputData(newArray)
-            setSelectedRow(-1)
-            setIsUpdate(false)
-            setProductName("")
-            setLotNumber(0.00)
-            setQuantity(0.00)
-            setUnitConstBeforeTax(0)
-            setUnitCostBeforeDiscount(0)
-            setProfitMarginPercentage(0)
-            setDiscountPercent(0)
-            setUnitSellingPrice(0)
-
-        } else {
-            let lineTotal = 0
-            lineTotal = quantity * unitConstBeforeTax
-            setInputData(current => [...current, { productName, quantity, unitCostBeforeDiscount, discountPercent, unitConstBeforeTax, lineTotal, profitMarginPercentage, unitSellingPrice, lotNumber }])
-            setProductName("")
-            setLotNumber(0.00)
-            setQuantity(0.00)
-            setUnitConstBeforeTax(0)
-            setUnitCostBeforeDiscount(0)
-            setProfitMarginPercentage(0)
-            setDiscountPercent(0)
-            setUnitSellingPrice(0)
-
-        }
-
-
-    }
-
-    const handleSelcetRow = (index) => {
-        let newArray = inputData[index]
-        console.log(newArray)
-
-        setLotNumber(newArray.lotNumber)
-        setProductName(newArray.productName)
-        setQuantity(newArray.quantity)
-        setUnitConstBeforeTax(newArray.unitConstBeforeTax)
-        setUnitCostBeforeDiscount(newArray.unitCostBeforeDiscount)
-        setProfitMarginPercentage(newArray.profitMarginPercentage)
-        setDiscountPercent(newArray.discountPercent)
-        setUnitSellingPrice(newArray.unitSellingPrice)
-
-    }
-
-    const deleteByIndex = (index) => {
-        let newArray = [...inputData]
-        newArray.splice(index, 1)
-        setInputData(newArray)
-    }
-
-    const findTotal = () => {
-        let total = 0
-        inputData.map(val => {
-            return total += val.lineTotal
-        })
-        return total
-    }
-    const total = findTotal()
-
     const [formData, setFormData] = useState({
         supplier: "",
         referenceNo: "",
@@ -163,6 +88,7 @@ const AddorEditPurchaseOrder = () => {
         shippingDetails: "",
         shippingDoucments:"",
         shippingCharges: 0,
+        shippingAddress:"",
         deliveredTo:"",
         additionalExpenseName: "",
         additionalExpenseAmount: 0,
@@ -173,8 +99,67 @@ const AddorEditPurchaseOrder = () => {
         additionalExpenseName3: "",
         additionalExpenseAmount3: 0,
         documents: "",
+        inputData :[]
 
-    })
+    })    
+
+   
+    const handleChange = (e, index) => {
+        const updatedData = formData.inputData.map((item, ind) => {
+          if (ind === index) {
+            // Create a new copy of the item with the modified subItem
+            return {
+              ...item, [e.target.name]: e.target.value
+            };
+          }
+          return item;
+        });
+        console.log(updatedData)
+        setFormData({ ...formData, inputData: updatedData });
+      }
+    const deleteByIndex = (index) => {
+        let newArray = [...formData.inputData]
+        newArray.splice(index, 1)
+        setFormData({...formData, inputData: newArray})
+    }
+    const subtotal =(p,d)=>{
+        let total = 0
+        total = p - (d/p*100)
+        return total
+    }
+    const lineTotal =(q,p)=>{
+        console.log(q, "   ", p)
+        let total = 0
+        total = q*p
+        return total
+    }
+    const finalProfitMargin =(cp, sp)=>{
+        let total = 0
+        total = (sp-cp)/cp * 100
+        total = Math.round(total *100)/100
+        return total
+    }
+    // const finalDiscount =(p,d,dt)=>{
+    //     let total = 0
+    //     if(dt ==="Percentage"){
+    //         total = (d/100)*(p)
+    //         total = total.toFixed(2)
+    //         return total
+    //     }else if(dt ==="Fixed"){
+    //         total =  d
+    //         return total
+    //     }
+    // }
+    const findTotal = () => {
+        let total = 0
+        formData.inputData.map(val => {
+            return total += val.lineTotal
+        })
+        return total
+    }
+    const total = findTotal()
+
+    
     const [isserror, setIsserror] = useState(false)
     const inpuRef = useRef()
     const params = useParams()
@@ -182,30 +167,35 @@ const AddorEditPurchaseOrder = () => {
     console.log(id)
     const [isCliked, setIsCliked] = useState(false)
 
-    const handleClick = (e) => {
+    const handleClick = async () => {
 
-        if (id) {
-            if (formData.supplier.length === 0 ||
-                formData.orderDate.length === 0 ||
-                formData.referenceNo.length === 0 ||
-                formData.businesLocation.length === 0
-                ) {
-                setIsserror(true)
-            } else {
 
-                console.log("Handle Update", formData)
-            }
-        } else {
-            if (formData.supplier.length === 0 ||
-                formData.orderDate.length === 0 ||
-                formData.businesLocation.length === 0
-                ) {
-                setIsserror(true)
-            } else {
 
-                console.log("Handle Save", formData)
-            }
+        if (formData.supplier.length === 0 ||
+            formData.orderDate.length === 0) {
+            setIsserror(true)
         }
+        else {
+
+
+            const postData = {
+
+                orderDate: formData.orderDate,
+                supplier: formData.supplier,
+                businessLocation: formData.businesLocation
+               
+                // Add other fields here...
+            };
+            // try {
+            //     const response = await axios.post('http://localhost:8000/purchase-order/create', postData);
+            //     console.log('purchase order created successfully:', response.data);
+            //     // Handle any further actions after successful creation
+            // } catch (error) {
+            //     console.error('Error creating contact:', error);
+            //     // Handle errors here
+            // }
+        }
+
     }
 
 
@@ -418,7 +408,9 @@ const AddorEditPurchaseOrder = () => {
                                                 if (data?.Name?.toLowerCase() !== inputValue1.toLowerCase()) {
                                                     setInputValue1(data?.Name)
                                                     let name = data?.Name
-                                                    setProductName(name)
+                                                    let array = formData.inputData
+                                                    array = [...array, {productName: name} ]
+                                                    setFormData({...formData, inputData: array})
                                                     setInputValue1('')
                                                     setIsClicked(!isClicked);
                                                 }
@@ -439,48 +431,6 @@ const AddorEditPurchaseOrder = () => {
                         <p className='mx-1'> Add new Product</p>
                     </button>
                 </div>
-                <div className='grid grid-cols-5 md:grid-cols-9  gap-2 mt-4 items-center justify-center '>
-                    <div className='flex flex-col'>
-                        <h1 className='font-semibold text-xs text-start'>Product Name</h1>
-                        <input type='text' name="name" value={productName} readOnly className='border-[1px] border-black focus:outline-none' />
-                    </div>
-                    <div className='flex flex-col'>
-                        <h1 className='font-semibold text-xs text-start'>Quantity</h1>
-                        <input name="quantity" type='text' value={quantity} onChange={(e) => setQuantity(e.target.value)} className='border-[1px] border-black focus:outline-none' />
-                    </div>
-                    <div className='flex flex-col'>
-                        <h1 className='font-semibold text-xs text-start'>Unit Cost (B.D)</h1>
-                        <input name="quantity" type='text' value={unitCostBeforeDiscount} onChange={(e) => setUnitCostBeforeDiscount(e.target.value)} className='border-[1px] border-black focus:outline-none' />
-                    </div>
-                    <div className='flex flex-col'>
-                        <h1 className='font-semibold text-xs  text-start'>Discount Percent</h1>
-                        <input name="quantity" type='text' value={discountPercent} onChange={(e) => setDiscountPercent(e.target.value)} className='border-[1px] border-black focus:outline-none' />
-                    </div>
-                    <div className='flex flex-col'>
-                        <h1 className='font-semibold text-xs text-start'>Unit Const (B.T)</h1>
-                        <input name="quantity" type='text' value={unitConstBeforeTax} onChange={(e) => setUnitConstBeforeTax(e.target.value)} className='border-[1px] border-black focus:outline-none' />
-                    </div>
-                    <div className='flex flex-col'>
-                        <h1 className='font-semibold text-xs text-start'>Profit Margin %</h1>
-                        <input name="quantity" type='text' value={profitMarginPercentage} onChange={(e) => setProfitMarginPercentage(e.target.value)} className='border-[1px] border-black focus:outline-none' />
-                    </div>
-                    <div className='flex flex-col'>
-                        <h1 className='font-semibold text-xs text-start'>Unit Selling Price</h1>
-                        <input name="quantity" type='text' value={unitSellingPrice} onChange={(e) => setUnitSellingPrice(e.target.value)} className='border-[1px] border-black focus:outline-none' />
-                    </div>
-                    <div className='flex flex-col'>
-                        <h1 className='font-semibold text-xs text-start'>Lot Number</h1>
-                        <input type='text' name="lotNumber" value={lotNumber} onChange={(e) => setLotNumber(e.target.value)} className='border-[1px] border-black focus:outline-none' />
-                    </div>
-
-
-
-                    <div className='flex'>
-
-                        <FaArrowDown onClick={AddToArray} size={20} style={{ color: "white", backgroundColor: "green" }} className='mx-3 w-1/3 h-10 mt-2' />
-                    </div>
-                </div>
-
                 <div className='flex overflow-x-scroll  mt-5 ' >
                     <table className="table-auto    mb-2   px-5 ">
                         <thead>
@@ -500,18 +450,52 @@ const AddorEditPurchaseOrder = () => {
                             </tr>
                         </thead>
                         <tbody >
-                            {inputData.map((value, index) => {
-                                return <tr title='Double Click to Edit me' key={index} onDoubleClick={() => { setSelectedRow(index); setIsUpdate(true); handleSelcetRow(index); }} className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""}`}>
+                            {formData.inputData.map((value, index) => {
+                                return <tr  key={index}  className={`${(index + 1) % 2 === 0 ? "bg-gray-200" : ""} `}>
                                     <td className=" py-1 px-1">{index + 1}</td>
-                                    <td className=" py-1 px-1">{value.productName}</td>
-                                    <td className="px-1 py-1 text-sm">{value.quantity}</td>
-                                    <td className="px-1 py-1"> {value.unitCostBeforeDiscount}</td>
-                                    <td className="px-1 py-1">{value.discountPercent}</td>
-                                    <td className=" py-1 px-1">{value.unitConstBeforeTax}</td>
-                                    <td className=" py-1 px-1">{value.lineTotal}</td>
-                                    <td className="px-1 py-1 text-sm">{value.profitMarginPercentage}</td>
-                                    <td className="px-1 py-1"> {value.unitSellingPrice}</td>
-                                    <td className="px-1 py-1 text-sm">{value.lotNumber}</td>
+                                    <td className=" py-1 px-1">
+                                        <div className='flex flex-col'>
+                                        <input type='text' name="productName" value={value.productName} readOnly onChange={(e)=>{handleChange(e, index)}} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                        <h1 className='text-xs text-gray-500'>Crurrent stock: {20.50} Lit</h1>
+                                        </div>
+                                    </td>
+                                    <td className="px-1 py-1 text-sm">
+                                        <div className='flex flex-col'>
+                                             <input type='number' name="quantity" value={value.quantity} onChange={(e)=>{handleChange(e, index)}}  className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                            <select name="unit" value={value.unit} onChange={(e)=>{handleChange(e, index)}} className='border-[1px] mt-2 w-3/4 px-1 border-black focus:outline-none'>
+                                                <option value={"Litter"}>Litter</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td className="px-1 py-1">
+                                        <div className='flex flex-col'>
+                                        <input name="unitCostBeforeDiscount" type='number' value={value.unitCostBeforeDiscount} onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                        <h1 className='text-xs mt-2 text-gray-500'>Previous Unit Price:  Rs. {20.50}</h1>
+
+                                        </div>
+                                    </td>
+                                    <td className="px-1 py-1">
+                                        <div className='flex flex-col'>
+                                        <input name="discountPercent" type='number' value={value.discountPercent} onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                        <h1 className='text-xs mt-2 text-gray-500'>Previous discount:  {0.00} %</h1>
+
+                                        </div>
+                                    </td>
+                                    <td className=" py-1 px-1">
+                                        <input name="unitCostBeforeTax" type='number' value={value.unitCostBeforeTax =subtotal(value.unitCostBeforeDiscount, value.discountPercent) } onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                    </td>
+                                    <td className=" py-1 px-1">
+                                        <input name="lineTotal" type='number' value={value.lineTotal = lineTotal(value.quantity , value.unitCostBeforeTax) }  onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                    </td>
+                                    <td className="px-1 py-1 text-sm">
+                                        <input name="profitMarginPercentage" type='number' value={value.profitMarginPercentage = finalProfitMargin(value.unitCostBeforeTax, value.unitSellingPrice)} onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                    </td>
+                                    <td className="px-1 py-1">
+                                        <input name="unitSellingPrice" type='number' value={value.unitSellingPrice} onChange={(e) => handleChange(e, index)} className='border-[1px] w-3/4 px-1 border-black focus:outline-none' />
+                                    </td>
+                                    <td className="px-1 py-1 text-sm">
+                                        <input type='number' name="lotNumber" value={value.lotNumber} onChange={(e) => handleChange(e, index)} className='border-[1px] border-black focus:outline-none' />
+                                    </td>
                                     <td className="px-1 py-1 text-red-400"> <FaTimes size={15} onClick={() => { deleteByIndex(index) }} className='cursor-pointer' /> </td>
                                 </tr>
                             })}
@@ -527,7 +511,7 @@ const AddorEditPurchaseOrder = () => {
                 <div className='flex flex-col items-end mt-5 justify-end'>
                     <div className='flex '>
                         <h1 className='font-bold mx-2'>Total Items</h1>
-                        <h1 className=' mx-2'> {inputData.length}.00</h1>
+                        <h1 className=' mx-2'> {formData.inputData.length}.00</h1>
 
                     </div>
                     <div className='flex '>
