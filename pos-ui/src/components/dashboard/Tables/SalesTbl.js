@@ -108,14 +108,15 @@ const SalesTbl = ({customer}) => {
       });
   };
   const [permission, setPermission] = useState(false)
-
+  const [isAlert, setIsAlert] = useState(false)
   const Alert = () =>{
     return(
-      <div className="flex flex-col items-center justify-center w-[200px] h-[200px] bg-white rounded-md">
-        <FcCheckmark size={40}  className="items-center justify-center"/>
-        <div className="flex items-end justify-end">
-          <button onClick={()=>{setPermission(false); setIsCliked(false); setIsdelete(false)}} className="text-md mx-2 px-2 py-1 bg-red-500 text-white">Cancel</button>
-          <button onClick={()=>{setPermission(true); setIsCliked(false); setIsdelete(false)}} className="text-md mx-2 px-2 py-1 bg-green-500 text-white">OK</button>
+      <div className="flex flex-col items-center px-4 justify-center w-[300px] py-5 h-[200px] bg-white rounded-md">
+        <FcCheckmark size={100}  className="items-center justify-center"/>
+        <h1 className="text-4xl text-gray-500 text-center ">Are you sure!</h1>
+        <div className="flex items-center w-full justify-between mt-5">
+          <button onClick={()=>{setPermission(false); setIsAlert(false); setIsdelete(false)}} className="text-md rounded-md mx-2 px-2 py-1 bg-red-500 text-white">Cancel</button>
+          <button onClick={()=>{setPermission(true); setIsAlert(false); setIsdelete(false)}} className="text-md rounded-md mx-2 px-2 py-1 bg-green-500 text-white">OK</button>
 
         </div>
       </div>
@@ -631,7 +632,7 @@ const SalesTbl = ({customer}) => {
                             <li className="w-full">
                               <div
                                 onClick={() => {
-                                  setIsCliked(!isCliked);
+                                  setIsAlert(!isCliked);
                                   setIsdelete(true)
                                 }}
                                 className="flex px-2 py-1 w-full cursor-pointer hover:bg-gray-400 items-center "
@@ -785,7 +786,6 @@ const SalesTbl = ({customer}) => {
                   setIsshow(false);
                   setShowId(0);
                   setPrint(false)
-                  setIsdelete(false)
                 }}
                 size={20}
               />
@@ -796,6 +796,11 @@ const SalesTbl = ({customer}) => {
           </div>
         </div>
       )}
+      {isAlert && 
+        <div className="absolute top-0 flex flex-col items-center  justify-center right-0 bg-black/70 w-full min-h-screen">
+          {isdelete && <Alert />}
+        </div>
+      }
     </div>
   );
 };
